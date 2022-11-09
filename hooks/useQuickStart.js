@@ -19,6 +19,8 @@ export default function useQuickStart() {
   const finishQuickStart = async () => {
     try {
       await SecureStore.setItemAsync("didQuickStart", "true");
+      const result = await SecureStore.getItemAsync("didQuickStart");
+      console.log(result);
       quickStartDispatch({ type: ACTION.finish });
     } catch (error) {
       console.warn(error);
@@ -29,7 +31,8 @@ export default function useQuickStart() {
     const getQuickStartState = async () => {
       try {
         const result = await SecureStore.getItemAsync("didQuickStart");
-        quickStartDispatch(result == "true");
+        if (result == "true") quickStartDispatch({ type: ACTION.finish });
+        else quickStartDispatch({ type: ACTION.reset });
         setIsLoading(false);
       } catch (error) {
         console.log(error);
