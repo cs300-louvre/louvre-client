@@ -1,5 +1,5 @@
-import { View } from "react-native"
+import { View, Text } from "react-native"
 
 export default function LoginScreen() {
-    return <View>Login</View>
+    return <View><Text>Login</Text></View>
 }

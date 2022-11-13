@@ -1,5 +1,5 @@
-import { View } from "react-native";
+import { View, Text } from "react-native";
 
 export default function RegisterScreen() {
-  return <View>Register</View>;
+  return <View><Text>Register</Text></View>;
 }
