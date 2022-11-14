@@ -1,11 +1,11 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import LoginScreen from "../LoginScreen/LoginScreen";
 import { BlurView } from "@react-native-community/blur";
 import { Icon } from "@rneui/themed";
 import EventScreen from "../EventScreen/EventScreen";
 import MuseumScreen from "../MuseumScreen/MuseumScreen";
 import SearchScreen from "../SearchScreen/SearchScreen";
 import NotificationScreen from "../NotificationScreen/NotificationScreen";
+import AccountScreen from "../AccountScreen";
 
 
 const Tab = createBottomTabNavigator();
@@ -72,10 +72,10 @@ export default function HomeScreen() {
       />
       {/* TODO: CHANGE INTO ACCOUNT SCREEN */}
       <Tab.Screen
-        name="Login"
-        component={LoginScreen}
+        name="Account"
+        component={AccountScreen}
         options={{
-          tabBarLabel: "Login",
+          tabBarLabel: "Account",
           tabBarIcon: ({ color, size }) => (
             <Icon name="person" type="material" color={color} size={size} />
           ),
