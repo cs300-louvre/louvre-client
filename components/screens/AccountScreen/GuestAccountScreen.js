@@ -1,11 +1,11 @@
 import { View, Image, Text, Dimensions } from "react-native";
-import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
-import { Button } from "@rneui/themed";
-import styles from "./CustomStyles";
+import LoginForm from "./LoginForm";
+import RegisterForm from "./RegisterForm";
+import { useState } from "react";
 
-export default function LoginScreen() {
+export default function GuestAccountScreen({ navigation }) {
   const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
-  const tabBarHeight = useBottomTabBarHeight();
+  const [tab, setTab] = useState("login");
 
   return (
     <View
@@ -59,19 +59,11 @@ export default function LoginScreen() {
           Login for advanced features!
         </Text>
       </View>
-      <Button
-        containerStyle={[styles.button, { marginBottom: 20 }]}
-        buttonStyle={[styles.loginButton]}
-        titleStyle={[styles.blackText]}
-      >
-        Login
-      </Button>
-      <Button
-        containerStyle={[styles.button]}
-        buttonStyle={[styles.registerButton]}
-      >
-        Sign up
-      </Button>
+      {tab == "login" ? (
+        <LoginForm setTab={setTab} />
+      ) : (
+        <RegisterForm setTab={setTab} />
+      )}
     </View>
   );
 }

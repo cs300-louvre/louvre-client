@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import { useFonts, Roboto_400Regular } from "@expo-google-fonts/roboto";
+import { useFonts, Roboto_400Regular, Roboto_500Medium, Roboto_700Bold } from "@expo-google-fonts/roboto";
 import { Fraunces_400Regular } from "@expo-google-fonts/fraunces";
 import { NavigationContainer } from "@react-navigation/native";
 import Router from "./Router";
@@ -11,7 +11,12 @@ SplashScreen.preventAutoHideAsync();
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
-  const [fontsLoaded] = useFonts({ Roboto_400Regular, Fraunces_400Regular });
+  const [fontsLoaded] = useFonts({
+    Roboto_400Regular,
+    Fraunces_400Regular,
+    Roboto_500Medium,
+    Roboto_700Bold,
+  });
 
   useEffect(() => {
     if (fontsLoaded) setAppIsReady(true);

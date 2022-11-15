@@ -17,6 +17,7 @@ export default function HomeScreen() {
       screenOptions={{
         headerShown: false,
         tabBarStyle: { position: "absolute" },
+        tabBarHideOnKeyboard: true,
         tabBarBackground: () => (
           <BlurView
             overlayColor=""

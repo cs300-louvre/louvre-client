@@ -1,16 +1,18 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import LoginScreen from "./LoginScreen";
+import GuestAccountScreen from "./GuestAccountScreen";
 
 const Stack = createStackNavigator();
 
 export default function AccountScreen() {
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}
-    >
-      <Stack.Screen name="Login" component={LoginScreen} />
+    <Stack.Navigator>
+      <Stack.Screen
+        name="GuestAccountScreen"
+        component={GuestAccountScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack.Navigator>
   );
 }
