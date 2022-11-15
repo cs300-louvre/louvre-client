@@ -20,7 +20,6 @@ export default function useQuickStart() {
     try {
       await SecureStore.setItemAsync("didQuickStart", "true");
       const result = await SecureStore.getItemAsync("didQuickStart");
-      console.log(result);
       quickStartDispatch({ type: ACTION.finish });
     } catch (error) {
       console.warn(error);

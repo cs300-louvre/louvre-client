@@ -1,3 +1,4 @@
+import "react-native-gesture-handler";
 import { useFonts, Roboto_400Regular } from "@expo-google-fonts/roboto";
 import { Fraunces_400Regular } from "@expo-google-fonts/fraunces";
 import { NavigationContainer } from "@react-navigation/native";

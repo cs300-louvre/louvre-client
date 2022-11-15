@@ -1,11 +1,12 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { BlurView } from "@react-native-community/blur";
+import { createBottomTabNavigator, useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { Icon } from "@rneui/themed";
 import EventScreen from "../EventScreen/EventScreen";
 import MuseumScreen from "../MuseumScreen/MuseumScreen";
 import SearchScreen from "../SearchScreen/SearchScreen";
 import NotificationScreen from "../NotificationScreen/NotificationScreen";
 import AccountScreen from "../AccountScreen";
+import { BlurView } from "@react-native-community/blur";
+import { StyleSheet, View } from "react-native";
 
 
 const Tab = createBottomTabNavigator();
@@ -15,14 +16,15 @@ export default function HomeScreen() {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarStyle: { position: "absolute", backgroundColor: "black" },
-        // tabBarBackground: () => (
-        //   <BlurView
-        //     blurType="dark"
-        //     blurAmount={32}
-        //     reducedTransparencyFallbackColor="black"
-        //   />
-        // ),
+        tabBarStyle: { position: "absolute" },
+        tabBarBackground: () => (
+          <BlurView
+            overlayColor=""
+            blurType="dark"
+            blurAmount={32}
+            style={StyleSheet.absoluteFill}
+          />
+        ),
       }}
     >
       <Tab.Screen
