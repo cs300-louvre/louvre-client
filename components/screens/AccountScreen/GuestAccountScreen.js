@@ -47,7 +47,7 @@ export default function GuestAccountScreen({ navigation }) {
             },
           ]}
         >
-          Lourve
+          Louvre
         </Text>
         <Text
           style={[

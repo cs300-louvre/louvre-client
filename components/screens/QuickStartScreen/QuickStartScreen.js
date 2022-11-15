@@ -27,7 +27,7 @@ const switchTextComponents = (id) => {
               },
             ]}
           >
-            Lourve
+            Louvre
           </Text>
           <Text
             style={[
