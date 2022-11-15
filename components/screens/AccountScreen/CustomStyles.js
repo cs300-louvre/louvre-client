@@ -1,5 +1,7 @@
 import { StyleSheet } from "react-native";
 import { Input } from "@rneui/themed";
+import { TouchableNativeFeedback } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native";
 
 export const styles = StyleSheet.create({
   button: {
@@ -33,17 +35,28 @@ export default styles;
 export const StyledInput = (props) => {
   return (
     <Input
-      labelStyle={{ color: "#FFFFFF", marginBottom: 10, fontFamily: "Roboto_400Regular" }}
+      ViewComponent={(props) => {
+        return (
+          <TouchableOpacity>
+            {props.children}
+          </TouchableOpacity>
+        );
+      }}
+      labelStyle={{
+        color: "#FFFFFF",
+        marginBottom: 10,
+        fontFamily: "Roboto_400Regular",
+      }}
       inputContainerStyle={{
         backgroundColor: "#FFFFFF",
         borderRadius: 10,
         borderBottomWidth: 0,
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
       }}
       inputStyle={{
         fontFamily: "Roboto_400Regular",
         fontSize: 16,
-        color: "#000000"
+        color: "#000000",
       }}
       leftIconContainerStyle={{
         marginRight: 5,

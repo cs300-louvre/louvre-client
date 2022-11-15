@@ -118,11 +118,17 @@ export default function LoginForm({ setTab }) {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            paddingHorizontal: 20
+            paddingHorizontal: 20,
           }}
         >
           <View
-            style={{ width: "100%", display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}
+            style={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
           >
             <View
               style={{ width: "40%", height: 1, backgroundColor: "#FFFFFF" }}
@@ -132,7 +138,7 @@ export default function LoginForm({ setTab }) {
                 color: "#FFFFFF",
                 marginBottom: 10,
                 fontFamily: "Roboto_400Regular",
-                fontSize: 16
+                fontSize: 16,
               }}
             >
               Or
@@ -142,7 +148,7 @@ export default function LoginForm({ setTab }) {
             />
           </View>
           <Button
-            onPress={() => setTab("register")}        
+            onPress={() => setTab("register")}
             containerStyle={styles.buttonContainer}
             buttonStyle={{ backgroundColor: "#FFFFFF" }}
             title={"Create new account"}

@@ -2,10 +2,12 @@ import { View, Image, Text, Dimensions } from "react-native";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 import { useState } from "react";
+import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 
 export default function GuestAccountScreen({ navigation }) {
   const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
   const [tab, setTab] = useState("login");
+  const tabBarHeight = useBottomTabBarHeight();
 
   return (
     <View
@@ -15,6 +17,7 @@ export default function GuestAccountScreen({ navigation }) {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        paddingBottom: tabBarHeight,
       }}
     >
       <Image
