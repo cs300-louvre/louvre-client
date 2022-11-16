@@ -3,7 +3,7 @@ import { Text, View } from "react-native";
 import { BlurView } from "@react-native-community/blur";
 import { StyleSheet } from "react-native";
 
-export default function EventTabNavigator({ state, descriptors, navigation }) {
+export default function MuseumTabNavigator({ state, descriptors, navigation }) {
   const items = state.routes.map((route) => {
     const { options } = descriptors[route.key];
     const label =
