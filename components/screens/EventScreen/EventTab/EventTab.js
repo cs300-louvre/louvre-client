@@ -1,5 +1,5 @@
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 
 export default function EventTab() {
   return (

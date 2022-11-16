@@ -1,4 +1,4 @@
-import { View, Animated } from "react-native";
+import { View, TouchableHighlight } from "react-native";
 import { Button } from "@rneui/themed";
 import { useEffect, useState, useRef } from "react";
 
@@ -21,6 +21,15 @@ export default function TabNavigator({ containerStyle, items, activeIndex }) {
       {items.map(({ label, onPress }, index) => (
         <Button
           key={label}
+          TouchableComponent={({ children, ...props }) => (
+            <TouchableHighlight
+              {...props}
+              underlayColor="rgba(255, 255, 255, 0.1)"
+              style={{ borderRadius: 5 }}
+            >
+              {children}
+            </TouchableHighlight>
+          )}
           onPress={onPress}
           containerStyle={{
             width: `${98 / items.length}%`,

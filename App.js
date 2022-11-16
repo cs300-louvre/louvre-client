@@ -7,6 +7,7 @@ import { useState, useEffect, useCallback } from "react";
 import * as SplashScreen from "expo-splash-screen";
 import { QuickStartProvider } from "./contexts/quickStartContext";
 
+
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {

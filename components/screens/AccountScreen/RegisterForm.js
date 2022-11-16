@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, TouchableHighlight } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import styles, { StyledInput } from "./CustomStyles";
 import { Button, Icon } from "@rneui/themed";
@@ -157,6 +157,11 @@ export default function RegisterForm({ setTab }) {
           />
         </View>
         <Button
+          TouchableComponent={({ children, ...props }) => (
+            <TouchableHighlight {...props} underlayColor="#FFFFFF">
+              {children}
+            </TouchableHighlight>
+          )}
           onPress={() => setTab("login")}
           containerStyle={styles.buttonContainer}
           buttonStyle={{ backgroundColor: "#FFFFFF" }}
