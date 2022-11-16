@@ -2,7 +2,7 @@ import { Dimensions } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import EventTab from "./EventTab/EventTab";
 import EventChartTab from "./EventChartTab/EventChartTab";
-import EventTabNavigator from "./EventTabNavigator";
+import TopTabNavigator from "../../elements/TabNavigator/TopTabNavigator";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 
 const Tab = createMaterialTopTabNavigator();
@@ -12,7 +12,7 @@ export default function EventScreen() {
 
   return (
     <Tab.Navigator
-      tabBar={(props) => <EventTabNavigator {...props} />}
+      tabBar={(props) => <TopTabNavigator {...props} />}
       initialLayout={{
         width: Dimensions.get("window").width,
       }}

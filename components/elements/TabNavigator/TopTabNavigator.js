@@ -1,9 +1,9 @@
-import TabNavigator from "../../elements/TabNavigator/TabNavigator";
+import TabNavigator from "./TabNavigator";
 import { Text, View } from "react-native";
 import { BlurView } from "@react-native-community/blur";
 import { StyleSheet } from "react-native";
 
-export default function EventTabNavigator({ state, descriptors, navigation }) {
+export default function TopTabNavigator({ state, descriptors, navigation }) {
   const items = state.routes.map((route) => {
     const { options } = descriptors[route.key];
     const label =
@@ -32,14 +32,14 @@ export default function EventTabNavigator({ state, descriptors, navigation }) {
         left: 0,
         zIndex: 1,
         borderBottomColor: "#363636",
-        borderBottomWidth: 0.8,
+        borderBottomWidth: 2,
       }}
     >
       <BlurView
         overlayColor=""
         blurType="dark"
         blurAmount={32}
-        style={StyleSheet.absoluteFill}
+        style={{ position: "absolute", top: 0, bottom: 1, left: 0, right: 0 }}
       />
       <Text
         style={{

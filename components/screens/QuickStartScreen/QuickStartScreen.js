@@ -1,4 +1,11 @@
-import { View, Image, Text, Dimensions, FlatList } from "react-native";
+import {
+  View,
+  Image,
+  Text,
+  Dimensions,
+  FlatList,
+  TouchableHighlight,
+} from "react-native";
 import { useState, useRef, useCallback, useMemo } from "react";
 import { Button } from "@rneui/themed";
 import styles from "./CustomStyles";
@@ -200,16 +207,35 @@ const switchTextComponents = (id) => {
     default:
       return null;
   }
-}
+};
 
 export default function QuickStartScreen() {
   const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
-  const slideList = useMemo(() => [
-    { image: require("../../../assets/slide-1.png"), id: 0, textComponents: switchTextComponents(0) },
-    { image: require("../../../assets/slide-2.png"), id: 1, textComponents: switchTextComponents(1) },
-    { image: require("../../../assets/slide-3.png"), id: 2, textComponents: switchTextComponents(2) },
-    { image: require("../../../assets/slide-4.png"), id: 3, textComponents: switchTextComponents(3) },
-  ], []);
+  const slideList = useMemo(
+    () => [
+      {
+        image: require("../../../assets/slide-1.png"),
+        id: 0,
+        textComponents: switchTextComponents(0),
+      },
+      {
+        image: require("../../../assets/slide-2.png"),
+        id: 1,
+        textComponents: switchTextComponents(1),
+      },
+      {
+        image: require("../../../assets/slide-3.png"),
+        id: 2,
+        textComponents: switchTextComponents(2),
+      },
+      {
+        image: require("../../../assets/slide-4.png"),
+        id: 3,
+        textComponents: switchTextComponents(3),
+      },
+    ],
+    []
+  );
 
   const { finishQuickStart } = useQuickStart();
   const [index, setIndex] = useState(0);
@@ -234,7 +260,7 @@ export default function QuickStartScreen() {
     removeClippedSubviews: true,
     scrollEventThrottle: 16,
     windowSize: 2,
-    keyExtractor: useCallback(e => e.id, []),
+    keyExtractor: useCallback((e) => e.id, []),
     getItemLayout: useCallback(
       (_, index) => ({
         index,
@@ -262,7 +288,7 @@ export default function QuickStartScreen() {
         {data.textComponents}
       </View>
     );
-  }
+  };
 
   const Pagination = ({ index }) => {
     return (
@@ -282,7 +308,7 @@ export default function QuickStartScreen() {
         })}
       </View>
     );
-  }
+  };
 
   const handleClick = (index, setIndex) => {
     const isLastSlide = index == slideList.length - 1;
@@ -290,12 +316,20 @@ export default function QuickStartScreen() {
     else if (listRef.current) {
       listRef.current.scrollToIndex({ index: index + 1 });
     }
-  }
+  };
 
   const NextSlideButton = ({ index, setIndex }) => {
     const isLastSlide = index == slideList.length - 1;
     return (
       <Button
+        TouchableComponent={({ children, ...props }) => (
+          <TouchableHighlight
+            {...props}
+            underlayColor="rgba(255, 255, 255, 0.1)"
+          >
+            {children}
+          </TouchableHighlight>
+        )}
         onPress={() => handleClick(index, setIndex)}
         containerStyle={[styles.buttonContainer]}
         buttonStyle={[
@@ -305,10 +339,13 @@ export default function QuickStartScreen() {
         title={isLastSlide ? "Getting Started" : "Continue"}
         titleStyle={[
           styles.text,
-          isLastSlide ? styles.buttonTitleLastSlide : styles.buttonTitleNotLastSlide]}
+          isLastSlide
+            ? styles.buttonTitleLastSlide
+            : styles.buttonTitleNotLastSlide,
+        ]}
       />
     );
-  }
+  };
 
   return (
     <View

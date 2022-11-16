@@ -3,7 +3,7 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import MuseumTab from "./MuseumTab/MuseumTab";
 import MuseumChartTab from "./MuseumChartTab/MuseumChartTab";
-import MuseumTabNavigator from "./MuseumTabNavigator";
+import TopTabNavigator from "../../elements/TabNavigator/TopTabNavigator";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -12,7 +12,7 @@ export default function MuseumScreen() {
 
   return (
     <Tab.Navigator
-      tabBar={(props) => <MuseumTabNavigator {...props} />}
+      tabBar={(props) => <TopTabNavigator {...props} />}
       initialLayout={{
         width: Dimensions.get("window").width,
       }}
