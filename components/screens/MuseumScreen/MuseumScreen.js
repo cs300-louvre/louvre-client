@@ -1,4 +1,4 @@
-import { Dimensions } from "react-native";
+import { Dimensions, Text } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import MuseumTab from "./MuseumTab/MuseumTab";
@@ -12,7 +12,12 @@ export default function MuseumScreen() {
 
   return (
     <Tab.Navigator
-      tabBar={(props) => <TopTabNavigator {...props} />}
+      tabBar={(props) => (
+        <TopTabNavigator
+          {...props}
+          LeftComponent={({ style }) => <Text style={style}>Genres</Text>}
+        />
+      )}
       initialLayout={{
         width: Dimensions.get("window").width,
       }}
@@ -23,6 +28,7 @@ export default function MuseumScreen() {
       style={{ backgroundColor: "#000000" }}
       screenOptions={{
         swipeEnabled: false,
+        animationEnabled: false,
       }}
     >
       <Tab.Screen

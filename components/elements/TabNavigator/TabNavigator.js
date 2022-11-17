@@ -45,7 +45,7 @@ export default function TabNavigator({ containerStyle, items, activeIndex }) {
           title={label}
           titleStyle={{
             fontFamily: "Roboto_500Medium",
-            fontSize: 14,
+            fontSize: 12,
           }}
         />
       ))}
