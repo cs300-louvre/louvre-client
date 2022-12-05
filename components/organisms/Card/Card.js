@@ -73,26 +73,43 @@ Card.Text = ({ children }) => {
   );
 };
 
-Card.Rating = ({ rating }) => {
+Card.Rating = ({ rating, numReviews }) => {
   return (
-    <AirbnbRating
-      showRating={false}
-      defaultRating={rating}
-      isDisabled
-      size={20}
-      ratingContainerStyle={{
+    <View
+      style={{
+        display: "flex",
         flexDirection: "row",
+        alignItems: "center",
         marginVertical: 2,
-        padding: 0,
-        alignItems: "flex-start",
-        justifyContent: "flex-start"
-      }}
-      starContainerStyle={{
-        margin: 0,
-        padding: 0,
-        alignItems: "flex-start",
-        justifyContent: "flex-start"
-      }}
-    />
+      }}>
+      <AirbnbRating
+        showRating={false}
+        defaultRating={rating}
+        isDisabled
+        size={20}
+        ratingContainerStyle={{
+          flexDirection: "row",
+          margin: 0,
+          padding: 0,
+          alignItems: "flex-start",
+          justifyContent: "flex-start"
+        }}
+        starContainerStyle={{
+          margin: 0,
+          padding: 0,
+          alignItems: "flex-start",
+          justifyContent: "flex-start"
+        }}
+      />
+      <Text
+        numberOfLines={1}
+        style={{
+          fontFamily: "Roboto_700",
+          fontSize: 16,
+          color: "#FFFFFF"
+        }}>
+        ({numReviews} reviews)
+      </Text>
+    </View>
   )
 }

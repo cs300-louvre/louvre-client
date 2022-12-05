@@ -24,7 +24,7 @@ export default function EventCard({ item }) {
                         }}>
                         {item.fromDate} - {item.toDate}
                     </Text>
-                    <Card.Rating rating={item.rating} />
+                    <Card.Rating rating={item.rating} numReviews={item.numReviews} />
                     <View
                         style={{
                             display: "flex",
