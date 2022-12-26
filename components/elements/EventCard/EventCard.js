@@ -12,9 +12,13 @@ export default function EventCard({ item }) {
                 width: 0.7 * windowWidth,
                 paddingHorizontal: "3%"
             }}
-            onPress={() => navigation.navigate("EventDetail")}>
+            onPress={() => navigation.navigate("EventDetail", {
+                item: item
+            })}>
             <Card>
-                <Card.Image image={item.coverImage} />
+                <Card.Image
+                    image={item.coverImage}
+                    style={{ width: 100, height: 100, borderRadius: 5 }} />
                 <Card.Body>
                     <Card.Name>
                         {item.title}
