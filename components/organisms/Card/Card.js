@@ -6,10 +6,10 @@ export default function Card({ children }) {
     <View
       style={{
         width: "100%",
-        flex: 1,
         display: "flex",
         flexDirection: "row",
-        alignItems: "center",
+        alignSelf: "center",
+        alignItems: "center"
       }}
     >
       {children}
@@ -17,10 +17,10 @@ export default function Card({ children }) {
   );
 }
 
-Card.Image = ({ image }) => {
+Card.Image = ({ image, style }) => {
   return (
     <Image
-      style={{ width: 100, height: 100, borderRadius: 5 }}
+      style={style}
       resizeMode="cover"
       source={{ uri: image }}
     />
@@ -73,7 +73,7 @@ Card.Text = ({ children }) => {
   );
 };
 
-Card.Rating = ({ rating, numReviews }) => {
+Card.Rating = ({ rating, numReviews, size = 20, fontSize = 16 }) => {
   return (
     <View
       style={{
@@ -86,7 +86,7 @@ Card.Rating = ({ rating, numReviews }) => {
         showRating={false}
         defaultRating={rating}
         isDisabled
-        size={20}
+        size={size}
         ratingContainerStyle={{
           flexDirection: "row",
           margin: 0,
@@ -105,7 +105,7 @@ Card.Rating = ({ rating, numReviews }) => {
         numberOfLines={1}
         style={{
           fontFamily: "Roboto_700",
-          fontSize: 16,
+          fontSize: fontSize,
           color: "#FFFFFF"
         }}>
         ({numReviews} reviews)
