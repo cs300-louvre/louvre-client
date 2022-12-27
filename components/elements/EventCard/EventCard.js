@@ -1,16 +1,24 @@
-import { View, Text, Dimensions } from "react-native";
+import { View, Text, Dimensions, TouchableOpacity } from "react-native";
 import Card from "../../organisms/Card/Card";
+import { StackActions } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 export default function EventCard({ item }) {
     const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
+    const navigation = useNavigation();
     return (
-        <View
+        <TouchableOpacity
             style={{
                 width: 0.7 * windowWidth,
                 paddingHorizontal: "3%"
-            }}>
+            }}
+            onPress={() => navigation.navigate("EventDetail", {
+                item: item
+            })}>
             <Card>
-                <Card.Image image={item.coverImage} />
+                <Card.Image
+                    image={item.coverImage}
+                    style={{ width: 100, height: 100, borderRadius: 5 }} />
                 <Card.Body>
                     <Card.Name>
                         {item.title}
@@ -74,6 +82,6 @@ export default function EventCard({ item }) {
                     </Text>
                 </Card.Body>
             </Card>
-        </View>
+        </TouchableOpacity>
     )
 }
