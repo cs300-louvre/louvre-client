@@ -7,7 +7,7 @@ export default function TabNavigator({ containerStyle, items, activeIndex }) {
     <View
       style={[
         {
-          width: items.length * 80,
+          width: items.length * 85,
           padding: 2,
           borderRadius: 5,
           backgroundColor: "#636363",
