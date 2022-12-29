@@ -120,7 +120,7 @@ export type IMuseumResponse = {
   thumbnailUrl: string;
   coverUrl: string;
   genre: IMuseumGenre;
-  isUserFavourite: boolean;
+  isFollowedByUser: boolean;
   numOfFollowers: number;
   address: string;
   ticketPrice: number;
