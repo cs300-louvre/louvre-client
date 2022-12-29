@@ -18,7 +18,9 @@ import {
   IPostResponse,
   IRatingCoreData,
   IRatingResponse,
+  ISignInData,
   ISignInResponse,
+  ISignUpData,
   ISignUpResponse,
   ITicketResponse,
 } from "./types";
@@ -36,14 +38,22 @@ API.interceptors.request.use(async (req) => {
 
 // USER
 // WHEN SIGNING UP, USER'S NAME SHOULD, BY DEFAULT, BE THEIR EMAIL HANDLE (WITHOUT THE PART AFTER @)
-export const signIn = (data: { email: string; password: string }) =>
+export const signIn = (data: ISignInData) =>
   API.post<ISignInResponse>("/user/signIn", data);
 
-export const signUp = (data: { email: string; password: string }) =>
+export const signUp = (data: ISignUpData) =>
   API.post<ISignUpResponse>("/user/signUp", data);
+
+export const resetPassword = (data: { email: string }) =>
+  API.post("/user/reset_password", data);
 
 // ME
 export const getMe = () => API.get<IGetMeResponse>("/me");
+
+export const changePassword = (data: {
+  currentPassword: string;
+  newPassword: string;
+}) => API.patch("/me/change_password", data);
 
 export const getFollowedMuseums = () =>
   API.get<IFollowedMuseum[]>("/me/museum");
@@ -104,6 +114,8 @@ export const postMessage = (data: IMessageCoreData) =>
   API.post("/message", data); // THE SERVER WILL CREATE A CHAT OBJECT IF THERE ISN'T ANY
 export const getMessagesByChatId = (chatId: string) =>
   API.get<IMessageResponse[]>(`/message?chatId=${chatId}`); // SORTED BY "sentAt"
+export const patchSeenMessages = (chatId: string) =>
+  API.patch(`/message?chatId=${chatId}`); // Server will set isSeen attributes = true for all messages send by the other user in the chat.
 
 // BROWSE
 export const getAnalytics = () => API.get("/browse/analytics"); //TO-DO: Nghĩ xem sẽ analyse cái chỉ số gì
