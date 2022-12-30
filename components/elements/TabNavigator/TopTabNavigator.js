@@ -37,14 +37,24 @@ export default function TopTabNavigator({
         left: 0,
         zIndex: 1,
         borderBottomColor: "#363636",
-        borderBottomWidth: 2,
+        borderBottomWidth: 0,
       }}
     >
-      <BlurView
+      {/* <BlurView
         overlayColor=""
         blurType="dark"
         blurAmount={32}
-        style={{ position: "absolute", top: 0, bottom: 1, left: 0, right: 0 }}
+        style={{ position: "relative", top: 0, bottom: 1, left: 0, right: 0 }}
+      /> */}
+      <View
+        style={{
+          position: "absolute",
+          top: 0,
+          bottom: 1,
+          left: 0,
+          right: 0,
+          backgroundColor: "#000000",
+        }}
       />
       {LeftComponent && (
         <LeftComponent

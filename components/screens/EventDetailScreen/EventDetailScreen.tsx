@@ -14,7 +14,6 @@ const Tab = createMaterialTopTabNavigator();
 
 export const EventDetailScreen = ({ route }) => {
   const { item } = route.params;
-  const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
   return (
     <View
       style={{
@@ -119,7 +118,7 @@ export const EventDetailScreen = ({ route }) => {
           </View>
         </Card.Body>
       </Card>
-      <Tab.Navigator
+      {/* <Tab.Navigator
         tabBar={(props) => <DetailTabNavigator {...props} />}
         initialLayout={{
           width: Dimensions.get("window").width,
@@ -149,7 +148,7 @@ export const EventDetailScreen = ({ route }) => {
           component={EventReviewsTab}
           options={{ tabBarLabel: "Reviews" }}
         />
-      </Tab.Navigator>
+      </Tab.Navigator> */}
     </View>
   );
 };

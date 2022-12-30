@@ -1,4 +1,7 @@
-import { createBottomTabNavigator, useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
+import {
+  createBottomTabNavigator,
+  useBottomTabBarHeight,
+} from "@react-navigation/bottom-tabs";
 import { Icon } from "@rneui/themed";
 import EventScreen from "../EventScreen/EventScreen";
 import MuseumScreen from "../MuseumScreen/MuseumScreen";
@@ -7,7 +10,6 @@ import NotificationScreen from "../NotificationScreen/NotificationScreen";
 import AccountScreen from "../AccountScreen";
 import { BlurView } from "@react-native-community/blur";
 import { StyleSheet, View } from "react-native";
-
 
 const Tab = createBottomTabNavigator();
 

@@ -1,6 +1,5 @@
 import { View, Text, Dimensions, TouchableOpacity } from "react-native";
 import Card from "../../organisms/Card/Card";
-import { StackActions } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
 import { IEventResponse } from "../../../types";
 
@@ -10,12 +9,16 @@ export const EventCard: React.FC<{ item: IEventResponse }> = ({ item }) => {
   return (
     <TouchableOpacity
       style={{
-        width: "100%",
+        width: windowWidth - 40,
         paddingVertical: 10,
+        overflow: "hidden",
       }}
       onPress={() =>
-        navigation.navigate("EventDetail", {
-          item: item,
+        navigation.navigate("Event", {
+          screen: "EventDetail",
+          params: {
+            item: item,
+          },
         })
       }
     >

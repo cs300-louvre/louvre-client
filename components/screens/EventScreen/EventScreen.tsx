@@ -3,13 +3,13 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import EventTab from "./EventTab/EventTab";
 import EventChartTab from "./EventChartTab/EventChartTab";
 import TopTabNavigator from "../../elements/TabNavigator/TopTabNavigator";
-import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
+import EventDetailScreen from "../EventDetailScreen/EventDetailScreen";
+import { createStackNavigator } from "@react-navigation/stack";
 
+const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
 
-export default function EventScreen() {
-  const tabBarHeight = useBottomTabBarHeight();
-
+const EventBrowseScreen = () => {
   return (
     <Tab.Navigator
       tabBar={(props) => (
@@ -42,5 +42,38 @@ export default function EventScreen() {
         options={{ tabBarLabel: "Chart" }}
       />
     </Tab.Navigator>
+  );
+};
+
+export default function EventScreen() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        cardStyle: {
+          backgroundColor: "#000000",
+        },
+      }}
+      initialRouteName="EventBrowse"
+    >
+      <Stack.Screen
+        name="EventDetail"
+        component={EventDetailScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: "#141414",
+          },
+          headerTintColor: "#0085FF",
+          headerTitleStyle: {
+            fontSize: 20,
+          },
+          title: "Event",
+        }}
+      />
+      <Stack.Screen
+        name="EventBrowse"
+        component={EventBrowseScreen}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
   );
 }
