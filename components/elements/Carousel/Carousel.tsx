@@ -1,9 +1,11 @@
+import React from "react";
 import { View, FlatList, Image, Text, Dimensions } from "react-native";
+import { IEventResponse } from "../../../types";
 
-export default function Carousel({ items }) {
+export const Carousel: React.FC<{ items: IEventResponse[] }> = ({ items }) => {
   const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
 
-  const Slide = ({ item }) => {
+  const Slide: React.FC<{ item: IEventResponse }> = ({ item }) => {
     return (
       <View
         style={{
@@ -13,7 +15,7 @@ export default function Carousel({ items }) {
         }}
       >
         <Image
-          source={{ uri: item.coverImage }}
+          source={{ uri: item.coverUrl }}
           resizeMode="cover"
           style={{
             width: 0.7 * windowWidth,
@@ -30,7 +32,7 @@ export default function Carousel({ items }) {
             alignSelf: "center",
           }}
         >
-          New Event
+          {item.name}
         </Text>
       </View>
     );
@@ -49,7 +51,7 @@ export default function Carousel({ items }) {
         style={{ flex: 1 }}
         contentContainerStyle={{ paddingHorizontal: 5 }}
         renderItem={({ item }) => {
-          return <Slide item={item} key={item.coverImage} />;
+          return <Slide item={item} key={item.eventId} />;
         }}
         snapToAlignment="center"
         decelerationRate="fast"
@@ -60,4 +62,6 @@ export default function Carousel({ items }) {
       />
     </View>
   );
-}
+};
+
+export default Carousel;

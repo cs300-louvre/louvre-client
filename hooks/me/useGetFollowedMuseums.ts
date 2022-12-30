@@ -1,17 +1,15 @@
 import { useQuery } from "react-query";
-import * as SecureStore from "expo-secure-store";
 import * as api from "../../api";
 
-export function useMe() {
+export function useGetFollowedMuseum() {
   return useQuery({
-    queryKey: ["me"],
+    queryKey: ["museum", "followed"],
     queryFn: async () => {
-      const { data } = await api.getMe();
+      const { data } = await api.getFollowedMuseums();
       return data;
     },
-    refetchOnMount: false,
     refetchOnWindowFocus: false,
   });
 }
 
-export default useMe;
+export default useGetFollowedMuseum;

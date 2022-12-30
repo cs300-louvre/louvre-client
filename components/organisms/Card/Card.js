@@ -9,7 +9,7 @@ export default function Card({ children }) {
         display: "flex",
         flexDirection: "row",
         alignSelf: "center",
-        alignItems: "center"
+        alignItems: "center",
       }}
     >
       {children}
@@ -18,13 +18,7 @@ export default function Card({ children }) {
 }
 
 Card.Image = ({ image, style }) => {
-  return (
-    <Image
-      style={style}
-      resizeMode="cover"
-      source={{ uri: image }}
-    />
-  );
+  return <Image style={style} resizeMode="cover" source={{ uri: image }} />;
 };
 
 Card.Body = ({ children }) => {
@@ -35,11 +29,12 @@ Card.Body = ({ children }) => {
         height: "100%",
         display: "flex",
         marginLeft: 6,
-      }}>
+      }}
+    >
       {children}
     </View>
-  )
-}
+  );
+};
 
 Card.Name = ({ children }) => {
   return (
@@ -73,7 +68,7 @@ Card.Text = ({ children }) => {
   );
 };
 
-Card.Rating = ({ rating, numReviews, size = 20, fontSize = 16 }) => {
+Card.Rating = ({ rating, numReviews, size = 16, fontSize = 16 }) => {
   return (
     <View
       style={{
@@ -81,7 +76,8 @@ Card.Rating = ({ rating, numReviews, size = 20, fontSize = 16 }) => {
         flexDirection: "row",
         alignItems: "center",
         marginVertical: 2,
-      }}>
+      }}
+    >
       <AirbnbRating
         showRating={false}
         defaultRating={rating}
@@ -92,13 +88,13 @@ Card.Rating = ({ rating, numReviews, size = 20, fontSize = 16 }) => {
           margin: 0,
           padding: 0,
           alignItems: "flex-start",
-          justifyContent: "flex-start"
+          justifyContent: "flex-start",
         }}
         starContainerStyle={{
           margin: 0,
           padding: 0,
           alignItems: "flex-start",
-          justifyContent: "flex-start"
+          justifyContent: "flex-start",
         }}
       />
       <Text
@@ -106,10 +102,11 @@ Card.Rating = ({ rating, numReviews, size = 20, fontSize = 16 }) => {
         style={{
           fontFamily: "Roboto_700",
           fontSize: fontSize,
-          color: "#FFFFFF"
-        }}>
+          color: "#FFFFFF",
+        }}
+      >
         ({numReviews} reviews)
       </Text>
     </View>
-  )
-}
+  );
+};

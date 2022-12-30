@@ -97,6 +97,7 @@ export type IPostResponse = {
 };
 
 export type IMuseumGenre =
+  | "new"
   | "general"
   | "natural"
   | "science"
@@ -122,6 +123,7 @@ export type IMuseumResponse = {
   genre: IMuseumGenre;
   isFollowedByUser: boolean;
   numOfFollowers: number;
+  numOfReviews: number;
   address: string;
   ticketPrice: number;
   sales: number;
@@ -132,6 +134,7 @@ export type IMuseumResponse = {
 };
 
 export type IEventGenre =
+  | "new"
   | "art"
   | "education"
   | "sport"
@@ -146,7 +149,6 @@ export type IEventCoreData = {
   location: string;
   thumbnailBase64: string;
   coverBase64: string;
-  address: string;
   ticketPrice: number;
   startTime: string;
   endTime: string;
@@ -162,10 +164,12 @@ export type IEventResponse = {
   eventId: string;
   isUserFavourite: boolean;
   numOfFollowers: number;
-  address: string;
+  numOfReviews: number;
   ticketPrice: number;
   rating: number;
   museumId: string; // KHI USER UPLOAD EVENT LÊN THÌ SERVER CHỈ CÓ ĐƯỢC USER ID THÔI (THÔNG QUA TOKEN), SERVER PHẢI COI USER ĐÓ QUẢN LÍ MUSEUM NÀO RỒI CHÈN MUSEUM ID VÀO ĐÂY
+  museumThumbnailUrl: string;
+  museumName: string;
   startTime: string;
   endTime: string;
   userId: string; // USER ID của người tạo ra event (tức là người quản lí cái musem tổ chức event)
