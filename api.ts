@@ -6,6 +6,7 @@ import {
   IEventCoreData,
   IEventGenre,
   IEventResponse,
+  IFollowedEvent,
   IFollowedMuseum,
   IGetMeResponse,
   IMessageCoreData,
@@ -58,7 +59,7 @@ export const changePassword = (data: {
 export const getFollowedMuseums = () =>
   API.get<IFollowedMuseum[]>("/me/museum");
 
-export const getFollowedEvents = () => API.get<IFollowedMuseum[]>("/me/event");
+export const getFollowedEvents = () => API.get<IFollowedEvent[]>("/me/event");
 
 export const getMyTickets = () => API.get<ITicketResponse[]>("/me/ticket");
 
