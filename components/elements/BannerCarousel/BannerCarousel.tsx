@@ -1,6 +1,6 @@
 import React from "react";
 import { View, FlatList, Image, Text, Dimensions } from "react-native";
-import { Banner } from "../../organisms/Banner/Banner";
+import { Banner } from "../Banner/Banner";
 
 export const BannerCarousel: React.FC<{ bannerTexts: string[] }> = ({
   bannerTexts,

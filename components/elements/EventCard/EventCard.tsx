@@ -3,6 +3,7 @@ import Card from "../../organisms/Card/Card";
 import { useNavigation } from "@react-navigation/native";
 import { IEventResponse } from "../../../types";
 import { formatNumber } from "../../../utils";
+import { memo } from "react";
 
 export const EventCard: React.FC<{ item: IEventResponse }> = ({ item }) => {
   const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
@@ -18,7 +19,7 @@ export const EventCard: React.FC<{ item: IEventResponse }> = ({ item }) => {
         navigation.navigate("Event", {
           screen: "EventDetail",
           params: {
-            item: item,
+            eventId: item.eventId,
           },
         })
       }
@@ -88,4 +89,4 @@ export const EventCard: React.FC<{ item: IEventResponse }> = ({ item }) => {
   );
 };
 
-export default EventCard;
+export default memo(EventCard);

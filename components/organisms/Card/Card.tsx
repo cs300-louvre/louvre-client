@@ -1,4 +1,4 @@
-import { View, Image, Text, Dimensions } from "react-native";
+import { View, Image, Text } from "react-native";
 import { AirbnbRating } from "@rneui/base";
 
 export default function Card({ children }) {
@@ -44,6 +44,7 @@ Card.Name = ({ children }) => {
         fontFamily: "Roboto_700Bold",
         fontSize: 16,
         color: "#FFFFFF",
+        width: "60%",
         marginBottom: 1,
       }}
     >
@@ -60,7 +61,7 @@ Card.Text = ({ children }) => {
         fontFamily: "Roboto_700Bold",
         fontSize: 16,
         color: "#FFFFFF",
-        marginVertial: 1,
+        marginVertical: 1,
       }}
     >
       {children}

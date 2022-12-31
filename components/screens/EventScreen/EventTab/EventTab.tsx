@@ -1,20 +1,8 @@
-import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import React from "react";
-import {
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity,
-  Dimensions,
-} from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import { EVENT_GENRES } from "../../../../const";
-import { fakeEventResponse, fakeMuseumResponse } from "../../../../mock";
-import {
-  IEventGenre,
-  IEventResponse,
-  IMuseumGenre,
-  IMuseumResponse,
-} from "../../../../types";
+import { fakeEventResponse } from "../../../../mock";
+import { IEventGenre, IEventResponse } from "../../../../types";
 import BannerCarousel from "../../../elements/BannerCarousel/BannerCarousel";
 import Carousel from "../../../elements/Carousel/Carousel";
 import EventCard from "../../../elements/EventCard/EventCard";
@@ -26,10 +14,6 @@ const featuredEvents: IEventResponse[] = Array.from(Array(9), () => {
 
 const browseEvents: IEventResponse[] = Array.from(Array(30), () => {
   return fakeEventResponse();
-});
-
-const museumChart: IMuseumResponse[] = Array.from(Array(9), () => {
-  return fakeMuseumResponse();
 });
 
 const bannerTexts = [

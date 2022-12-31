@@ -94,7 +94,7 @@ export const EventDetailScreen = ({ route }) => {
                 width: "58%", // Hard coded value
               }}
             >
-              {/* <Text
+              <Text
                 style={{
                   fontFamily: "Roboto_700",
                   fontWeight: "700",
@@ -103,8 +103,8 @@ export const EventDetailScreen = ({ route }) => {
                   marginVertical: 1,
                 }}
               >
-                5.0km
-              </Text> */}
+                {item.genre.toUpperCase()}
+              </Text>
               <Text
                 numberOfLines={1}
                 style={{
