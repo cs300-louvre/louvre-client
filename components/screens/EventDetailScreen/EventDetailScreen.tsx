@@ -8,13 +8,15 @@ import EventUpdatesTab from "./EventUpdatesTab/EventUpdatesTab";
 import EventReviewsTab from "./EventReviewsTab/EventReviewsTab";
 import DetailTabNavigator from "../../elements/TabNavigator/DetailTabNavigator";
 import CustomizedButton from "../../organisms/Button/Button";
-import { IEventResponse } from "../../../types";
 import { formatNumber } from "../../../utils";
+import { fakeEventResponse } from "../../../mock";
 
 const Tab = createMaterialTopTabNavigator();
 
+const item = fakeEventResponse();
+
 export const EventDetailScreen = ({ route }) => {
-  const { item } = route.params;
+  const { eventId } = route.params;
   return (
     <View
       style={{
@@ -28,7 +30,7 @@ export const EventDetailScreen = ({ route }) => {
     >
       <Card>
         <Card.Image
-          image={item.coverUrl}
+          image={item.thumbnailUrl}
           style={{
             width: 145,
             height: 145,

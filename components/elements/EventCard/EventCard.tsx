@@ -25,7 +25,7 @@ export const EventCard: React.FC<{ item: IEventResponse }> = ({ item }) => {
     >
       <Card>
         <Card.Image
-          image={item.coverUrl}
+          image={item.thumbnailUrl}
           style={{ width: 100, height: 100, borderRadius: 5 }}
         />
         <Card.Body>

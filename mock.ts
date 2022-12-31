@@ -81,7 +81,7 @@ export const fakeEventResponse: () => IEventResponse = () => {
     endTime: fakeDateString(),
     genre: fakeEventGenre(),
     eventId: faker.datatype.uuid(),
-    isUserFavourite: faker.datatype.boolean(),
+    isFollowedByUser: faker.datatype.boolean(),
     location: fakeLocation(),
     museumId: faker.datatype.uuid(),
     museumName: faker.company.name(),
@@ -99,5 +99,29 @@ export const fakeEventResponse: () => IEventResponse = () => {
     }),
     userId: faker.datatype.uuid(),
     createdAt: faker.date.past().toISOString(),
+  };
+};
+
+export const fakeMuseumResponse: () => IMuseumResponse = () => {
+  return {
+    location: fakeLocation(),
+    coverUrl: faker.image.business(),
+    createdAt: faker.date.past().toISOString(),
+    description: faker.lorem.paragraph(),
+    genre: fakeMuseumGenre(),
+    isFollowedByUser: faker.datatype.boolean(),
+    museumId: faker.datatype.uuid(),
+    name: faker.music.songName(),
+    numOfFollowers: faker.datatype.number({ min: 0, max: 1000 }),
+    numOfReviews: faker.datatype.number({ min: 0, max: 1000 }),
+    rating: faker.datatype.number({ precision: 0.1, min: 1, max: 5 }),
+    sales: faker.datatype.number({ min: 0, max: 1000 }),
+    thumbnailUrl: faker.image.business(),
+    ticketPrice: faker.datatype.number({
+      min: 10000,
+      max: 300000,
+      precision: 10000,
+    }),
+    userId: faker.datatype.uuid(),
   };
 };

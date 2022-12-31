@@ -109,7 +109,6 @@ export type IMuseumCoreData = {
   thumbnailBase64: string;
   coverBase64: string;
   genre: IMuseumGenre;
-  address: string;
   ticketPrice: number;
   location: string;
   description: string;
@@ -123,7 +122,6 @@ export type IMuseumResponse = {
   isFollowedByUser: boolean;
   numOfFollowers: number;
   numOfReviews: number;
-  address: string;
   ticketPrice: number;
   sales: number;
   location: string;
@@ -161,7 +159,7 @@ export type IEventResponse = {
   coverUrl: string;
   sales: number;
   eventId: string;
-  isUserFavourite: boolean;
+  isFollowedByUser: boolean;
   numOfFollowers: number;
   numOfReviews: number;
   ticketPrice: number;

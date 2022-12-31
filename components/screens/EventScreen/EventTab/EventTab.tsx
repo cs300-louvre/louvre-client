@@ -8,11 +8,17 @@ import {
   Dimensions,
 } from "react-native";
 import { EVENT_GENRES } from "../../../../const";
-import { fakeEventResponse } from "../../../../mock";
-import { IEventGenre, IEventResponse } from "../../../../types";
+import { fakeEventResponse, fakeMuseumResponse } from "../../../../mock";
+import {
+  IEventGenre,
+  IEventResponse,
+  IMuseumGenre,
+  IMuseumResponse,
+} from "../../../../types";
 import BannerCarousel from "../../../elements/BannerCarousel/BannerCarousel";
 import Carousel from "../../../elements/Carousel/Carousel";
 import EventCard from "../../../elements/EventCard/EventCard";
+import MiniCardCarousel from "../../../elements/MiniCardCarousel/MiniCardCarousel";
 
 const featuredEvents: IEventResponse[] = Array.from(Array(9), () => {
   return fakeEventResponse();
@@ -20,6 +26,10 @@ const featuredEvents: IEventResponse[] = Array.from(Array(9), () => {
 
 const browseEvents: IEventResponse[] = Array.from(Array(30), () => {
   return fakeEventResponse();
+});
+
+const museumChart: IMuseumResponse[] = Array.from(Array(9), () => {
+  return fakeMuseumResponse();
 });
 
 const bannerTexts = [
@@ -71,6 +81,30 @@ export default function EventTab() {
         </View>
       }
       <BannerCarousel bannerTexts={bannerTexts} />
+      {
+        <View style={{ paddingTop: 10 }}>
+          <Text
+            style={{
+              color: "#FFFFFF",
+              fontWeight: "500",
+              paddingHorizontal: 20,
+              marginBottom: 10,
+            }}
+          >
+            EXPLORE
+          </Text>
+          {
+            <MiniCardCarousel
+              type="event"
+              items={browseEvents
+                .map((value) => ({ value, sort: Math.random() }))
+                .sort((a, b) => a.sort - b.sort)
+                .map(({ value }) => value)
+                .slice(0, 9)}
+            />
+          }
+        </View>
+      }
       {eventGenres.map((genre) => {
         return (
           <View
