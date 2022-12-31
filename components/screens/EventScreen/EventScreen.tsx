@@ -49,12 +49,17 @@ export default function EventScreen() {
   return (
     <Stack.Navigator
       screenOptions={{
+        animationEnabled: false,
         cardStyle: {
           backgroundColor: "#000000",
         },
       }}
-      initialRouteName="EventBrowse"
     >
+      <Stack.Screen
+        name="EventBrowse"
+        component={EventBrowseScreen}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen
         name="EventDetail"
         component={EventDetailScreen}
@@ -68,11 +73,6 @@ export default function EventScreen() {
           },
           title: "Event",
         }}
-      />
-      <Stack.Screen
-        name="EventBrowse"
-        component={EventBrowseScreen}
-        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );

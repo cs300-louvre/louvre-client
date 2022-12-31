@@ -24,26 +24,7 @@ import {
   ITicketResponse,
 } from "./types";
 import { faker } from "@faker-js/faker";
-
-const eventGenres: IEventGenre[] = [
-  "new",
-  "art",
-  "corporate",
-  "education",
-  "festival",
-  "sport",
-  "virtual",
-  "volunteer",
-];
-const museumGenres: IMuseumGenre[] = [
-  "new",
-  "art",
-  "general",
-  "history",
-  "natural",
-  "science",
-  "virtual",
-];
+import { EVENT_GENRES, MUSEUM_GENRES } from "./const";
 
 const fakeDateString = () => {
   return `${faker.date.month()} ${faker.datatype.number({
@@ -56,14 +37,14 @@ const fakeDateString = () => {
 };
 
 const fakeEventGenre = () => {
-  return eventGenres[
-    faker.datatype.number({ min: 0, max: eventGenres.length - 1 })
+  return EVENT_GENRES[
+    faker.datatype.number({ min: 0, max: EVENT_GENRES.length - 1 })
   ];
 };
 
 const fakeMuseumGenre = () => {
-  return museumGenres[
-    faker.datatype.number({ min: 0, max: museumGenres.length - 1 })
+  return MUSEUM_GENRES[
+    faker.datatype.number({ min: 0, max: MUSEUM_GENRES.length - 1 })
   ];
 };
 
@@ -117,5 +98,6 @@ export const fakeEventResponse: () => IEventResponse = () => {
       precision: 10000,
     }),
     userId: faker.datatype.uuid(),
+    createdAt: faker.date.past().toISOString(),
   };
 };

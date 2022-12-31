@@ -30,6 +30,7 @@ export const Carousel: React.FC<{ items: IEventResponse[] }> = ({ items }) => {
             position: "absolute",
             bottom: 10,
             alignSelf: "center",
+            textAlign: "center",
           }}
         >
           {item.name}

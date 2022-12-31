@@ -97,7 +97,6 @@ export type IPostResponse = {
 };
 
 export type IMuseumGenre =
-  | "new"
   | "general"
   | "natural"
   | "science"
@@ -130,11 +129,11 @@ export type IMuseumResponse = {
   location: string;
   description: string;
   rating: number;
+  createdAt: string;
   userId: string; // userId của người quản lí museum
 };
 
 export type IEventGenre =
-  | "new"
   | "art"
   | "education"
   | "sport"
@@ -172,6 +171,7 @@ export type IEventResponse = {
   museumName: string;
   startTime: string;
   endTime: string;
+  createdAt: string;
   userId: string; // USER ID của người tạo ra event (tức là người quản lí cái musem tổ chức event)
 };
 

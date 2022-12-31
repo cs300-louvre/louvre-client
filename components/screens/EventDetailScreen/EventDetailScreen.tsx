@@ -9,6 +9,7 @@ import EventReviewsTab from "./EventReviewsTab/EventReviewsTab";
 import DetailTabNavigator from "../../elements/TabNavigator/DetailTabNavigator";
 import CustomizedButton from "../../organisms/Button/Button";
 import { IEventResponse } from "../../../types";
+import { formatNumber } from "../../../utils";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -81,7 +82,7 @@ export const EventDetailScreen = ({ route }) => {
                 backgroundColor={"#000000"}
                 color={"#0085FF"}
               />
-              <CustomizedButton title={`${item.ticketPrice} VND`} />
+              <CustomizedButton title={`${formatNumber(item.ticketPrice)}đ`} />
             </View>
             <View
               style={{
@@ -118,7 +119,7 @@ export const EventDetailScreen = ({ route }) => {
           </View>
         </Card.Body>
       </Card>
-      {/* <Tab.Navigator
+      <Tab.Navigator
         tabBar={(props) => <DetailTabNavigator {...props} />}
         initialLayout={{
           width: Dimensions.get("window").width,
@@ -148,7 +149,7 @@ export const EventDetailScreen = ({ route }) => {
           component={EventReviewsTab}
           options={{ tabBarLabel: "Reviews" }}
         />
-      </Tab.Navigator> */}
+      </Tab.Navigator>
     </View>
   );
 };

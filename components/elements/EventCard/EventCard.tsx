@@ -2,6 +2,7 @@ import { View, Text, Dimensions, TouchableOpacity } from "react-native";
 import Card from "../../organisms/Card/Card";
 import { useNavigation } from "@react-navigation/native";
 import { IEventResponse } from "../../../types";
+import { formatNumber } from "../../../utils";
 
 export const EventCard: React.FC<{ item: IEventResponse }> = ({ item }) => {
   const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
@@ -43,7 +44,7 @@ export const EventCard: React.FC<{ item: IEventResponse }> = ({ item }) => {
           <View
             style={{
               display: "flex",
-              width: windowWidth - 100 - 40,
+              width: windowWidth - 100 - 45,
               flexDirection: "row",
               alignItems: "center",
               justifyContent: "space-between",
@@ -67,7 +68,7 @@ export const EventCard: React.FC<{ item: IEventResponse }> = ({ item }) => {
                   marginVertical: 1,
                 }}
               >
-                {item.ticketPrice} VND
+                {formatNumber(item.ticketPrice)}đ
               </Text>
             </View>
             <Text
