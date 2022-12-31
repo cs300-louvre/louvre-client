@@ -1,0 +1,120 @@
+import React from "react";
+import { View, Text, ScrollView } from "react-native";
+import { EVENT_GENRES } from "../../../../const";
+import { fakeEventResponse, fakeMuseumResponse } from "../../../../mock";
+import {
+  IEventGenre,
+  IEventResponse,
+  IMuseumResponse,
+} from "../../../../types";
+import BannerCarousel from "../../../elements/BannerCarousel/BannerCarousel";
+import Carousel from "../../../elements/Carousel/Carousel";
+import MiniCardCarousel from "../../../elements/MiniCardCarousel/MiniCardCarousel";
+import MuseumCard from "../../../elements/MuseumCard/MuseumCard";
+
+const featuredEvents: IEventResponse[] = Array.from(Array(9), () => {
+  return fakeEventResponse();
+});
+
+const browseMuseums: IMuseumResponse[] = Array.from(Array(30), () => {
+  return fakeMuseumResponse();
+});
+
+const bannerTexts = [
+  "Discover\nnew events",
+  "100+ events",
+  "Book tickets\nin a second",
+];
+
+export default function EventTab() {
+  const museumGenres: IEventGenre[] = browseMuseums
+    .reduce(
+      (prev, val) =>
+        prev.find((genre) => genre.name === val.genre)
+          ? prev
+          : [
+              ...prev,
+              {
+                name: val.genre,
+                order: EVENT_GENRES.findIndex((v) => v === val.genre),
+              },
+            ],
+      []
+    )
+    .sort((a, b) => a.order - b.order)
+    .map((e) => e.name);
+  const newMuseums: IMuseumResponse[] = browseMuseums
+    .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+    .slice(0, 3);
+
+  return (
+    <ScrollView
+      style={{ paddingTop: 60 }}
+      contentContainerStyle={{ paddingBottom: 120 }}
+    >
+      <Carousel items={featuredEvents} />
+      {
+        <View style={{ paddingHorizontal: 20, paddingVertical: 10 }}>
+          <Text
+            style={{
+              color: "#FFFFFF",
+              fontWeight: "500",
+            }}
+          >
+            NEW MUSEUMS
+          </Text>
+          {newMuseums.map((museum) => (
+            <MuseumCard key={museum.museumId} item={museum} />
+          ))}
+        </View>
+      }
+      <BannerCarousel bannerTexts={bannerTexts} />
+      {
+        <View style={{ paddingTop: 10 }}>
+          <Text
+            style={{
+              color: "#FFFFFF",
+              fontWeight: "500",
+              paddingHorizontal: 20,
+              marginBottom: 10,
+            }}
+          >
+            EXPLORE
+          </Text>
+          {
+            <MiniCardCarousel
+              type="museum"
+              items={browseMuseums
+                .map((value) => ({ value, sort: Math.random() }))
+                .sort((a, b) => a.sort - b.sort)
+                .map(({ value }) => value)
+                .slice(0, 9)}
+            />
+          }
+        </View>
+      }
+      {museumGenres.map((genre) => {
+        return (
+          <View
+            key={genre}
+            style={{ paddingHorizontal: 20, paddingVertical: 10 }}
+          >
+            <Text
+              style={{
+                color: "#FFFFFF",
+                fontWeight: "500",
+              }}
+            >
+              {genre.toUpperCase()}
+            </Text>
+            {browseMuseums
+              .filter((museum) => museum.genre === genre)
+              .map((museum) => (
+                <MuseumCard key={museum.museumId} item={museum} />
+              ))}
+          </View>
+        );
+      })}
+    </ScrollView>
+  );
+}

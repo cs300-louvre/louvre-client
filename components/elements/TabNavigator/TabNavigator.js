@@ -2,7 +2,11 @@ import { View, TouchableHighlight } from "react-native";
 import { Button } from "@rneui/themed";
 import { useEffect, useState, useRef } from "react";
 
-export default function TabNavigator({ containerStyle, items, activeIndex }) {
+export default function TabNavigator({
+  items,
+  activeIndex = 0,
+  containerStyle = {},
+}) {
   return (
     <View
       style={[
@@ -14,6 +18,7 @@ export default function TabNavigator({ containerStyle, items, activeIndex }) {
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
+          alignItems: "center",
         },
         containerStyle,
       ]}
@@ -41,6 +46,7 @@ export default function TabNavigator({ containerStyle, items, activeIndex }) {
               index == activeIndex
                 ? "rgba(181, 181, 181, 1)"
                 : "rgba(181, 181, 181, 0)",
+            transform: [{ translateY: 1 }],
           }}
           title={label}
           titleStyle={{

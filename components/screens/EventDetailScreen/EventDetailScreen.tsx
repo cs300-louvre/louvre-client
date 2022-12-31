@@ -2,7 +2,7 @@ import { View, Text } from "react-native";
 import Card from "../../organisms/Card/Card";
 import { Dimensions } from "react-native";
 import { Icon } from "@rneui/themed";
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { useState } from "react";
 import EventInfoTab from "./EventInfoTab/EventInfoTab";
 import EventUpdatesTab from "./EventUpdatesTab/EventUpdatesTab";
 import EventReviewsTab from "./EventReviewsTab/EventReviewsTab";
@@ -10,22 +10,25 @@ import DetailTabNavigator from "../../elements/TabNavigator/DetailTabNavigator";
 import CustomizedButton from "../../organisms/Button/Button";
 import { formatNumber } from "../../../utils";
 import { fakeEventResponse } from "../../../mock";
-
-const Tab = createMaterialTopTabNavigator();
+import { ScrollView } from "react-native-gesture-handler";
+import TabNavigator from "../../elements/TabNavigator/TabNavigator";
 
 const item = fakeEventResponse();
 
 export const EventDetailScreen = ({ route }) => {
+  const [tab, setTab] = useState<number>(0);
+  const tabNavigationObjects = [
+    { label: "Info", onPress: () => setTab(0) },
+    { label: "Updates", onPress: () => setTab(1) },
+    { label: "Reviews", onPress: () => setTab(2) },
+  ];
   const { eventId } = route.params;
   return (
-    <View
-      style={{
-        display: "flex",
-        backgroundColor: "#000000",
-        width: "100%",
-        height: "100%",
-        paddingHorizontal: "4%",
-        paddingTop: "4%",
+    <ScrollView
+      contentContainerStyle={{
+        paddingTop: 10,
+        paddingBottom: 60,
+        paddingHorizontal: 20,
       }}
     >
       <Card>
@@ -34,6 +37,7 @@ export const EventDetailScreen = ({ route }) => {
           style={{
             width: 145,
             height: 145,
+            borderRadius: 5,
           }}
         />
         <Card.Body>
@@ -46,7 +50,9 @@ export const EventDetailScreen = ({ route }) => {
             }}
           >
             <View>
-              <Card.Name>{item.name}</Card.Name>
+              <Card.Name containerStyle={{ width: "80%" }}>
+                {item.name}
+              </Card.Name>
               <Text
                 numberOfLines={2}
                 style={{
@@ -121,38 +127,17 @@ export const EventDetailScreen = ({ route }) => {
           </View>
         </Card.Body>
       </Card>
-      <Tab.Navigator
-        tabBar={(props) => <DetailTabNavigator {...props} />}
-        initialLayout={{
-          width: Dimensions.get("window").width,
-        }}
-        sceneContainerStyle={{
-          backgroundColor: "#000000",
-          position: "relative",
-        }}
-        style={{ backgroundColor: "#000000" }}
-        screenOptions={{
-          swipeEnabled: false,
-          animationEnabled: false,
-        }}
-      >
-        <Tab.Screen
-          name="EventInfo"
-          component={EventInfoTab}
-          options={{ tabBarLabel: "Info" }}
+      <View style={{ alignItems: "center" }}>
+        <TabNavigator
+          items={tabNavigationObjects}
+          activeIndex={tab}
+          containerStyle={{ marginTop: 20 }}
         />
-        <Tab.Screen
-          name="EventUpdates"
-          component={EventUpdatesTab}
-          options={{ tabBarLabel: "Updates" }}
-        />
-        <Tab.Screen
-          name="EventReviews"
-          component={EventReviewsTab}
-          options={{ tabBarLabel: "Reviews" }}
-        />
-      </Tab.Navigator>
-    </View>
+      </View>
+      {tab === 0 ? <EventInfoTab item={item} /> : null}
+      {tab === 1 ? <EventUpdatesTab eventId={eventId} /> : null}
+      {tab === 2 ? <EventReviewsTab eventId={eventId} /> : null}
+    </ScrollView>
   );
 };
 

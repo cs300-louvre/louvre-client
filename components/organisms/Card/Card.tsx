@@ -36,7 +36,7 @@ Card.Body = ({ children }) => {
   );
 };
 
-Card.Name = ({ children }) => {
+Card.Name = ({ children, containerStyle = {} }) => {
   return (
     <Text
       numberOfLines={1}
@@ -46,6 +46,7 @@ Card.Name = ({ children }) => {
         color: "#FFFFFF",
         width: "60%",
         marginBottom: 1,
+        ...containerStyle,
       }}
     >
       {children}

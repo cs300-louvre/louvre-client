@@ -10,15 +10,15 @@ export const MiniCard: React.FC<{
   const navigation = useNavigation<any>();
   return (
     <TouchableOpacity
-      onPress={() =>
+      onPress={() => {
         navigation.navigate(type === "event" ? "Event" : "Museum", {
           screen: type === "event" ? "EventDetail" : "MuseumDetail",
           params: {
             [type === "event" ? "eventId" : "museumId"]:
               type === "event" ? item.eventId : item.museumId,
           },
-        })
-      }
+        });
+      }}
     >
       <View style={{ width: 100, marginRight: 10 }}>
         <Image

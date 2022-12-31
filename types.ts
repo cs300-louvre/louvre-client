@@ -55,12 +55,14 @@ export type IRatingCoreData = {
   content: string;
 };
 export type IRatingResponse = {
+  ratingId: string;
   userId: string;
   museumId: string;
   thumbnailUrl: string; // the thumbnail of the user who rate
   rating: number;
   content: string;
   userName: string;
+  createdAt: string;
 };
 
 export type INotificationResponse = {
@@ -165,7 +167,6 @@ export type IEventResponse = {
   ticketPrice: number;
   rating: number;
   museumId: string; // KHI USER UPLOAD EVENT LÊN THÌ SERVER CHỈ CÓ ĐƯỢC USER ID THÔI (THÔNG QUA TOKEN), SERVER PHẢI COI USER ĐÓ QUẢN LÍ MUSEUM NÀO RỒI CHÈN MUSEUM ID VÀO ĐÂY
-  museumThumbnailUrl: string;
   museumName: string;
   startTime: string;
   endTime: string;
