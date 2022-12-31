@@ -4,12 +4,13 @@ import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import MuseumTab from "./MuseumTab/MuseumTab";
 import MuseumChartTab from "./MuseumChartTab/MuseumChartTab";
 import TopTabNavigator from "../../elements/TabNavigator/TopTabNavigator";
+import { createStackNavigator } from "@react-navigation/stack";
+import MuseumDetailScreen from "../MuseumDetailScreen/MuseumDetailScreen";
 
 const Tab = createMaterialTopTabNavigator();
+const Stack = createStackNavigator();
 
-export default function MuseumScreen() {
-  const tabBarHeight = useBottomTabBarHeight();
-
+const MuseumBrowseScreen = () => {
   return (
     <Tab.Navigator
       tabBar={(props) => (
@@ -42,5 +43,38 @@ export default function MuseumScreen() {
         options={{ tabBarLabel: "Chart" }}
       />
     </Tab.Navigator>
+  );
+};
+
+export default function MuseumScreen() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        animationEnabled: false,
+        cardStyle: {
+          backgroundColor: "#000000",
+        },
+      }}
+    >
+      <Stack.Screen
+        name="MuseumBrowse"
+        component={MuseumBrowseScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="MuseumDetail"
+        component={MuseumDetailScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: "#141414",
+          },
+          headerTintColor: "#0085FF",
+          headerTitleStyle: {
+            fontSize: 20,
+          },
+          title: "Museum",
+        }}
+      />
+    </Stack.Navigator>
   );
 }

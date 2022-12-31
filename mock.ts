@@ -138,7 +138,7 @@ export const fakePost: () => IPostResponse = () => {
 
 export const fakeRating: () => IRatingResponse = () => {
   return {
-    content: faker.lorem.sentence(3),
+    content: faker.lorem.sentences(3),
     museumId: faker.datatype.uuid(),
     rating: faker.datatype.number({ precision: 0.1, min: 1, max: 5 }),
     thumbnailUrl: faker.internet.avatar(),

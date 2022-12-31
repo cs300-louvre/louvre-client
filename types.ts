@@ -11,10 +11,13 @@ export type ISignInResponse = {
 
 export type ISignUpResponse = ISignInResponse;
 
+export type IRole = "admin" | "manager" | "user";
+
 export type IGetMeResponse = {
   userId: string;
   email: string;
   name: string;
+  role: IRole;
 };
 
 export type IFollowedMuseum = {
