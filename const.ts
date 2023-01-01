@@ -1,4 +1,4 @@
-import { IEventGenre, IMuseumGenre } from "./types";
+import { IEventGenre, IMuseumGenre, INotificationType } from "./types";
 
 export const EVENT_GENRES: IEventGenre[] = [
   "art",
@@ -17,4 +17,11 @@ export const MUSEUM_GENRES: IMuseumGenre[] = [
   "natural",
   "science",
   "virtual",
+];
+
+export const NOTIFICATION_TYPES: INotificationType[] = [
+  "event",
+  "message",
+  "museum",
+  "system",
 ];

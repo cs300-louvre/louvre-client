@@ -3,12 +3,12 @@ import { Text, View } from "react-native";
 import { BlurView } from "@react-native-community/blur";
 import { StyleSheet } from "react-native";
 
-export default function TopTabNavigator({
+export const TopTabNavigator: React.FC<any> = ({
   state,
   descriptors,
   navigation,
   LeftComponent,
-}) {
+}) => {
   const items = state.routes.map((route) => {
     const { options } = descriptors[route.key];
     const label =
@@ -67,4 +67,6 @@ export default function TopTabNavigator({
       <TabNavigator items={items} activeIndex={state.index} />
     </View>
   );
-}
+};
+
+export default TopTabNavigator;

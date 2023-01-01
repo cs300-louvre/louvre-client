@@ -44,19 +44,32 @@ export const EventDetailScreen = () => {
             borderRadius: 5,
           }}
         />
-        <Card.Body>
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              width: windowWidth - 145 - 40, // Hard coded value
-              justifyContent: "space-between",
-            }}
-          >
-            <View>
-              <Card.Name numberOfLine={2} containerStyle={{ width: "70%" }}>
-                {item.name}
-              </Card.Name>
+        <Card.Body
+          containerStyle={{ height: 145, justifyContent: "space-between" }}
+        >
+          <View>
+            <View
+              style={{
+                width: windowWidth - 145 - 40, // Hard coded value
+              }}
+            >
+              <View
+                style={{
+                  width: "100%",
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
+                <Card.Name numberOfLine={2} containerStyle={{ width: "80%" }}>
+                  {item.name}
+                </Card.Name>
+                <Icon
+                  name="heart"
+                  type="ionicon"
+                  color={item.isFollowedByUser ? "#FF3333" : "#B5B5B5"}
+                  size={30}
+                />
+              </View>
               <Text
                 numberOfLines={2}
                 style={{
@@ -68,24 +81,13 @@ export const EventDetailScreen = () => {
                 by {item.museumName}
               </Text>
             </View>
-            <Icon
-              name="heart"
-              type="ionicon"
-              color={item.isFollowedByUser ? "#FF3333" : "#B5B5B5"}
-              size={30}
+            <Card.Rating
+              rating={item.rating}
+              numReviews={item.numOfReviews}
+              size={15}
             />
           </View>
-          <Card.Rating
-            rating={item.rating}
-            numReviews={item.numOfReviews}
-            size={15}
-          />
-          <View
-            style={{
-              display: "flex",
-              paddingTop: 35, // Hard coded value to align with the bottom of the card, need to change later
-            }}
-          >
+          <View>
             <View
               style={{
                 display: "flex",

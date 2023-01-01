@@ -69,14 +69,17 @@ export type IRatingResponse = {
   createdAt: string;
 };
 
+export type INotificationType = "museum" | "event" | "system" | "message";
+
 export type INotificationResponse = {
   thumbnailUrl: string;
   name: string;
   content: string;
   notificationId: string;
+  type: INotificationType;
 };
 
-export type IChatNotificationResponse = {
+export type IChatPreviewResponse = {
   chatId: string;
   name: string; // GET THE NAME OF THE OTHER USER WHO IS IN THE CONVERSATION
   content: string; // GET THE LATEST TEXT OF THE CONVERSATION WHETHER IT IS FROM THE CURRENT USER OF THE OTHER ONE

@@ -21,7 +21,7 @@ Card.Image = ({ image, style }) => {
   return <Image style={style} resizeMode="cover" source={{ uri: image }} />;
 };
 
-Card.Body = ({ children }) => {
+Card.Body = ({ children, containerStyle = {} }) => {
   return (
     <View
       style={{
@@ -29,6 +29,7 @@ Card.Body = ({ children }) => {
         height: "100%",
         display: "flex",
         marginLeft: 6,
+        ...containerStyle,
       }}
     >
       {children}

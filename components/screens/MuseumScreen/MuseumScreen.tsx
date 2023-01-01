@@ -74,6 +74,7 @@ export default function MuseumScreen() {
             fontSize: 20,
           },
           title: "Museum",
+          detachPreviousScreen: false,
         }}
       />
       <Stack.Screen
@@ -88,6 +89,7 @@ export default function MuseumScreen() {
             fontSize: 20,
           },
           title: "Museum",
+          detachPreviousScreen: false,
         }}
       />
     </Stack.Navigator>

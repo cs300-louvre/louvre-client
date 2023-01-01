@@ -1,7 +1,7 @@
 import axios from "axios";
 import * as SecureStore from "expo-secure-store";
 import {
-  IChatNotificationResponse,
+  IChatPreviewResponse,
   IEOM,
   IEventCoreData,
   IEventGenre,
@@ -76,8 +76,8 @@ export const putFollowMuseum = (museumId: string) =>
 export const putFollowEvemt = (eventId: string) =>
   API.put(`/me/event?eventId=${eventId}`);
 
-export const getChatNotifications = () =>
-  API.get<IChatNotificationResponse>("/me/chat_notification");
+export const getChatPreviews = () =>
+  API.get<IChatPreviewResponse[]>("/me/chat_notification");
 
 // TICKET
 export const getTicketById = (ticketId) =>

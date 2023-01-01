@@ -43,36 +43,43 @@ export const MuseumDetailScreen = ({ route }) => {
             borderRadius: 5,
           }}
         />
-        <Card.Body>
+        <Card.Body
+          containerStyle={{ minHeight: 145, justifyContent: "space-between" }}
+        >
           <View
             style={{
               display: "flex",
-              flexDirection: "row",
-              width: windowWidth - 200, // Hard coded value
-              justifyContent: "space-between",
+              flexDirection: "column",
+              width: windowWidth - 145 - 40, // Hard coded value
             }}
           >
-            <View>
-              <Card.Name containerStyle={{ width: "60%" }}>
+            <View
+              style={{
+                width: "100%",
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <Card.Name numberOfLine={2} containerStyle={{ width: "80%" }}>
                 {item.name}
               </Card.Name>
-              <Text
-                numberOfLines={2}
-                style={{
-                  fontFamily: "Roboto_700",
-                  fontSize: 12,
-                  color: "#B5B5B5",
-                }}
-              >
-                {item.location}
-              </Text>
+              <Icon
+                name="heart"
+                type="ionicon"
+                color={item.isFollowedByUser ? "#FF3333" : "#B5B5B5"}
+                size={30}
+              />
             </View>
-            <Icon
-              name="heart"
-              type="ionicon"
-              color={item.isFollowedByUser ? "#FF3333" : "#B5B5B5"}
-              size={30}
-            />
+            <Text
+              numberOfLines={2}
+              style={{
+                fontFamily: "Roboto_700",
+                fontSize: 12,
+                color: "#B5B5B5",
+              }}
+            >
+              {item.location}
+            </Text>
           </View>
           <Card.Rating
             rating={item.rating}
@@ -82,7 +89,6 @@ export const MuseumDetailScreen = ({ route }) => {
           <View
             style={{
               display: "flex",
-              paddingTop: 35, // Hard coded value to align with the bottom of the card, need to change later
             }}
           >
             <View

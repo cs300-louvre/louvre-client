@@ -59,7 +59,9 @@ export default function EventScreen() {
       <Stack.Screen
         name="EventBrowse"
         component={EventBrowseScreen}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+        }}
       />
       <Stack.Screen
         name="EventDetail"
@@ -73,6 +75,7 @@ export default function EventScreen() {
             fontSize: 20,
           },
           title: "Event",
+          detachPreviousScreen: false,
         }}
       />
       <Stack.Screen
@@ -87,6 +90,7 @@ export default function EventScreen() {
             fontSize: 20,
           },
           title: "Event",
+          detachPreviousScreen: false,
         }}
       />
     </Stack.Navigator>

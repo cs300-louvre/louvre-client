@@ -1,5 +1,5 @@
 import {
-  IChatNotificationResponse,
+  IChatPreviewResponse,
   IEOM,
   IEventCoreData,
   IEventGenre,
@@ -25,7 +25,7 @@ import {
   ITicketResponse,
 } from "./types";
 import { faker } from "@faker-js/faker";
-import { EVENT_GENRES, MUSEUM_GENRES } from "./const";
+import { EVENT_GENRES, MUSEUM_GENRES, NOTIFICATION_TYPES } from "./const";
 
 const fakeDateString = () => {
   return `${faker.date.month()} ${faker.datatype.number({
@@ -49,22 +49,37 @@ const fakeMuseumGenre = () => {
   ];
 };
 
+const fakeNotificationType = () => {
+  return NOTIFICATION_TYPES[
+    faker.datatype.number({ min: 0, max: NOTIFICATION_TYPES.length - 1 })
+  ];
+};
+
 const fakeLocation = () => {
   return `${faker.address.buildingNumber()} ${faker.address.street()}, ${faker.address.city()} City, ${faker.address.country()}`;
 };
 
-export const fakeChatNotificationResponse: () => IChatNotificationResponse =
-  () => {
-    return {
-      chatId: faker.datatype.uuid(),
-      content: faker.lorem.sentence(),
-      isSeen: faker.datatype.boolean(),
-      name: faker.name.fullName(),
-      sentAt: fakeDateString(),
-      thumbnailUrl: faker.image.abstract(640, 480, true),
-      userId: faker.datatype.uuid(),
-    };
+export const fakeChatPreviewResponse: () => IChatPreviewResponse = () => {
+  return {
+    chatId: faker.datatype.uuid(),
+    content: faker.lorem.sentence(),
+    isSeen: faker.datatype.boolean(),
+    name: faker.name.fullName(),
+    sentAt: fakeDateString(),
+    thumbnailUrl: faker.image.abstract(640, 480, true),
+    userId: faker.datatype.uuid(),
   };
+};
+
+export const fakeNotificationResponse: () => INotificationResponse = () => {
+  return {
+    content: faker.lorem.sentence(2),
+    name: faker.internet.userName(),
+    notificationId: faker.datatype.uuid(),
+    thumbnailUrl: faker.image.business(40, 480, true),
+    type: fakeNotificationType(),
+  };
+};
 
 export const fakeEventResponse: () => IEventResponse = () => {
   return {
