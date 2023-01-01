@@ -108,12 +108,19 @@ export default function EventTab() {
           </Text>
           {
             <MiniCardCarousel
-              type="event"
               items={browseEvents
                 .map((value) => ({ value, sort: Math.random() }))
                 .sort((a, b) => a.sort - b.sort)
                 .map(({ value }) => value)
                 .slice(0, 9)}
+              handlePressFactory={(item) => () =>
+                navigation.navigate("Event", {
+                  screen: "EventDetail",
+                  params: {
+                    eventId: item.eventId,
+                    navigationRoot: "Event",
+                  },
+                })}
             />
           }
         </View>

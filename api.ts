@@ -131,3 +131,7 @@ export const getFeaturedEvents = () =>
   API.get<IEventResponse[]>("/browse/featured");
 export const getMuseums = () => API.get<IMuseumResponse[]>("/browse/museum"); // Trả về museums[], trong đó đảm bảo mỗi genre có tối đa 3 museums thuộc genre đó
 export const getEvents = () => API.get<IMuseumResponse[]>("/browse/event"); // Tương tự GET /browse/museum
+
+//SEARCH
+export const search = (query: string) =>
+  API.get<(IMuseumResponse | IEventResponse)[]>(`/search?query=${query}`);

@@ -1,13 +1,18 @@
 import { View, Text, ScrollView } from "react-native";
-import { fakeMuseumResponse } from "../../../../mock";
+import { fakeEventResponse, fakeMuseumResponse } from "../../../../mock";
 import { IMuseumResponse } from "../../../../types";
+import EventCard from "../../../elements/EventCard/EventCard";
+import { useNavigation } from "@react-navigation/native";
 
-const museum = fakeMuseumResponse();
+const events = Array.from(Array(5), () => {
+  return fakeEventResponse();
+});
 
 export const MuseumInfoTab: React.FC<{
   item: IMuseumResponse;
   navigationRoot: string;
 }> = ({ item, navigationRoot }) => {
+  const navigation = useNavigation<any>();
   return (
     <View style={{ marginTop: 10 }}>
       <Text
@@ -46,6 +51,34 @@ export const MuseumInfoTab: React.FC<{
       >
         {item.location}
       </Text>
+      {events && events.length && (
+        <>
+          <Text
+            style={{
+              color: "#FFFFFF",
+              fontWeight: "bold",
+              fontFamily: "Roboto_700Bold",
+            }}
+          >
+            Events
+          </Text>
+          {events.map((event) => (
+            <EventCard
+              item={event}
+              key={event.eventId}
+              handlePress={() =>
+                navigation.navigate(navigationRoot, {
+                  screen: "EventDetail",
+                  params: {
+                    eventId: event.eventId,
+                    navigationRoot: navigationRoot,
+                  },
+                })
+              }
+            />
+          ))}
+        </>
+      )}
     </View>
   );
 };

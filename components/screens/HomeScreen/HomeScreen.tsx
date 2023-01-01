@@ -10,8 +10,10 @@ import NotificationScreen from "../NotificationScreen/NotificationScreen";
 import AccountScreen from "../AccountScreen";
 import { BlurView } from "@react-native-community/blur";
 import { StyleSheet, View } from "react-native";
+import { fakeGetMeResponse } from "../../../mock";
 
 const Tab = createBottomTabNavigator();
+const user = fakeGetMeResponse("user");
 
 export default function HomeScreen() {
   return (
@@ -60,22 +62,23 @@ export default function HomeScreen() {
           ),
         }}
       />
-      <Tab.Screen
-        name="Notification"
-        component={NotificationScreen}
-        options={{
-          tabBarLabel: "Notification",
-          tabBarIcon: ({ color, size }) => (
-            <Icon
-              name="notifications"
-              type="material"
-              color={color}
-              size={size}
-            />
-          ),
-        }}
-      />
-      {/* TODO: CHANGE INTO ACCOUNT SCREEN */}
+      {user && (
+        <Tab.Screen
+          name="Notification"
+          component={NotificationScreen}
+          options={{
+            tabBarLabel: "Notification",
+            tabBarIcon: ({ color, size }) => (
+              <Icon
+                name="notifications"
+                type="material"
+                color={color}
+                size={size}
+              />
+            ),
+          }}
+        />
+      )}
       <Tab.Screen
         name="Account"
         component={AccountScreen}

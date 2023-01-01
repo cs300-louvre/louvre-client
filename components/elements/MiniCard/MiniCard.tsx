@@ -5,21 +5,10 @@ import { IEventResponse, IMuseumResponse } from "../../../types";
 
 export const MiniCard: React.FC<{
   item: IMuseumResponse & IEventResponse;
-  type: "event" | "museum";
-}> = ({ item, type }) => {
-  const navigation = useNavigation<any>();
+  handlePress: () => void;
+}> = ({ item, handlePress }) => {
   return (
-    <TouchableOpacity
-      onPress={() => {
-        navigation.navigate(type === "event" ? "Event" : "Museum", {
-          screen: type === "event" ? "EventDetail" : "MuseumDetail",
-          params: {
-            [type === "event" ? "eventId" : "museumId"]:
-              type === "event" ? item.eventId : item.museumId,
-          },
-        });
-      }}
-    >
+    <TouchableOpacity onPress={handlePress}>
       <View style={{ width: 100, marginRight: 10 }}>
         <Image
           style={{ width: 100, height: 100, borderRadius: 5 }}

@@ -26,7 +26,12 @@ import {
   ITicketResponse,
 } from "./types";
 import { faker } from "@faker-js/faker";
-import { EVENT_GENRES, MUSEUM_GENRES, NOTIFICATION_TYPES } from "./const";
+import {
+  EVENT_GENRES,
+  MUSEUM_GENRES,
+  NOTIFICATION_TYPES,
+  TICKET_STATUS,
+} from "./const";
 
 const fakeDateString = () => {
   return `${faker.date.month()} ${faker.datatype.number({
@@ -180,5 +185,30 @@ export const fakeGetMeResponse: (role: IRole) => IGetMeResponse = (role) => {
     name: faker.internet.userName(),
     userId: faker.datatype.uuid(),
     thumbnailUrl: faker.image.avatar(),
+  };
+};
+
+export const fakeTicketStatus = () => {
+  return TICKET_STATUS[
+    faker.datatype.number({ min: 0, max: TICKET_STATUS.length - 1 })
+  ];
+};
+export const fakeTicket: () => ITicketResponse = () => {
+  return {
+    location: fakeLocation(),
+    eomId: faker.datatype.uuid(),
+    name: faker.music.songName(),
+    price: faker.datatype.number({
+      min: 10000,
+      max: 300000,
+      precision: 10000,
+    }),
+    purchasedAt: fakeDateString(),
+    status: fakeTicketStatus(),
+    thumbnailUrl: faker.image.abstract(640, 480, true),
+    ticketId: faker.datatype.uuid(),
+    userId: faker.datatype.uuid(),
+    endTime: fakeDateString(),
+    startTime: fakeDateString(),
   };
 };

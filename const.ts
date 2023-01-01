@@ -1,4 +1,9 @@
-import { IEventGenre, IMuseumGenre, INotificationType } from "./types";
+import {
+  IEventGenre,
+  IMuseumGenre,
+  INotificationType,
+  ITicketStatus,
+} from "./types";
 
 export const EVENT_GENRES: IEventGenre[] = [
   "art",
@@ -25,3 +30,5 @@ export const NOTIFICATION_TYPES: INotificationType[] = [
   "museum",
   "system",
 ];
+
+export const TICKET_STATUS: ITicketStatus[] = ["paid", "used", "wait"];

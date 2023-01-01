@@ -7,8 +7,8 @@ import { MiniCard } from "../MiniCard/MiniCard";
 
 export const MiniCardCarousel: React.FC<{
   items: IMuseumResponse[] | IEventResponse[];
-  type: "event" | "museum";
-}> = ({ items, type }) => {
+  handlePressFactory: (item: any) => () => void;
+}> = ({ items, handlePressFactory }) => {
   const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
 
   return (
@@ -24,7 +24,9 @@ export const MiniCardCarousel: React.FC<{
         style={{ flex: 1 }}
         contentContainerStyle={{ paddingHorizontal: 20 }}
         renderItem={({ item }) => {
-          return <MiniCard item={item} type={type} />;
+          return (
+            <MiniCard item={item} handlePress={handlePressFactory(item)} />
+          );
         }}
         snapToAlignment="center"
         decelerationRate="fast"

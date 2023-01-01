@@ -108,12 +108,19 @@ export default function MuseumTab() {
           </Text>
           {
             <MiniCardCarousel
-              type="museum"
               items={browseMuseums
                 .map((value) => ({ value, sort: Math.random() }))
                 .sort((a, b) => a.sort - b.sort)
                 .map(({ value }) => value)
                 .slice(0, 9)}
+              handlePressFactory={(item) => () =>
+                navigation.navigate("Museum", {
+                  screen: "MuseumDetail",
+                  params: {
+                    museumId: item.museumId,
+                    navigationRoot: "Museum",
+                  },
+                })}
             />
           }
         </View>

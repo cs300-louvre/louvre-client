@@ -4,7 +4,7 @@ import RegisterForm from "./RegisterForm";
 import { useState } from "react";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 
-export default function GuestAccountScreen({ navigation }) {
+export default function GuestAccountScreen() {
   const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
   const [tab, setTab] = useState("login");
   const tabBarHeight = useBottomTabBarHeight();

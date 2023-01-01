@@ -3,7 +3,9 @@ export type ISignInData = {
   password: string;
 };
 
-export type ISignUpData = ISignInData;
+export type ISignUpData = ISignInData & {
+  name: string;
+};
 
 export type ISignInResponse = {
   token: string;
@@ -35,7 +37,7 @@ export type IFollowedEvent = {
   rating: number;
 };
 
-export type ITicketState = "WAIT FOR PAYMENT" | "PAID";
+export type ITicketStatus = "wait" | "paid" | "used";
 export type ITicketResponse = {
   ticketId: string;
   userId: string;
@@ -44,11 +46,10 @@ export type ITicketResponse = {
   thumbnailUrl: string; // Get the thumbnail of the museum or the event that sells this ticket
   name: string;
   price: number;
-  isCheckedIn: boolean;
-  address: string;
+  location: string;
   startTime?: string; // If museum entrance ticket then there is no start or end time
   endTime?: string;
-  state: ITicketState;
+  status: ITicketStatus;
 };
 
 export type IEOM = "event" | "museum";

@@ -102,10 +102,11 @@ export const EventDetailScreen = () => {
                 backgroundColor={"#000000"}
                 color={"#0085FF"}
                 handlePress={() =>
-                  navigation.navigate("Event", {
+                  navigation.navigate(navigationRoot, {
                     screen: "ConversationDetail",
                     params: {
                       userId: item.userId,
+                      navigationRoot: navigationRoot,
                     },
                   })
                 }

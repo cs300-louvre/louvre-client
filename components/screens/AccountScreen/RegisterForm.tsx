@@ -5,7 +5,7 @@ import { Button, Icon } from "@rneui/themed";
 import { useState } from "react";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 
-export default function LoginForm({ setTab }) {
+export default function RegisterForm({ setTab }) {
   const [showPassword, setShowPassword] = useState(false);
   const tabBarHeight = useBottomTabBarHeight();
   const {
@@ -14,6 +14,7 @@ export default function LoginForm({ setTab }) {
     formState: { errors },
   } = useForm({
     defaultValues: {
+      name: "",
       email: "",
       password: "",
     },
@@ -30,6 +31,25 @@ export default function LoginForm({ setTab }) {
           justifyContent: "center",
         }}
       >
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+            pattern:
+              /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <StyledInput
+              label="Name"
+              placeholder="Enter your display name"
+              leftIcon={{ type: "material", name: "person", color: "#0085FF" }}
+              onBlur={onBlur}
+              onChangeText={onChange}
+              value={value}
+            />
+          )}
+          name="name"
+        />
         <Controller
           control={control}
           rules={{
@@ -88,22 +108,11 @@ export default function LoginForm({ setTab }) {
           )}
           name="password"
         />
-        <Text
-          style={{
-            fontFamily: "Roboto_700Bold",
-            color: "#0085FF",
-            marginBottom: 30,
-            alignSelf: "flex-end",
-            marginRight: 10,
-          }}
-        >
-          Forgot password?
-        </Text>
         <Button
           onPress={() => {}}
           containerStyle={styles.buttonContainer}
           buttonStyle={{ backgroundColor: "#0085FF" }}
-          title={"Login"}
+          title={"Sign up"}
           titleStyle={{
             fontFamily: "Roboto_700Bold",
           }}
@@ -114,7 +123,6 @@ export default function LoginForm({ setTab }) {
           width: "85%",
           position: "absolute",
           bottom: tabBarHeight + 60,
-          color: "#FFFFFF",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -148,15 +156,10 @@ export default function LoginForm({ setTab }) {
           />
         </View>
         <Button
-          TouchableComponent={({ children, ...props }) => (
-            <TouchableHighlight {...props} underlayColor="#FFFFFF">
-              {children}
-            </TouchableHighlight>
-          )}
-          onPress={() => setTab("register")}
+          onPress={() => setTab("login")}
           containerStyle={styles.buttonContainer}
           buttonStyle={{ backgroundColor: "#FFFFFF" }}
-          title={"Create new account"}
+          title={"Login"}
           titleStyle={{
             color: "#0085FF",
             fontFamily: "Roboto_500Medium",

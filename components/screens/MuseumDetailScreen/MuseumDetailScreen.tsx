@@ -107,10 +107,11 @@ export const MuseumDetailScreen = ({ route }) => {
                 backgroundColor={"#000000"}
                 color={"#0085FF"}
                 handlePress={() =>
-                  navigation.navigate("Museum", {
+                  navigation.navigate(navigationRoot, {
                     screen: "ConversationDetail",
                     params: {
                       userId: item.userId,
+                      navigationRoot: navigationRoot,
                     },
                   })
                 }
