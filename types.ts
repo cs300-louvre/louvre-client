@@ -17,6 +17,7 @@ export type IGetMeResponse = {
   userId: string;
   email: string;
   name: string;
+  thumbnailUrl: string;
   role: IRole;
 };
 

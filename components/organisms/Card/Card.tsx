@@ -36,10 +36,10 @@ Card.Body = ({ children }) => {
   );
 };
 
-Card.Name = ({ children, containerStyle = {} }) => {
+Card.Name = ({ children, containerStyle = {}, numberOfLine = 1 }) => {
   return (
     <Text
-      numberOfLines={1}
+      numberOfLines={numberOfLine}
       style={{
         fontFamily: "Roboto_700Bold",
         fontSize: 16,

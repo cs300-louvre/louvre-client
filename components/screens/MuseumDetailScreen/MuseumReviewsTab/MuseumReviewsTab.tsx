@@ -8,6 +8,7 @@ import {
   IRatingResponse,
 } from "../../../../types";
 import MuseumCard from "../../../elements/MuseumCard/MuseumCard";
+import RatingBox from "../../../elements/RatingBox/RatingBox";
 import Card from "../../../organisms/Card/Card";
 
 const ratings: IRatingResponse[] = Array.from(Array(3), () => {
@@ -84,6 +85,7 @@ export const MuseumReviewsTab: React.FC<{ museumId: string }> = ({
   };
   return (
     <View style={{ marginTop: 10 }}>
+      <RatingBox eomId={museumId} />
       {ratings.map((rating) => (
         <Post item={rating} key={rating.ratingId} />
       ))}

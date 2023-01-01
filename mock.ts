@@ -17,6 +17,7 @@ import {
   IPostResponse,
   IRatingCoreData,
   IRatingResponse,
+  IRole,
   ISignInData,
   ISignInResponse,
   ISignUpData,
@@ -50,14 +51,6 @@ const fakeMuseumGenre = () => {
 
 const fakeLocation = () => {
   return `${faker.address.buildingNumber()} ${faker.address.street()}, ${faker.address.city()} City, ${faker.address.country()}`;
-};
-
-export const fakeGetMeResponse: () => IGetMeResponse = () => {
-  return {
-    userId: faker.datatype.string(),
-    email: faker.internet.email(),
-    name: faker.internet.userName(),
-  };
 };
 
 export const fakeChatNotificationResponse: () => IChatNotificationResponse =
@@ -146,5 +139,15 @@ export const fakeRating: () => IRatingResponse = () => {
     userName: faker.internet.userName(),
     ratingId: faker.datatype.uuid(),
     createdAt: fakeDateString(),
+  };
+};
+
+export const fakeGetMeResponse: (role: IRole) => IGetMeResponse = (role) => {
+  return {
+    role,
+    email: faker.internet.email(),
+    name: faker.internet.userName(),
+    userId: faker.datatype.uuid(),
+    thumbnailUrl: faker.image.avatar(),
   };
 };

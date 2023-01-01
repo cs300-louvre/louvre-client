@@ -1,12 +1,16 @@
 import "react-native-gesture-handler";
-import { useFonts, Roboto_400Regular, Roboto_500Medium, Roboto_700Bold } from "@expo-google-fonts/roboto";
+import {
+  useFonts,
+  Roboto_400Regular,
+  Roboto_500Medium,
+  Roboto_700Bold,
+} from "@expo-google-fonts/roboto";
 import { Fraunces_400Regular } from "@expo-google-fonts/fraunces";
 import { NavigationContainer } from "@react-navigation/native";
 import Router from "./Router";
 import { useState, useEffect, useCallback } from "react";
 import * as SplashScreen from "expo-splash-screen";
 import { QuickStartProvider } from "./contexts/quickStartContext";
-
 
 SplashScreen.preventAutoHideAsync();
 

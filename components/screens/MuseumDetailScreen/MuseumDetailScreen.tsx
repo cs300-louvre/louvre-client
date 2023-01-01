@@ -17,6 +17,8 @@ const item = fakeMuseumResponse();
 
 export const MuseumDetailScreen = ({ route }) => {
   const [tab, setTab] = useState<number>(0);
+  const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
+
   const tabNavigationObjects = [
     { label: "Info", onPress: () => setTab(0) },
     { label: "Updates", onPress: () => setTab(1) },
@@ -45,12 +47,12 @@ export const MuseumDetailScreen = ({ route }) => {
             style={{
               display: "flex",
               flexDirection: "row",
-              width: "58%", // Hard coded value
+              width: windowWidth - 200, // Hard coded value
               justifyContent: "space-between",
             }}
           >
             <View>
-              <Card.Name containerStyle={{ width: "80%" }}>
+              <Card.Name containerStyle={{ width: "60%" }}>
                 {item.name}
               </Card.Name>
               <Text
@@ -61,10 +63,15 @@ export const MuseumDetailScreen = ({ route }) => {
                   color: "#B5B5B5",
                 }}
               >
-                by {item.location}
+                {item.location}
               </Text>
             </View>
-            <Icon name="heart" type="ionicon" color="#B5B5B5" size={30} />
+            <Icon
+              name="heart"
+              type="ionicon"
+              color={item.isFollowedByUser ? "#FF3333" : "#B5B5B5"}
+              size={30}
+            />
           </View>
           <Card.Rating
             rating={item.rating}

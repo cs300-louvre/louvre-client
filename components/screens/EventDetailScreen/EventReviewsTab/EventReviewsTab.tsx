@@ -1,23 +1,31 @@
 import { AirbnbRating } from "@rneui/themed";
 import { Dimensions } from "react-native";
 import { View, Text, Image } from "react-native";
-import { fakeMuseumResponse, fakePost, fakeRating } from "../../../../mock";
+import {
+  fakeGetMeResponse,
+  fakeMuseumResponse,
+  fakePost,
+  fakeRating,
+} from "../../../../mock";
 import {
   IEventResponse,
+  IGetMeResponse,
   IPostResponse,
   IRatingResponse,
 } from "../../../../types";
 import MuseumCard from "../../../elements/MuseumCard/MuseumCard";
+import RatingBox from "../../../elements/RatingBox/RatingBox";
 import Card from "../../../organisms/Card/Card";
 
 const ratings: IRatingResponse[] = Array.from(Array(3), () => {
   return fakeRating();
 });
+const me: IGetMeResponse = fakeGetMeResponse("user");
 
 export const EventReviewsTab: React.FC<{ eventId: string }> = ({ eventId }) => {
   const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
 
-  const Post: React.FC<{ item: IRatingResponse }> = ({ item }) => {
+  const Rating: React.FC<{ item: IRatingResponse }> = ({ item }) => {
     return (
       <View style={{ marginBottom: 30, flexDirection: "row" }}>
         <Image
@@ -82,8 +90,9 @@ export const EventReviewsTab: React.FC<{ eventId: string }> = ({ eventId }) => {
   };
   return (
     <View style={{ marginTop: 10 }}>
+      <RatingBox eomId={eventId} />
       {ratings.map((rating) => (
-        <Post item={rating} key={rating.ratingId} />
+        <Rating item={rating} key={rating.ratingId} />
       ))}
     </View>
   );
