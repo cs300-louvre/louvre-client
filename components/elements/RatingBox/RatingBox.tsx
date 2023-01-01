@@ -11,7 +11,7 @@ const me: IGetMeResponse = fakeGetMeResponse("user");
 
 export const RatingBox: React.FC<{ eomId: string }> = ({ eomId }) => {
   const [rating, setRating] = useState<Partial<IRatingCoreData>>({
-    museumId: eomId,
+    eomId: eomId,
     rating: null,
     content: "",
   });

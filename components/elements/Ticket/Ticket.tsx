@@ -38,10 +38,10 @@ export const Ticket: React.FC<{
               <Icon
                 name="ticket"
                 type="entypo"
-                color="#00BB00"
+                color="#00FFA3"
                 style={{ marginRight: 5 }}
               />
-              <Text style={{ color: "#00BB00", fontWeight: "bold" }}>
+              <Text style={{ color: "#00FFA3", fontWeight: "bold" }}>
                 Purchased
               </Text>
             </>

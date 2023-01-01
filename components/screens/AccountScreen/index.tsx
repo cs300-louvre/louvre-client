@@ -2,6 +2,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { fakeGetMeResponse } from "../../../mock";
 import EventDetailScreen from "../EventDetailScreen/EventDetailScreen";
 import MuseumDetailScreen from "../MuseumDetailScreen/MuseumDetailScreen";
+import TicketDetailScreen from "../TicketDetailScreen/TicketDetailScreen";
 import FollowingTab from "./FollowingTab/FollowingTab";
 import GuestAccountScreen from "./GuestAccountScreen";
 import LoggedInAccountScreen from "./LoggedInAccountScreen";
@@ -104,6 +105,21 @@ export default function AccountScreen() {
         <Stack.Screen
           name="PurchasedTab"
           component={PurchasedTab}
+          options={{
+            headerStyle: {
+              backgroundColor: "#141414",
+            },
+            headerTintColor: "#0085FF",
+            headerTitleStyle: {
+              fontSize: 20,
+            },
+            title: "Account",
+            detachPreviousScreen: false,
+          }}
+        />
+        <Stack.Screen
+          name="TicketDetail"
+          component={TicketDetailScreen}
           options={{
             headerStyle: {
               backgroundColor: "#141414",

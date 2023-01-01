@@ -29,6 +29,7 @@ export const MuseumDetailScreen = ({ route }) => {
     { label: "Reviews", onPress: () => setTab(2) },
   ];
   const { eventId, navigationRoot } = route.params;
+  const ticketId = "aji8y93218";
   return (
     <ScrollView
       contentContainerStyle={{
@@ -116,7 +117,18 @@ export const MuseumDetailScreen = ({ route }) => {
                   })
                 }
               />
-              <CustomizedButton title={`${formatNumber(item.ticketPrice)}đ`} />
+              <CustomizedButton
+                title={`${formatNumber(item.ticketPrice)}đ`}
+                handlePress={() =>
+                  navigation.navigate(navigationRoot, {
+                    screen: "TicketDetail",
+                    params: {
+                      ticketId: ticketId,
+                      navigationRoot: navigationRoot,
+                    },
+                  })
+                }
+              />
             </View>
             <View
               style={{

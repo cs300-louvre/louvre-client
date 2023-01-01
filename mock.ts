@@ -168,7 +168,7 @@ export const fakePost: () => IPostResponse = () => {
 export const fakeRating: () => IRatingResponse = () => {
   return {
     content: faker.lorem.sentences(3),
-    museumId: faker.datatype.uuid(),
+    eomId: faker.datatype.uuid(),
     rating: faker.datatype.number({ precision: 0.1, min: 1, max: 5 }),
     thumbnailUrl: faker.internet.avatar(),
     userId: faker.datatype.uuid(),
@@ -196,7 +196,8 @@ export const fakeTicketStatus = () => {
 export const fakeTicket: () => ITicketResponse = () => {
   return {
     location: fakeLocation(),
-    eomId: faker.datatype.uuid(),
+    museumId: faker.datatype.uuid(),
+    eventId: faker.datatype.uuid(),
     name: faker.music.songName(),
     price: faker.datatype.number({
       min: 10000,
@@ -210,5 +211,7 @@ export const fakeTicket: () => ITicketResponse = () => {
     userId: faker.datatype.uuid(),
     endTime: fakeDateString(),
     startTime: fakeDateString(),
+    qrCodeUrl:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/QR_deWP.svg/1200px-QR_deWP.svg.png",
   };
 };
