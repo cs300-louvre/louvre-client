@@ -1,4 +1,4 @@
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { View, Text, ScrollView } from "react-native";
 import { fakeMuseumResponse } from "../../../../mock";
 import { IEventResponse } from "../../../../types";

@@ -12,12 +12,14 @@ import { formatNumber } from "../../../utils";
 import { fakeEventResponse } from "../../../mock";
 import { ScrollView } from "react-native-gesture-handler";
 import TabNavigator from "../../elements/TabNavigator/TabNavigator";
+import { useRoute } from "@react-navigation/native";
 
 const item = fakeEventResponse();
 
-export const EventDetailScreen = ({ route }) => {
+export const EventDetailScreen = () => {
   const [tab, setTab] = useState<number>(0);
   const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
+  const route = useRoute<any>();
 
   const tabNavigationObjects = [
     { label: "Info", onPress: () => setTab(0) },

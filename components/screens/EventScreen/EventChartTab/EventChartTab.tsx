@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { View, Text, ScrollView } from "react-native";
 import { EVENT_GENRES } from "../../../../const";
@@ -13,6 +14,7 @@ const eventChart: IEventResponse[] = Array.from(Array(30), () => {
 });
 
 export default function EventChartTab() {
+  const navigation = useNavigation<any>();
   return (
     <ScrollView
       style={{ paddingTop: 60 }}
@@ -29,7 +31,19 @@ export default function EventChartTab() {
             HOT EVENTS
           </Text>
           {eventChart.map((event) => (
-            <EventCard key={event.eventId} item={event} />
+            <EventCard
+              key={event.eventId}
+              item={event}
+              handlePress={() =>
+                navigation.navigate("Event", {
+                  screen: "EventDetail",
+                  params: {
+                    eventId: event.eventId,
+                    navigationRoot: "Event",
+                  },
+                })
+              }
+            />
           ))}
         </View>
       }

@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { View, Text, ScrollView } from "react-native";
 import { fakeMuseumResponse } from "../../../../mock";
@@ -10,6 +11,7 @@ const museumChart: IMuseumResponse[] = Array.from(Array(30), () => {
 });
 
 export default function EventChartTab() {
+  const navigation = useNavigation<any>();
   return (
     <ScrollView
       style={{ paddingTop: 60 }}
@@ -26,7 +28,19 @@ export default function EventChartTab() {
             HOT MUSEUMS
           </Text>
           {museumChart.map((museum) => (
-            <MuseumCard key={museum.museumId} item={museum} />
+            <MuseumCard
+              key={museum.museumId}
+              item={museum}
+              handlePress={() =>
+                navigation.navigate("Museum", {
+                  screen: "MuseumDetail",
+                  params: {
+                    museumId: museum.museumId,
+                    navigationRoot: "Museum",
+                  },
+                })
+              }
+            />
           ))}
         </View>
       }
