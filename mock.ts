@@ -1,5 +1,5 @@
 import {
-  IChatPreviewResponse,
+  IConversationPreviewResponse,
   IEOM,
   IEventCoreData,
   IEventGenre,
@@ -13,6 +13,7 @@ import {
   IMuseumGenre,
   IMuseumResponse,
   INotificationResponse,
+  INotificationType,
   IPostCoreData,
   IPostResponse,
   IRatingCoreData,
@@ -59,25 +60,30 @@ const fakeLocation = () => {
   return `${faker.address.buildingNumber()} ${faker.address.street()}, ${faker.address.city()} City, ${faker.address.country()}`;
 };
 
-export const fakeChatPreviewResponse: () => IChatPreviewResponse = () => {
-  return {
-    chatId: faker.datatype.uuid(),
-    content: faker.lorem.sentence(),
-    isSeen: faker.datatype.boolean(),
-    name: faker.name.fullName(),
-    sentAt: fakeDateString(),
-    thumbnailUrl: faker.image.abstract(640, 480, true),
-    userId: faker.datatype.uuid(),
+export const fakeChatPreviewResponse: () => IConversationPreviewResponse =
+  () => {
+    return {
+      conversationId: faker.datatype.uuid(),
+      content: faker.lorem.sentence(),
+      isSeen: faker.datatype.boolean(),
+      name: faker.name.fullName(),
+      sentAt: fakeDateString(),
+      thumbnailUrl: faker.image.abstract(640, 480, true),
+      userId: faker.datatype.uuid(),
+    };
   };
-};
 
-export const fakeNotificationResponse: () => INotificationResponse = () => {
+export const fakeNotificationResponse: (
+  type?: INotificationType
+) => INotificationResponse = (type) => {
   return {
-    content: faker.lorem.sentence(2),
+    content: faker.lorem.sentence(9),
     name: faker.internet.userName(),
     notificationId: faker.datatype.uuid(),
     thumbnailUrl: faker.image.business(40, 480, true),
-    type: fakeNotificationType(),
+    type: type ? type : fakeNotificationType(),
+    isSeen: faker.datatype.boolean(),
+    sourceId: faker.datatype.uuid(),
   };
 };
 

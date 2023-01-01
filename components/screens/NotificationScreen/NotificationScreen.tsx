@@ -3,12 +3,14 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import TopTabNavigator from "../../elements/TabNavigator/TopTabNavigator";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import NotificationTab from "./NotificationTab/NotificationTab";
+import { createStackNavigator } from "@react-navigation/stack";
+import MuseumDetailScreen from "../MuseumDetailScreen/MuseumDetailScreen";
+import EventDetailScreen from "../EventDetailScreen/EventDetailScreen";
 
 const Tab = createMaterialTopTabNavigator();
+const Stack = createStackNavigator();
 
-export default function NotificationScreen() {
-  const tabBarHeight = useBottomTabBarHeight();
-
+export const NotificationBrowseScreen = () => {
   return (
     <Tab.Navigator
       tabBar={(props) => <TopTabNavigator {...props} />}
@@ -26,25 +28,71 @@ export default function NotificationScreen() {
       }}
     >
       <Tab.Screen
-        name="Message"
-        component={NotificationTab}
+        name="MessageNotification"
         options={{ tabBarLabel: "Message" }}
-      />
-      <Tab.Screen
-        name="Event"
-        component={NotificationTab}
-        options={{ tabBarLabel: "Event" }}
-      />
-      <Tab.Screen
-        name="Museum"
-        component={NotificationTab}
-        options={{ tabBarLabel: "Museum" }}
-      />
-      <Tab.Screen
-        name="System"
-        component={NotificationTab}
-        options={{ tabBarLabel: "System" }}
-      />
+      >
+        {() => <NotificationTab type="message" />}
+      </Tab.Screen>
+      <Tab.Screen name="EventNotification" options={{ tabBarLabel: "Event" }}>
+        {() => <NotificationTab type="event" />}
+      </Tab.Screen>
+      <Tab.Screen name="MuseumNotification" options={{ tabBarLabel: "Museum" }}>
+        {() => <NotificationTab type="museum" />}
+      </Tab.Screen>
+      <Tab.Screen name="System" options={{ tabBarLabel: "System" }}>
+        {() => <NotificationTab type="system" />}
+      </Tab.Screen>
     </Tab.Navigator>
   );
-}
+};
+
+export const NotificationScreen = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        animationEnabled: false,
+        cardStyle: {
+          backgroundColor: "#000000",
+        },
+      }}
+    >
+      <Stack.Screen
+        name="NotificationBrowse"
+        component={NotificationBrowseScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="MuseumDetail"
+        component={MuseumDetailScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: "#141414",
+          },
+          headerTintColor: "#0085FF",
+          headerTitleStyle: {
+            fontSize: 20,
+          },
+          title: "Notification",
+          detachPreviousScreen: false,
+        }}
+      />
+      <Stack.Screen
+        name="EventDetail"
+        component={EventDetailScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: "#141414",
+          },
+          headerTintColor: "#0085FF",
+          headerTitleStyle: {
+            fontSize: 20,
+          },
+          title: "Notification",
+          detachPreviousScreen: false,
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+export default NotificationScreen;

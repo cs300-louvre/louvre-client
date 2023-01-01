@@ -77,10 +77,14 @@ export type INotificationResponse = {
   content: string;
   notificationId: string;
   type: INotificationType;
+  isSeen: boolean;
+  sourceId: string;
+  // if type === museum, then sourceId would be a museumId, similarly for type === "event";
+  // if type === "message" then sourceId would be the conversationId; if type === "system", then this could be null
 };
 
-export type IChatPreviewResponse = {
-  chatId: string;
+export type IConversationPreviewResponse = {
+  conversationId: string;
   name: string; // GET THE NAME OF THE OTHER USER WHO IS IN THE CONVERSATION
   content: string; // GET THE LATEST TEXT OF THE CONVERSATION WHETHER IT IS FROM THE CURRENT USER OF THE OTHER ONE
   userId: string; // GET THE USER ID OF THE ONE WHO SEND THE LATEST MESSAGE
