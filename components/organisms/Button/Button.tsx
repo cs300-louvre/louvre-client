@@ -1,4 +1,5 @@
 import { Button } from "@rneui/themed";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export const CustomizedButton: React.FC<{
   title: string;
@@ -12,24 +13,25 @@ export const CustomizedButton: React.FC<{
   handlePress = () => {},
 }) => {
   return (
-    <Button
-      title={title}
-      buttonStyle={{
-        borderStyle: "solid",
-        borderWidth: 1,
-        borderColor: "#0085FF",
-        borderRadius: 30,
-        backgroundColor: backgroundColor,
-        width: 96,
-        paddingVertical: 3,
-      }}
-      titleStyle={{
-        fontFamily: "Roboto_500Medium",
-        fontSize: 14,
-        color: color,
-      }}
-      onPress={handlePress}
-    />
+    <TouchableOpacity onPress={handlePress}>
+      <Button
+        title={title}
+        buttonStyle={{
+          borderStyle: "solid",
+          borderWidth: 1,
+          borderColor: "#0085FF",
+          borderRadius: 30,
+          backgroundColor: backgroundColor,
+          width: 96,
+          paddingVertical: 3,
+        }}
+        titleStyle={{
+          fontFamily: "Roboto_500Medium",
+          fontSize: 14,
+          color: color,
+        }}
+      />
+    </TouchableOpacity>
   );
 };
 

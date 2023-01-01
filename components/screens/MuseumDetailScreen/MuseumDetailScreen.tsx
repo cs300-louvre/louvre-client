@@ -12,6 +12,7 @@ import TabNavigator from "../../elements/TabNavigator/TabNavigator";
 import MuseumInfoTab from "./MuseumInfoTab/MuseumInfoTab";
 import MuseumUpdatesTab from "./MuseumUpdatesTab/MuseumUpdatesTab";
 import MuseumReviewsTab from "./MuseumReviewsTab/MuseumReviewsTab";
+import { NavigationContainerRefContext } from "@react-navigation/native";
 
 const item = fakeMuseumResponse();
 
@@ -24,7 +25,7 @@ export const MuseumDetailScreen = ({ route }) => {
     { label: "Updates", onPress: () => setTab(1) },
     { label: "Reviews", onPress: () => setTab(2) },
   ];
-  const { eventId } = route.params;
+  const { eventId, navigationRoot } = route.params;
   return (
     <ScrollView
       contentContainerStyle={{
@@ -141,7 +142,9 @@ export const MuseumDetailScreen = ({ route }) => {
           containerStyle={{ marginTop: 20 }}
         />
       </View>
-      {tab === 0 ? <MuseumInfoTab item={item} /> : null}
+      {tab === 0 ? (
+        <MuseumInfoTab item={item} navigationRoot={navigationRoot} />
+      ) : null}
       {tab === 1 ? <MuseumUpdatesTab museumId={eventId} /> : null}
       {tab === 2 ? <MuseumReviewsTab museumId={eventId} /> : null}
     </ScrollView>

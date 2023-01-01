@@ -5,6 +5,7 @@ import EventChartTab from "./EventChartTab/EventChartTab";
 import TopTabNavigator from "../../elements/TabNavigator/TopTabNavigator";
 import EventDetailScreen from "../EventDetailScreen/EventDetailScreen";
 import { createStackNavigator } from "@react-navigation/stack";
+import MuseumDetailScreen from "../MuseumDetailScreen/MuseumDetailScreen";
 
 const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
@@ -63,6 +64,20 @@ export default function EventScreen() {
       <Stack.Screen
         name="EventDetail"
         component={EventDetailScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: "#141414",
+          },
+          headerTintColor: "#0085FF",
+          headerTitleStyle: {
+            fontSize: 20,
+          },
+          title: "Event",
+        }}
+      />
+      <Stack.Screen
+        name="MuseumDetail"
+        component={MuseumDetailScreen}
         options={{
           headerStyle: {
             backgroundColor: "#141414",

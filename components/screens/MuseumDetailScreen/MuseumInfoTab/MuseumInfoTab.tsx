@@ -4,9 +4,10 @@ import { IMuseumResponse } from "../../../../types";
 
 const museum = fakeMuseumResponse();
 
-export const MuseumInfoTab: React.FC<{ item: IMuseumResponse }> = ({
-  item,
-}) => {
+export const MuseumInfoTab: React.FC<{
+  item: IMuseumResponse;
+  navigationRoot: string;
+}> = ({ item, navigationRoot }) => {
   return (
     <View style={{ marginTop: 10 }}>
       <Text

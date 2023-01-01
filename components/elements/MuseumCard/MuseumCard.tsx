@@ -4,9 +4,11 @@ import Card from "../../organisms/Card/Card";
 import { IMuseumResponse } from "../../../types";
 import { useNavigation } from "@react-navigation/native";
 
-export const MuseumCard: React.FC<{ item: IMuseumResponse }> = ({ item }) => {
+export const MuseumCard: React.FC<{
+  item: IMuseumResponse;
+  handlePress: () => any;
+}> = ({ item, handlePress }) => {
   const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
-  const navigation = useNavigation<any>();
   return (
     <TouchableOpacity
       style={{
@@ -14,14 +16,7 @@ export const MuseumCard: React.FC<{ item: IMuseumResponse }> = ({ item }) => {
         paddingVertical: 10,
         overflow: "hidden",
       }}
-      onPress={() =>
-        navigation.navigate("Museum", {
-          screen: "MuseumDetail",
-          params: {
-            museumId: item.museumId,
-          },
-        })
-      }
+      onPress={handlePress}
     >
       <View
         style={{

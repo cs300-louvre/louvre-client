@@ -5,7 +5,10 @@ import { IEventResponse } from "../../../types";
 import { formatNumber } from "../../../utils";
 import { memo } from "react";
 
-export const EventCard: React.FC<{ item: IEventResponse }> = ({ item }) => {
+export const EventCard: React.FC<{
+  item: IEventResponse;
+  handlePress: () => void;
+}> = ({ item, handlePress }) => {
   const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
   const navigation = useNavigation<any>();
   return (
@@ -15,14 +18,7 @@ export const EventCard: React.FC<{ item: IEventResponse }> = ({ item }) => {
         paddingVertical: 10,
         overflow: "hidden",
       }}
-      onPress={() =>
-        navigation.navigate("Event", {
-          screen: "EventDetail",
-          params: {
-            eventId: item.eventId,
-          },
-        })
-      }
+      onPress={handlePress}
     >
       <Card>
         <Card.Image

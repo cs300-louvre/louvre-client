@@ -24,7 +24,7 @@ export const EventDetailScreen = ({ route }) => {
     { label: "Updates", onPress: () => setTab(1) },
     { label: "Reviews", onPress: () => setTab(2) },
   ];
-  const { eventId } = route.params;
+  const { eventId, navigationRoot } = route.params;
   return (
     <ScrollView
       contentContainerStyle={{
@@ -141,7 +141,9 @@ export const EventDetailScreen = ({ route }) => {
           containerStyle={{ marginTop: 20 }}
         />
       </View>
-      {tab === 0 ? <EventInfoTab item={item} /> : null}
+      {tab === 0 ? (
+        <EventInfoTab item={item} navigationRoot={navigationRoot} />
+      ) : null}
       {tab === 1 ? <EventUpdatesTab eventId={eventId} /> : null}
       {tab === 2 ? <EventReviewsTab eventId={eventId} /> : null}
     </ScrollView>

@@ -4,22 +4,15 @@ import { View, FlatList, Image, Text, Dimensions } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { IEventResponse } from "../../../types";
 
-export const Carousel: React.FC<{ items: IEventResponse[] }> = ({ items }) => {
+export const Carousel: React.FC<{
+  items: IEventResponse[];
+  handlePressFactory: (itemId: string) => () => void;
+}> = ({ items, handlePressFactory }) => {
   const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
 
   const Slide: React.FC<{ item: IEventResponse }> = memo(({ item }) => {
-    const navigation = useNavigation<any>();
     return (
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate("Event", {
-            screen: "EventDetail",
-            params: {
-              eventId: item.eventId,
-            },
-          });
-        }}
-      >
+      <TouchableOpacity onPress={handlePressFactory(item.eventId)}>
         <View
           style={{
             width: 0.7 * windowWidth,

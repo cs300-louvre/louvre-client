@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { View, Text, ScrollView } from "react-native";
 import { EVENT_GENRES } from "../../../../const";
@@ -26,7 +27,8 @@ const bannerTexts = [
   "Book tickets\nin a second",
 ];
 
-export default function EventTab() {
+export default function MuseumTab() {
+  const navigation = useNavigation<any>();
   const museumGenres: IEventGenre[] = browseMuseums
     .reduce(
       (prev, val) =>
@@ -47,12 +49,23 @@ export default function EventTab() {
     .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
     .slice(0, 3);
 
+  const handlePressFactory = (itemId) => () =>
+    navigation.navigate("Museum", {
+      screen: "EventDetail",
+      params: {
+        eventId: itemId,
+        navigationRoot: "Museum",
+      },
+    });
   return (
     <ScrollView
       style={{ paddingTop: 60 }}
       contentContainerStyle={{ paddingBottom: 120 }}
     >
-      <Carousel items={featuredEvents} />
+      <Carousel
+        items={featuredEvents}
+        handlePressFactory={handlePressFactory}
+      />
       {
         <View style={{ paddingHorizontal: 20, paddingVertical: 10 }}>
           <Text
@@ -64,7 +77,19 @@ export default function EventTab() {
             NEW MUSEUMS
           </Text>
           {newMuseums.map((museum) => (
-            <MuseumCard key={museum.museumId} item={museum} />
+            <MuseumCard
+              key={museum.museumId}
+              item={museum}
+              handlePress={() =>
+                navigation.navigate("Museum", {
+                  screen: "MuseumDetail",
+                  params: {
+                    museumId: museum.museumId,
+                    navigationRoot: "Museum",
+                  },
+                })
+              }
+            />
           ))}
         </View>
       }
@@ -110,7 +135,19 @@ export default function EventTab() {
             {browseMuseums
               .filter((museum) => museum.genre === genre)
               .map((museum) => (
-                <MuseumCard key={museum.museumId} item={museum} />
+                <MuseumCard
+                  key={museum.museumId}
+                  item={museum}
+                  handlePress={() =>
+                    navigation.navigate("Museum", {
+                      screen: "MuseumDetail",
+                      params: {
+                        museumId: museum.museumId,
+                        navigationRoot: "Museum",
+                      },
+                    })
+                  }
+                />
               ))}
           </View>
         );

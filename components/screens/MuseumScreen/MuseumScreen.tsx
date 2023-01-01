@@ -6,6 +6,7 @@ import MuseumChartTab from "./MuseumChartTab/MuseumChartTab";
 import TopTabNavigator from "../../elements/TabNavigator/TopTabNavigator";
 import { createStackNavigator } from "@react-navigation/stack";
 import MuseumDetailScreen from "../MuseumDetailScreen/MuseumDetailScreen";
+import EventDetailScreen from "../EventDetailScreen/EventDetailScreen";
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
@@ -64,6 +65,20 @@ export default function MuseumScreen() {
       <Stack.Screen
         name="MuseumDetail"
         component={MuseumDetailScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: "#141414",
+          },
+          headerTintColor: "#0085FF",
+          headerTitleStyle: {
+            fontSize: 20,
+          },
+          title: "Museum",
+        }}
+      />
+      <Stack.Screen
+        name="EventDetail"
+        component={EventDetailScreen}
         options={{
           headerStyle: {
             backgroundColor: "#141414",

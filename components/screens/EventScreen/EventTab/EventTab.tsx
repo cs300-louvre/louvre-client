@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { View, Text, ScrollView } from "react-native";
 import { EVENT_GENRES } from "../../../../const";
@@ -23,6 +24,7 @@ const bannerTexts = [
 ];
 
 export default function EventTab() {
+  const navigation = useNavigation<any>();
   const eventGenres: IEventGenre[] = browseEvents
     .reduce(
       (prev, val) =>
@@ -43,12 +45,27 @@ export default function EventTab() {
     .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
     .slice(0, 3);
 
+  const handlePressFactory = (itemId: string) => {
+    return () => {
+      navigation.navigate("Event", {
+        screen: "EventDetail",
+        params: {
+          eventId: itemId,
+          navigationRoot: "Event",
+        },
+      });
+    };
+  };
+
   return (
     <ScrollView
       style={{ paddingTop: 60 }}
       contentContainerStyle={{ paddingBottom: 120 }}
     >
-      <Carousel items={featuredEvents} />
+      <Carousel
+        items={featuredEvents}
+        handlePressFactory={handlePressFactory}
+      />
       {
         <View style={{ paddingHorizontal: 20, paddingVertical: 10 }}>
           <Text
@@ -60,7 +77,19 @@ export default function EventTab() {
             NEW EVENTS
           </Text>
           {newEvents.map((event) => (
-            <EventCard key={event.eventId} item={event} />
+            <EventCard
+              key={event.eventId}
+              item={event}
+              handlePress={() =>
+                navigation.navigate("Event", {
+                  screen: "EventDetail",
+                  params: {
+                    eventId: event.eventId,
+                    navigationRoot: "Event",
+                  },
+                })
+              }
+            />
           ))}
         </View>
       }
@@ -106,7 +135,19 @@ export default function EventTab() {
             {browseEvents
               .filter((event) => event.genre === genre)
               .map((event) => (
-                <EventCard key={event.eventId} item={event} />
+                <EventCard
+                  key={event.eventId}
+                  item={event}
+                  handlePress={() =>
+                    navigation.navigate("Event", {
+                      screen: "EventDetail",
+                      params: {
+                        eventId: event.eventId,
+                        navigationRoot: "Event",
+                      },
+                    })
+                  }
+                />
               ))}
           </View>
         );
