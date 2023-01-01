@@ -36,7 +36,7 @@ export const NotificationTab: React.FC<{ type: INotificationType }> = ({
         navigation.navigate("Notification", {
           screen: "ConversationDetail",
           params: {
-            eventId: notification.sourceId,
+            userId: notification.sourceId,
             navigationRoot: "Notification",
           },
         });
@@ -46,16 +46,6 @@ export const NotificationTab: React.FC<{ type: INotificationType }> = ({
       style={{ paddingTop: 60 }}
       contentContainerStyle={{ paddingBottom: 120, paddingHorizontal: 10 }}
     >
-      <Text
-        style={{
-          fontFamily: "Roboto_400Regular",
-          fontSize: 18,
-          color: "#0085FF",
-          marginLeft: "auto",
-        }}
-      >
-        Mark as Read
-      </Text>
       {notifications.map((notification) => (
         <NotificationCard
           key={notification.notificationId}

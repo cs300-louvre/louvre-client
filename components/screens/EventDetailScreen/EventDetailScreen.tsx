@@ -12,7 +12,7 @@ import { formatNumber } from "../../../utils";
 import { fakeEventResponse } from "../../../mock";
 import { ScrollView } from "react-native-gesture-handler";
 import TabNavigator from "../../elements/TabNavigator/TabNavigator";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 const item = fakeEventResponse();
 
@@ -20,6 +20,7 @@ export const EventDetailScreen = () => {
   const [tab, setTab] = useState<number>(0);
   const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
   const route = useRoute<any>();
+  const navigation = useNavigation<any>();
 
   const tabNavigationObjects = [
     { label: "Info", onPress: () => setTab(0) },
@@ -100,6 +101,14 @@ export const EventDetailScreen = () => {
                 title={"Message"}
                 backgroundColor={"#000000"}
                 color={"#0085FF"}
+                handlePress={() =>
+                  navigation.navigate("Event", {
+                    screen: "ConversationDetail",
+                    params: {
+                      userId: item.userId,
+                    },
+                  })
+                }
               />
               <CustomizedButton title={`${formatNumber(item.ticketPrice)}đ`} />
             </View>

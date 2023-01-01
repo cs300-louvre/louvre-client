@@ -38,7 +38,7 @@ export const NotificationCard: React.FC<{
           <Text
             numberOfLines={2}
             style={{
-              fontFamily: item.isSeen ? "Roboto_400Regular" : "Roboto_700Bold",
+              fontFamily: "Roboto_400Regular",
               fontSize: 14,
               color: "#FFFFFF",
             }}

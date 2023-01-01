@@ -12,14 +12,17 @@ import TabNavigator from "../../elements/TabNavigator/TabNavigator";
 import MuseumInfoTab from "./MuseumInfoTab/MuseumInfoTab";
 import MuseumUpdatesTab from "./MuseumUpdatesTab/MuseumUpdatesTab";
 import MuseumReviewsTab from "./MuseumReviewsTab/MuseumReviewsTab";
-import { NavigationContainerRefContext } from "@react-navigation/native";
+import {
+  NavigationContainerRefContext,
+  useNavigation,
+} from "@react-navigation/native";
 
 const item = fakeMuseumResponse();
 
 export const MuseumDetailScreen = ({ route }) => {
   const [tab, setTab] = useState<number>(0);
   const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
-
+  const navigation = useNavigation<any>();
   const tabNavigationObjects = [
     { label: "Info", onPress: () => setTab(0) },
     { label: "Updates", onPress: () => setTab(1) },
@@ -103,6 +106,14 @@ export const MuseumDetailScreen = ({ route }) => {
                 title={"Message"}
                 backgroundColor={"#000000"}
                 color={"#0085FF"}
+                handlePress={() =>
+                  navigation.navigate("Museum", {
+                    screen: "ConversationDetail",
+                    params: {
+                      userId: item.userId,
+                    },
+                  })
+                }
               />
               <CustomizedButton title={`${formatNumber(item.ticketPrice)}đ`} />
             </View>

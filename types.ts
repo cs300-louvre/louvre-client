@@ -77,20 +77,18 @@ export type INotificationResponse = {
   content: string;
   notificationId: string;
   type: INotificationType;
-  isSeen: boolean;
   sourceId: string;
   // if type === museum, then sourceId would be a museumId, similarly for type === "event";
-  // if type === "message" then sourceId would be the conversationId; if type === "system", then this could be null
+  // if type === "message" then sourceId would be a userId; if type === "system", then this could be null
 };
 
 export type IConversationPreviewResponse = {
   conversationId: string;
-  name: string; // GET THE NAME OF THE OTHER USER WHO IS IN THE CONVERSATION
+  name: string; // GET THE NAME OF THE ONE WHO SEND THE LATEST MESSAGE
   content: string; // GET THE LATEST TEXT OF THE CONVERSATION WHETHER IT IS FROM THE CURRENT USER OF THE OTHER ONE
-  userId: string; // GET THE USER ID OF THE ONE WHO SEND THE LATEST MESSAGE
+  userId: string; // GET THE USER ID OF THE OTHER ONE IN THE CONVERSATION
   thumbnailUrl: string; // GET THE THUMBNAIL OF THE OTHER USER
   sentAt: string;
-  isSeen: boolean;
 };
 
 export type IPostCoreData = {
@@ -186,14 +184,16 @@ export type IEventResponse = {
 };
 
 export type IMessageCoreData = {
-  chatId: string;
+  conversationId: string;
   content: string;
 };
+
 export type IMessageResponse = {
-  chatId: string;
+  conversationId: string;
   userId: string; // GET USER ID OF THE ONE WHO SEND THE MESSAGE
+  userName: string; // GET USER NAME OF THE ONE WHO SEND THE MESSAGE
   thumbnailUrl: string; // GET THUMBNAIL OF THE USER WHO SEND THE MESSAGE (FROMUSERID)
   content: string;
-  isSeen: string;
   sentAt: string;
+  messageId: string;
 };

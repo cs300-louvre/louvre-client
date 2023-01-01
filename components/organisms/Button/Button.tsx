@@ -5,12 +5,14 @@ export const CustomizedButton: React.FC<{
   title: string;
   backgroundColor?: string;
   color?: string;
+  buttonStyles?: any;
   handlePress?: () => any;
 }> = ({
   title,
   backgroundColor = "#0085FF",
   color = "#FFFFFF",
   handlePress = () => {},
+  buttonStyles,
 }) => {
   return (
     <TouchableOpacity onPress={handlePress}>
@@ -24,6 +26,7 @@ export const CustomizedButton: React.FC<{
           backgroundColor: backgroundColor,
           width: 96,
           paddingVertical: 3,
+          ...buttonStyles,
         }}
         titleStyle={{
           fontFamily: "Roboto_500Medium",

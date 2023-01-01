@@ -65,13 +65,24 @@ export const fakeChatPreviewResponse: () => IConversationPreviewResponse =
     return {
       conversationId: faker.datatype.uuid(),
       content: faker.lorem.sentence(),
-      isSeen: faker.datatype.boolean(),
       name: faker.name.fullName(),
       sentAt: fakeDateString(),
       thumbnailUrl: faker.image.abstract(640, 480, true),
       userId: faker.datatype.uuid(),
     };
   };
+
+export const fakeMessageResponse: () => IMessageResponse = () => {
+  return {
+    conversationId: faker.datatype.uuid(),
+    content: faker.lorem.paragraph(),
+    sentAt: fakeDateString(),
+    thumbnailUrl: faker.internet.avatar(),
+    userId: faker.datatype.uuid(),
+    userName: faker.internet.userName(),
+    messageId: faker.datatype.uuid(),
+  };
+};
 
 export const fakeNotificationResponse: (
   type?: INotificationType
@@ -82,7 +93,6 @@ export const fakeNotificationResponse: (
     notificationId: faker.datatype.uuid(),
     thumbnailUrl: faker.image.business(40, 480, true),
     type: type ? type : fakeNotificationType(),
-    isSeen: faker.datatype.boolean(),
     sourceId: faker.datatype.uuid(),
   };
 };

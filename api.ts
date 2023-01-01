@@ -15,6 +15,7 @@ import {
   IMuseumGenre,
   IMuseumResponse,
   INotificationResponse,
+  INotificationType,
   IPostCoreData,
   IPostResponse,
   IRatingCoreData,
@@ -68,15 +69,15 @@ export const purchaseTicket = (type: IEOM, eomId: string) =>
 
 export const getMyRatings = () => API.get<IRatingResponse[]>("/me/rating");
 
-export const getNotifications = () =>
-  API.get<INotificationResponse[]>("/me/notification");
+export const getNotifications = (type: INotificationType) =>
+  API.get<INotificationResponse[]>(`/me/notification?type=${type}`);
 
 export const putFollowMuseum = (museumId: string) =>
   API.put(`/me/museum?museumId=${museumId}`);
 export const putFollowEvemt = (eventId: string) =>
   API.put(`/me/event?eventId=${eventId}`);
 
-export const getChatPreviews = () =>
+export const getConversationPreviews = () =>
   API.get<IConversationPreviewResponse[]>("/me/conversation_notification");
 
 // TICKET
@@ -102,6 +103,8 @@ export const getMuseumsByGenre = (genre: IMuseumGenre) =>
 export const getMuseumById = (museumId: string) =>
   API.get<IMuseumResponse>(`museum/${museumId}`);
 export const postMuseum = (data: IMuseumCoreData) => API.post("/museum");
+export const getEventsByMuseumId = (museumId: string) =>
+  API.get<IEventResponse[]>(`/museum/${museumId}/event}`);
 
 // EVENT
 export const getEventsByGenre = (genre: IEventGenre) =>
@@ -112,11 +115,11 @@ export const postEvent = (data: IEventCoreData) => API.post("/event", data);
 
 // CHAT
 export const postMessage = (data: IMessageCoreData) =>
-  API.post("/message", data); // THE SERVER WILL CREATE A CHAT OBJECT IF THERE ISN'T ANY
-export const getMessagesByChatId = (chatId: string) =>
-  API.get<IMessageResponse[]>(`/message?chatId=${chatId}`); // SORTED BY "sentAt"
-export const patchSeenMessages = (chatId: string) =>
-  API.patch(`/message?chatId=${chatId}`); // Server will set isSeen attributes = true for all messages send by the other user in the chat.
+  API.post("/message", data);
+export const getMessagesByConversationId = (conversationId: string) =>
+  API.get<IMessageResponse[]>(`/message?conversationId=${conversationId}`); // userId is the id of the other messager. SORTED BY "sentAt"
+export const getConversationIdByUserId = (userId: string) =>
+  API.get<{ conversationId: string }>(`/conversation?userId=${userId}`);
 
 // BROWSE
 export const getAnalytics = () => API.get("/browse/analytics"); //TO-DO: Nghĩ xem sẽ analyse cái chỉ số gì

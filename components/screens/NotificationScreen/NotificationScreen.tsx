@@ -6,6 +6,7 @@ import NotificationTab from "./NotificationTab/NotificationTab";
 import { createStackNavigator } from "@react-navigation/stack";
 import MuseumDetailScreen from "../MuseumDetailScreen/MuseumDetailScreen";
 import EventDetailScreen from "../EventDetailScreen/EventDetailScreen";
+import ConversationDetailScreen from "../ConversationDetailScreen/ConversationDetailScreen";
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
@@ -55,6 +56,7 @@ export const NotificationScreen = () => {
           backgroundColor: "#000000",
         },
       }}
+      initialRouteName="NotificationBrowse"
     >
       <Stack.Screen
         name="NotificationBrowse"
@@ -79,6 +81,21 @@ export const NotificationScreen = () => {
       <Stack.Screen
         name="EventDetail"
         component={EventDetailScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: "#141414",
+          },
+          headerTintColor: "#0085FF",
+          headerTitleStyle: {
+            fontSize: 20,
+          },
+          title: "Notification",
+          detachPreviousScreen: false,
+        }}
+      />
+      <Stack.Screen
+        name="ConversationDetail"
+        component={ConversationDetailScreen}
         options={{
           headerStyle: {
             backgroundColor: "#141414",
