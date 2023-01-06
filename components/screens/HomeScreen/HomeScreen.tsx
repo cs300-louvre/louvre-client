@@ -15,10 +15,7 @@ import useMe from "../../../hooks/me/useMe";
 const Tab = createBottomTabNavigator();
 
 export default function HomeScreen() {
-  const { data: user, isLoading } = useMe();
-
-  // TO DO
-  if (isLoading) return null;
+  const { data: user } = useMe();
 
   return (
     <Tab.Navigator
@@ -34,6 +31,9 @@ export default function HomeScreen() {
             style={StyleSheet.absoluteFill}
           />
         ),
+      }}
+      sceneContainerStyle={{
+        backgroundColor: "#000000",
       }}
     >
       <Tab.Screen

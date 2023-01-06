@@ -26,7 +26,6 @@ export default function RegisterForm({ setTab }) {
   });
 
   const onSubmit = (data) => {
-    console.debug(data);
     mutateAsync(data);
   };
 

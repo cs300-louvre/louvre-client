@@ -3,18 +3,21 @@ import QuickStartScreen from "./components/screens/QuickStartScreen/QuickStartSc
 import useQuickStart from "./hooks/useQuickStart";
 import HomeScreen from "./components/screens/HomeScreen/HomeScreen";
 import useMe from "./hooks/me/useMe";
+import AdminHomeScreen from "./components/admin-screens/AdminHomeScreen/AdminHomeScreen";
 
 const Stack = createStackNavigator();
 
 export default function Router() {
   const { didQuickStart, isLoading } = useQuickStart();
+  const { data: user, isLoading: isLoadingMe } = useMe();
 
   //TO DO: FLASH OR LOADING INDICATOR
-  if (isLoading) return null;
+  if (isLoading || isLoadingMe) return null;
 
   if (!didQuickStart) {
     return <QuickStartScreen />;
   }
 
-  return <HomeScreen />;
+  if (!user || (user && user.role === "user")) return <HomeScreen />;
+  if (user.role == "manager") return <AdminHomeScreen />;
 }

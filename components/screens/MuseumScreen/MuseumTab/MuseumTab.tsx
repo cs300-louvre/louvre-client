@@ -2,6 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { View, Text, ScrollView } from "react-native";
 import { EVENT_GENRES } from "../../../../const";
+import useGetMuseums from "../../../../hooks/browse/useGetMuseums";
 import { fakeEventResponse, fakeMuseumResponse } from "../../../../mock";
 import {
   IEventGenre,
@@ -17,10 +18,6 @@ const featuredEvents: IEventResponse[] = Array.from(Array(9), () => {
   return fakeEventResponse();
 });
 
-const browseMuseums: IMuseumResponse[] = Array.from(Array(30), () => {
-  return fakeMuseumResponse();
-});
-
 const bannerTexts = [
   "Discover\nnew events",
   "100+ events",
@@ -28,7 +25,11 @@ const bannerTexts = [
 ];
 
 export default function MuseumTab() {
+  const { data: browseMuseums, isLoading } = useGetMuseums();
   const navigation = useNavigation<any>();
+
+  if (!browseMuseums) return null;
+
   const museumGenres: IEventGenre[] = browseMuseums
     .reduce(
       (prev, val) =>

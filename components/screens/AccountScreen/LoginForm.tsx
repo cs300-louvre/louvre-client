@@ -92,7 +92,7 @@ export default function LoginForm({ setTab }) {
           )}
           name="password"
         />
-        <Text
+        {/* <Text
           style={{
             fontFamily: "Roboto_700Bold",
             color: "#0085FF",
@@ -102,7 +102,7 @@ export default function LoginForm({ setTab }) {
           }}
         >
           Forgot password?
-        </Text>
+        </Text> */}
         <Button
           onPress={handleSubmit(onSubmit)}
           containerStyle={styles.buttonContainer}
