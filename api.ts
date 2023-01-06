@@ -28,29 +28,30 @@ import {
 } from "./types";
 
 export const API = axios.create({
-  baseURL: "http://localhost:3001",
-  withCredentials: true,
+  baseURL: "http://10.0.2.2:3000",
+  withCredentials: false,
 });
 
 API.interceptors.request.use(async (req) => {
   const token = await SecureStore.getItemAsync("token");
-  if (token) req.headers.authorization = token;
+  if (token) req.headers.authorization = `Bearer ${token}`;
+  else req.headers.authorization = undefined;
   return req;
 });
 
 // USER
 // WHEN SIGNING UP, USER'S NAME SHOULD, BY DEFAULT, BE THEIR EMAIL HANDLE (WITHOUT THE PART AFTER @)
 export const signIn = (data: ISignInData) =>
-  API.post<ISignInResponse>("/user/signIn", data);
+  API.post<ISignInResponse>("/user/login", data);
 
 export const signUp = (data: ISignUpData) =>
-  API.post<ISignUpResponse>("/user/signUp", data);
+  API.post<ISignUpResponse>("/user/register", data);
 
 export const resetPassword = (data: { email: string }) =>
   API.post("/user/reset_password", data);
 
 // ME
-export const getMe = () => API.get<IGetMeResponse>("/me");
+export const getMe = () => API.get<IGetMeResponse>("/me", { timeout: 5000 });
 
 export const changePassword = (data: {
   currentPassword: string;

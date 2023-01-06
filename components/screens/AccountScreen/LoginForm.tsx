@@ -4,9 +4,11 @@ import styles, { StyledInput } from "./CustomStyles";
 import { Button, Icon } from "@rneui/themed";
 import { useState } from "react";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
+import useSignIn from "../../../hooks/user/useSignIn";
 
 export default function LoginForm({ setTab }) {
   const [showPassword, setShowPassword] = useState(false);
+  const { mutateAsync } = useSignIn();
   const tabBarHeight = useBottomTabBarHeight();
   const {
     control,
@@ -18,6 +20,10 @@ export default function LoginForm({ setTab }) {
       password: "",
     },
   });
+
+  const onSubmit = (data) => {
+    mutateAsync(data);
+  };
 
   return (
     <>
@@ -53,14 +59,12 @@ export default function LoginForm({ setTab }) {
           control={control}
           rules={{
             required: true,
-            pattern:
-              /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
           }}
           render={({ field: { onChange, onBlur, value } }) => (
             <StyledInput
               label="Password"
               placeholder="Enter your password"
-              secureTextEntry={showPassword}
+              secureTextEntry={!showPassword}
               leftIcon={{ type: "material", name: "lock", color: "#0085FF" }}
               onBlur={onBlur}
               onChangeText={onChange}
@@ -100,7 +104,7 @@ export default function LoginForm({ setTab }) {
           Forgot password?
         </Text>
         <Button
-          onPress={() => {}}
+          onPress={handleSubmit(onSubmit)}
           containerStyle={styles.buttonContainer}
           buttonStyle={{ backgroundColor: "#0085FF" }}
           title={"Login"}

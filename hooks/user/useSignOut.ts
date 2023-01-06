@@ -1,12 +1,16 @@
 import { useMutation, useQueryClient } from "react-query";
 import * as SecureStore from "expo-secure-store";
-import * as api from "../../api";
+import Cookies from "js-cookie";
 
 export function useSignOut() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: () => SecureStore.deleteItemAsync("token"),
-    onSuccess: () => queryClient.invalidateQueries("me"),
+    mutationFn: () => {
+      return SecureStore.deleteItemAsync("token");
+    },
+    onSuccess: async () => {
+      await queryClient.invalidateQueries("me");
+    },
   });
 }
 

@@ -1,4 +1,5 @@
 import { createStackNavigator } from "@react-navigation/stack";
+import useMe from "../../../hooks/me/useMe";
 import { fakeGetMeResponse } from "../../../mock";
 import EventDetailScreen from "../EventDetailScreen/EventDetailScreen";
 import MuseumDetailScreen from "../MuseumDetailScreen/MuseumDetailScreen";
@@ -11,8 +12,9 @@ import RatingTab from "./RatingTab/RatingTab";
 
 const Stack = createStackNavigator();
 
-const user = fakeGetMeResponse("user");
 export default function AccountScreen() {
+  const { data: user } = useMe();
+
   if (!user) return <GuestAccountScreen />;
   else {
     return (

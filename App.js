@@ -11,8 +11,13 @@ import Router from "./Router";
 import { useState, useEffect, useCallback } from "react";
 import * as SplashScreen from "expo-splash-screen";
 import { QuickStartProvider } from "./contexts/quickStartContext";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 
 SplashScreen.preventAutoHideAsync();
+
+console.disableYellowBox = true;
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
@@ -38,10 +43,12 @@ export default function App() {
   }
 
   return (
-    <QuickStartProvider>
-      <NavigationContainer onReady={onLayoutRootView}>
-        <Router />
-      </NavigationContainer>
-    </QuickStartProvider>
+    <QueryClientProvider client={queryClient}>
+      <QuickStartProvider>
+        <NavigationContainer onReady={onLayoutRootView}>
+          <Router />
+        </NavigationContainer>
+      </QuickStartProvider>
+    </QueryClientProvider>
   );
 }

@@ -4,9 +4,13 @@ import styles, { StyledInput } from "./CustomStyles";
 import { Button, Icon } from "@rneui/themed";
 import { useState } from "react";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
+import useSignIn from "../../../hooks/user/useSignIn";
+import useSignUp from "../../../hooks/user/useSignUp";
 
 export default function RegisterForm({ setTab }) {
   const [showPassword, setShowPassword] = useState(false);
+  const { mutateAsync } = useSignUp();
+
   const tabBarHeight = useBottomTabBarHeight();
   const {
     control,
@@ -17,8 +21,14 @@ export default function RegisterForm({ setTab }) {
       name: "",
       email: "",
       password: "",
+      role: "user",
     },
   });
+
+  const onSubmit = (data) => {
+    console.debug(data);
+    mutateAsync(data);
+  };
 
   return (
     <>
@@ -35,8 +45,6 @@ export default function RegisterForm({ setTab }) {
           control={control}
           rules={{
             required: true,
-            pattern:
-              /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
           }}
           render={({ field: { onChange, onBlur, value } }) => (
             <StyledInput
@@ -73,14 +81,12 @@ export default function RegisterForm({ setTab }) {
           control={control}
           rules={{
             required: true,
-            pattern:
-              /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
           }}
           render={({ field: { onChange, onBlur, value } }) => (
             <StyledInput
               label="Password"
               placeholder="Enter your password"
-              secureTextEntry={showPassword}
+              secureTextEntry={!showPassword}
               leftIcon={{ type: "material", name: "lock", color: "#0085FF" }}
               onBlur={onBlur}
               onChangeText={onChange}
@@ -109,7 +115,8 @@ export default function RegisterForm({ setTab }) {
           name="password"
         />
         <Button
-          onPress={() => {}}
+          TouchableComponent={TouchableHighlight}
+          onPress={handleSubmit(onSubmit)}
           containerStyle={styles.buttonContainer}
           buttonStyle={{ backgroundColor: "#0085FF" }}
           title={"Sign up"}
@@ -156,6 +163,7 @@ export default function RegisterForm({ setTab }) {
           />
         </View>
         <Button
+          TouchableComponent={TouchableHighlight}
           onPress={() => setTab("login")}
           containerStyle={styles.buttonContainer}
           buttonStyle={{ backgroundColor: "#FFFFFF" }}

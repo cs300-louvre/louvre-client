@@ -10,12 +10,16 @@ import NotificationScreen from "../NotificationScreen/NotificationScreen";
 import AccountScreen from "../AccountScreen";
 import { BlurView } from "@react-native-community/blur";
 import { StyleSheet, View } from "react-native";
-import { fakeGetMeResponse } from "../../../mock";
+import useMe from "../../../hooks/me/useMe";
 
 const Tab = createBottomTabNavigator();
-const user = fakeGetMeResponse("user");
 
 export default function HomeScreen() {
+  const { data: user, isLoading } = useMe();
+
+  // TO DO
+  if (isLoading) return null;
+
   return (
     <Tab.Navigator
       screenOptions={{

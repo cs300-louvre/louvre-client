@@ -2,6 +2,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import QuickStartScreen from "./components/screens/QuickStartScreen/QuickStartScreen";
 import useQuickStart from "./hooks/useQuickStart";
 import HomeScreen from "./components/screens/HomeScreen/HomeScreen";
+import useMe from "./hooks/me/useMe";
 
 const Stack = createStackNavigator();
 

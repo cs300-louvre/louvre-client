@@ -5,6 +5,7 @@ export type ISignInData = {
 
 export type ISignUpData = ISignInData & {
   name: string;
+  role: IRole;
 };
 
 export type ISignInResponse = {
