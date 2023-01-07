@@ -15,11 +15,14 @@ import MuseumReviewsTab from "./MuseumReviewsTab/MuseumReviewsTab";
 import {
   NavigationContainerRefContext,
   useNavigation,
+  useRoute,
 } from "@react-navigation/native";
+import useGetMuseumById from "../../../hooks/museum/useGetMuseumById";
 
-const item = fakeMuseumResponse();
-
-export const MuseumDetailScreen = ({ route }) => {
+export const MuseumDetailScreen = () => {
+  const route = useRoute<any>();
+  const { museumId, navigationRoot } = route.params;
+  const { data: item } = useGetMuseumById(museumId);
   const [tab, setTab] = useState<number>(0);
   const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
   const navigation = useNavigation<any>();
@@ -28,8 +31,11 @@ export const MuseumDetailScreen = ({ route }) => {
     { label: "Updates", onPress: () => setTab(1) },
     { label: "Reviews", onPress: () => setTab(2) },
   ];
-  const { eventId, navigationRoot } = route.params;
+
   const ticketId = "aji8y93218";
+
+  if (!item) return null;
+
   return (
     <ScrollView
       contentContainerStyle={{
@@ -175,8 +181,8 @@ export const MuseumDetailScreen = ({ route }) => {
       {tab === 0 ? (
         <MuseumInfoTab item={item} navigationRoot={navigationRoot} />
       ) : null}
-      {tab === 1 ? <MuseumUpdatesTab museumId={eventId} /> : null}
-      {tab === 2 ? <MuseumReviewsTab museumId={eventId} /> : null}
+      {tab === 1 ? <MuseumUpdatesTab museumId={museumId} /> : null}
+      {tab === 2 ? <MuseumReviewsTab museumId={museumId} /> : null}
     </ScrollView>
   );
 };

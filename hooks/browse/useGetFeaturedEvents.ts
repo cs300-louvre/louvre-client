@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 import * as api from "../../api";
 
-export function useGetEvents() {
+export function useGetFeaturedEvents() {
   return useQuery({
     queryKey: ["featured_events"],
     queryFn: async () => {
@@ -11,4 +11,4 @@ export function useGetEvents() {
   });
 }
 
-export default useGetEvents;
+export default useGetFeaturedEvents;

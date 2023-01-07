@@ -13,6 +13,7 @@ import { fakeEventResponse } from "../../../mock";
 import { ScrollView } from "react-native-gesture-handler";
 import TabNavigator from "../../elements/TabNavigator/TabNavigator";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import useGetEventById from "../../../hooks/event/useGetEventById";
 
 const item = fakeEventResponse();
 
@@ -28,7 +29,11 @@ export const EventDetailScreen = () => {
     { label: "Reviews", onPress: () => setTab(2) },
   ];
   const { eventId, navigationRoot } = route.params;
+  const { data: item } = useGetEventById(eventId);
   const ticketId = "ùy9sm3920a";
+
+  if (!item) return null;
+
   return (
     <ScrollView
       contentContainerStyle={{

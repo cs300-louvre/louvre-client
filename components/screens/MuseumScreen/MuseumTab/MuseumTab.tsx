@@ -2,6 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { View, Text, ScrollView } from "react-native";
 import { EVENT_GENRES } from "../../../../const";
+import useGetFeaturedEvents from "../../../../hooks/browse/useGetFeaturedEvents";
 import useGetMuseums from "../../../../hooks/browse/useGetMuseums";
 import { fakeEventResponse, fakeMuseumResponse } from "../../../../mock";
 import {
@@ -14,10 +15,6 @@ import Carousel from "../../../elements/Carousel/Carousel";
 import MiniCardCarousel from "../../../elements/MiniCardCarousel/MiniCardCarousel";
 import MuseumCard from "../../../elements/MuseumCard/MuseumCard";
 
-const featuredEvents: IEventResponse[] = Array.from(Array(9), () => {
-  return fakeEventResponse();
-});
-
 const bannerTexts = [
   "Discover\nnew events",
   "100+ events",
@@ -25,8 +22,11 @@ const bannerTexts = [
 ];
 
 export default function MuseumTab() {
-  const { data: browseMuseums, isLoading } = useGetMuseums();
+  const { data: browseMuseums } = useGetMuseums();
+  const { data: featuredEvents } = useGetFeaturedEvents();
   const navigation = useNavigation<any>();
+
+  if (!browseMuseums || !featuredEvents) return null;
 
   if (!browseMuseums) return null;
 

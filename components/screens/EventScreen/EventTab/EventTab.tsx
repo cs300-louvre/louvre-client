@@ -2,20 +2,14 @@ import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { View, Text, ScrollView } from "react-native";
 import { EVENT_GENRES } from "../../../../const";
+import useGetEvents from "../../../../hooks/browse/useGetEvents";
+import useGetFeaturedEvents from "../../../../hooks/browse/useGetFeaturedEvents";
 import { fakeEventResponse } from "../../../../mock";
 import { IEventGenre, IEventResponse } from "../../../../types";
 import BannerCarousel from "../../../elements/BannerCarousel/BannerCarousel";
 import Carousel from "../../../elements/Carousel/Carousel";
 import EventCard from "../../../elements/EventCard/EventCard";
 import MiniCardCarousel from "../../../elements/MiniCardCarousel/MiniCardCarousel";
-
-const featuredEvents: IEventResponse[] = Array.from(Array(9), () => {
-  return fakeEventResponse();
-});
-
-const browseEvents: IEventResponse[] = Array.from(Array(30), () => {
-  return fakeEventResponse();
-});
 
 const bannerTexts = [
   "Discover\nnew events",
@@ -25,6 +19,11 @@ const bannerTexts = [
 
 export default function EventTab() {
   const navigation = useNavigation<any>();
+  const { data: browseEvents } = useGetEvents();
+  const { data: featuredEvents } = useGetFeaturedEvents();
+
+  if (!browseEvents || !featuredEvents) return null;
+
   const eventGenres: IEventGenre[] = browseEvents
     .reduce(
       (prev, val) =>
