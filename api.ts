@@ -75,7 +75,7 @@ export const getNotifications = (type: INotificationType) =>
 
 export const putFollowMuseum = (museumId: string) =>
   API.put(`/me/museum?museumId=${museumId}`);
-export const putFollowEvemt = (eventId: string) =>
+export const putFollowEvent = (eventId: string) =>
   API.put(`/me/event?eventId=${eventId}`);
 
 export const getConversationPreviews = () =>

@@ -3,12 +3,11 @@ import * as api from "../../api";
 
 export function useGetFollowedMuseum() {
   return useQuery({
-    queryKey: ["museum", "followed"],
+    queryKey: ["me", "followed_museums"],
     queryFn: async () => {
       const { data } = await api.getFollowedMuseums();
       return data;
     },
-    refetchOnWindowFocus: false,
   });
 }
 
