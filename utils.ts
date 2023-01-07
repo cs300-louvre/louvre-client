@@ -9,3 +9,10 @@ export function shuffleArray(array) {
   }
   return array;
 }
+
+export function formatDate(unixTimestamp: string) {
+  const unixTimestampNum = Number(unixTimestamp);
+  const milliseconds = unixTimestampNum * 1000;
+  const dateObject = new Date(milliseconds);
+  return dateObject.toLocaleString();
+}

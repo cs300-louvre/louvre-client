@@ -1,6 +1,8 @@
 import { AirbnbRating } from "@rneui/themed";
 import { Dimensions } from "react-native";
 import { View, Text, Image } from "react-native";
+import useMe from "../../../../hooks/me/useMe";
+import useGetRatingsByEomId from "../../../../hooks/rating/useGetRatingsByEomId";
 import {
   fakeGetMeResponse,
   fakeMuseumResponse,
@@ -18,19 +20,16 @@ import Rating from "../../../elements/Rating/Rating";
 import RatingBox from "../../../elements/RatingBox/RatingBox";
 import Card from "../../../organisms/Card/Card";
 
-const ratings: IRatingResponse[] = Array.from(Array(3), () => {
-  return fakeRating();
-});
-const me: IGetMeResponse = fakeGetMeResponse("user");
-
 export const EventReviewsTab: React.FC<{ eventId: string }> = ({ eventId }) => {
-  const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
+  const { data: ratings } = useGetRatingsByEomId(eventId);
+  const { data: user } = useMe();
   return (
     <View style={{ marginTop: 10 }}>
-      <RatingBox eomId={eventId} />
-      {ratings.map((rating) => (
-        <Rating item={rating} key={rating.ratingId} />
-      ))}
+      {user && <RatingBox eomId={eventId} />}
+      {ratings &&
+        ratings
+          .filter((rating) => rating.userId !== user.userId)
+          .map((rating) => <Rating item={rating} key={rating.ratingId} />)}
     </View>
   );
 };

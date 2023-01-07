@@ -2,6 +2,7 @@ import { fakeRating } from "../../../../mock";
 import { ScrollView, View } from "react-native";
 import Rating from "../../../elements/Rating/Rating";
 import useGetMyRatings from "../../../../hooks/me/useGetMyRatings";
+import useMe from "../../../../hooks/me/useMe";
 
 export const RatingTab = () => {
   const { data: ratings } = useGetMyRatings();

@@ -6,11 +6,13 @@ import { IGetMeResponse, IRatingCoreData } from "../../../types";
 import { fakeGetMeResponse } from "../../../mock";
 import { ScreenStackHeaderCenterView } from "react-native-screens";
 import { CustomizedButton } from "../../organisms/Button/Button";
-
-const me: IGetMeResponse = fakeGetMeResponse("user");
+import usePostRating from "../../../hooks/rating/usePostRating";
+import useMe from "../../../hooks/me/useMe";
+import useGetRatingsByEomId from "../../../hooks/rating/useGetRatingsByEomId";
+import Rating from "../Rating/Rating";
 
 export const RatingBox: React.FC<{ eomId: string }> = ({ eomId }) => {
-  const [rating, setRating] = useState<Partial<IRatingCoreData>>({
+  const [rating, setRating] = useState<IRatingCoreData>({
     eomId: eomId,
     rating: null,
     content: "",
@@ -19,6 +21,9 @@ export const RatingBox: React.FC<{ eomId: string }> = ({ eomId }) => {
     rating: null,
     content: null,
   });
+  const { mutateAsync } = usePostRating();
+  const { data: user } = useMe();
+  const { data: ratings } = useGetRatingsByEomId(eomId);
   const handlePress = () => {
     let candidateError = null;
     if (!rating.rating) {
@@ -37,7 +42,13 @@ export const RatingBox: React.FC<{ eomId: string }> = ({ eomId }) => {
       setError(candidateError);
       return;
     } else setError({});
+    mutateAsync(rating);
   };
+
+  if (ratings && ratings.find((rating) => rating.userId === user.userId))
+    return (
+      <Rating item={ratings.find((rating) => rating.userId === user.userId)} />
+    );
 
   return (
     <View
@@ -56,7 +67,7 @@ export const RatingBox: React.FC<{ eomId: string }> = ({ eomId }) => {
       <View style={{ flexDirection: "row", marginVertical: 10 }}>
         <Image
           style={{ width: 30, height: 30, borderRadius: 15, marginRight: 10 }}
-          source={{ uri: me.thumbnailUrl }}
+          source={{ uri: user.thumbnailUrl }}
         />
         <AirbnbRating
           defaultRating={0}

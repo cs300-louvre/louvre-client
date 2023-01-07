@@ -3,16 +3,15 @@ import { fakeEventResponse, fakeMuseumResponse } from "../../../../mock";
 import { IMuseumResponse } from "../../../../types";
 import EventCard from "../../../elements/EventCard/EventCard";
 import { useNavigation } from "@react-navigation/native";
-
-const events = Array.from(Array(5), () => {
-  return fakeEventResponse();
-});
+import useGetEventByMuseumId from "../../../../hooks/event/useGetEventByMuseumId";
 
 export const MuseumInfoTab: React.FC<{
   item: IMuseumResponse;
   navigationRoot: string;
 }> = ({ item, navigationRoot }) => {
   const navigation = useNavigation<any>();
+  const { data: events } = useGetEventByMuseumId(item.museumId);
+
   return (
     <View style={{ marginTop: 10 }}>
       <Text

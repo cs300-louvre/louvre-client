@@ -64,7 +64,7 @@ export const LoggedInAccountScreen = () => {
       >
         <Image
           style={{ width: 100, height: 100, borderRadius: 50 }}
-          source={{ uri: "https://i.stack.imgur.com/34AD2.jpg" }}
+          source={{ uri: user.thumbnailUrl }}
         />
         <Text
           style={{
