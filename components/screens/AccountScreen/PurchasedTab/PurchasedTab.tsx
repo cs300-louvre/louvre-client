@@ -2,13 +2,11 @@ import { fakeTicket } from "../../../../mock";
 import { ScrollView, View } from "react-native";
 import Ticket from "../../../elements/Ticket/Ticket";
 import { useNavigation } from "@react-navigation/native";
-
-const tickets = Array.from(Array(10), () => {
-  return fakeTicket();
-});
+import useGetMyTickets from "../../../../hooks/me/useGetMyTickets";
 
 export const PurchasedTab = () => {
   const navigation = useNavigation<any>();
+  const { data: tickets } = useGetMyTickets();
   return (
     <View>
       <ScrollView

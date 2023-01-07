@@ -96,7 +96,7 @@ export const postRating = (data: IRatingCoreData) => API.post("/rating", data);
 // POST
 export const postPost = (data: IPostCoreData) => API.post("/post", data);
 export const getPostsByEomId = (eomId: string) =>
-  API.get<IPostResponse>(`/post?eomId=${eomId}`);
+  API.get<IPostResponse[]>(`/post?eomId=${eomId}`);
 
 // MUSEUM
 export const getMuseumsByGenre = (genre: IMuseumGenre) =>

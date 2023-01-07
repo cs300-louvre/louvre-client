@@ -1,5 +1,6 @@
 import { Dimensions } from "react-native";
 import { View, Text, Image } from "react-native";
+import useGetPostsByEomId from "../../../../hooks/post/useGetPostsByEomId";
 import { fakeMuseumResponse, fakePost } from "../../../../mock";
 import { IEventResponse, IPostResponse } from "../../../../types";
 import MuseumCard from "../../../elements/MuseumCard/MuseumCard";
@@ -12,6 +13,7 @@ export const MuseumUpdatesTab: React.FC<{ museumId: string }> = ({
   museumId,
 }) => {
   const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
+  const { data: posts } = useGetPostsByEomId(museumId);
 
   const Post: React.FC<{ item: IPostResponse }> = ({ item }) => {
     return (
