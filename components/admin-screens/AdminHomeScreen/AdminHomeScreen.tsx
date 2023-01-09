@@ -51,6 +51,15 @@ export default function AdminHomeScreen() {
                     tabBarIcon: ({ color, size }) => (
                         <Icon name="event" type="material" color={color} size={size} />
                     ),
+                    headerShown: true,
+                    headerStyle: {
+                        backgroundColor: "#141414",
+                    },
+                    headerTitleStyle: {
+                        color: "#ffffff",
+                        fontSize: 20,
+                    },
+                    headerTitleAlign: "center",
                 }}
             />
             <Tab.Screen
@@ -61,6 +70,7 @@ export default function AdminHomeScreen() {
                     tabBarIcon: ({ color, size }) => (
                         <Icon name="place" type="material" color={color} size={size} />
                     ),
+                    headerShown: false,
                 }}
             />
             {user && (
