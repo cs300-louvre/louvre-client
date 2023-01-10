@@ -9,6 +9,7 @@ export function useGetTicketByTicketId(ticketId: string) {
       const { data } = await api.getTicketById(ticketId);
       return data;
     },
+    staleTime: Infinity,
   });
 }
 

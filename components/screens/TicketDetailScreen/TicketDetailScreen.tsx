@@ -13,6 +13,8 @@ import MuseumCard from "../../elements/MuseumCard/MuseumCard";
 import { formatDate, formatNumber } from "../../../utils";
 import useGetTicketByTicketId from "../../../hooks/ticket/useGetTicketByTicketId";
 import useGetMuseumById from "../../../hooks/museum/useGetMuseumById";
+import { useQuery } from "react-query";
+import * as api from "../../../api";
 
 const museum = fakeMuseumResponse();
 
@@ -21,15 +23,10 @@ export const TicketDetailScreen = () => {
   const navigation = useNavigation<any>();
   const { ticketId, navigationRoot } = route.params;
   const { data: ticket } = useGetTicketByTicketId(ticketId);
-  console.log(ticket);
-  // const {
-  //   data: museum,
-  //   refetch,
-  //   isFetched,
-  // } = useGetMuseumById(ticket.ticketId, false);
+  const { data: museum } = useGetMuseumById(ticket?.museumId, !!ticket);
 
+  console.log(ticket);
   if (!ticket) return null;
-  // if (!isFetched && ticket) refetch();
 
   return (
     <ScrollView
@@ -128,9 +125,7 @@ export const TicketDetailScreen = () => {
               color: "#B5B5B5",
             }}
           >
-            {`${formatNumber(ticket.price)}đ - ${formatDate(
-              ticket.purchasedAt
-            )}`}
+            {`${formatNumber(ticket.price)}đ}`}
           </Text>
 
           {ticket.status !== "wait" && (
@@ -203,24 +198,31 @@ export const TicketDetailScreen = () => {
       >
         {ticket.price}
       </Text>
-      <Text
-        style={{
-          color: "#FFFFFF",
-          fontWeight: "bold",
-          fontFamily: "Roboto_700Bold",
-        }}
-      >
-        Purchased on
-      </Text>
-      <Text
-        style={{
-          color: "#FFFFFF",
-          fontFamily: "Roboto_400Regular",
-          marginBottom: 20,
-        }}
-      >
-        {ticket.purchasedAt}
-      </Text>
+      {museum && (
+        <>
+          <Text
+            style={{
+              color: "#FFFFFF",
+              fontWeight: "bold",
+              fontFamily: "Roboto_700Bold",
+            }}
+          >
+            Organizer
+          </Text>
+          <MuseumCard
+            item={museum}
+            handlePress={() =>
+              navigation.navigate(navigationRoot, {
+                screen: "MuseumDetail",
+                params: {
+                  museumId: museum.museumId,
+                  navigationRoot,
+                },
+              })
+            }
+          />
+        </>
+      )}
 
       <Text
         style={{
@@ -229,26 +231,31 @@ export const TicketDetailScreen = () => {
           fontFamily: "Roboto_700Bold",
         }}
       >
-        Organizer
+        QR Code
       </Text>
-      <MuseumCard
-        item={museum}
-        handlePress={() =>
-          navigation.navigate(navigationRoot, {
-            screen: "MuseumDetail",
-            params: {
-              museumId: museum.museumId,
-              navigationRoot,
-            },
-          })
-        }
-      />
+      <View
+        style={{
+          backgroundColor: "#FFFFFF",
+          marginTop: 10,
+          alignItems: "center",
+        }}
+      >
+        {ticket.status !== "wait" && (
+          <Image
+            style={{ width: 300, height: 300, borderRadius: 5 }}
+            source={{
+              uri: `https://chart.googleapis.com/chart?chf=bg,s,65432100&cht=qr&chs=300x300&chl=${ticket.ticketId}`,
+            }}
+          />
+        )}
+      </View>
 
       <Text
         style={{
           color: "#B5B5B5",
           fontFamily: "Roboto_400Regular",
           marginBottom: 20,
+          marginTop: 10,
         }}
       >
         You should only show the QR code to the event staffs at the check-in

@@ -6,9 +6,7 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "plugins": [
-      "expo-image-picker"
-    ],
+    "plugins": ["expo-image-picker"],
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "cover",
@@ -17,9 +15,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -35,7 +31,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "5b01d8a3-ea16-4794-a4a5-b629c174de16"
+        "projectId": "1b76fd10-f266-4e2e-bb8e-f299b8fe83a0"
       }
     }
   }

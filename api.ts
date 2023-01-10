@@ -108,6 +108,8 @@ export const getEventsByMuseumId = (museumId: string) =>
   API.get<IEventResponse[]>(`/museum/${museumId}/event`);
 export const patchMuseum = (museumId: string, data: IMuseumCoreData) =>
   API.patch(`/museum/${museumId}`, data);
+export const getMuseumByUserId = (userId: string) =>
+  API.get<IMuseumResponse>(`/museum?userId=${userId}`);
 
 // EVENT
 export const getEventsByGenre = (genre: IEventGenre) =>
