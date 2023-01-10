@@ -1,188 +1,68 @@
-import { useNavigation } from "@react-navigation/native";
-import { Icon } from "@rneui/themed";
-import { useState } from "react";
-import { View, Text, ScrollView, TextInput } from "react-native";
-import { fakeEventResponse, fakeMuseumResponse } from "../../../mock";
-import { IEventResponse, IMuseumResponse } from "../../../types";
-import EventCard from "../../elements/EventCard/EventCard";
-import MiniCardCarousel from "../../elements/MiniCardCarousel/MiniCardCarousel";
-import CustomizedButton from "../../organisms/Button/Button";
+import { createStackNavigator } from "@react-navigation/stack";
+import AdminBrowseEventScreen from "../AdminBrowseEventScreen/AdminBrowseEventScreen";
+import AdminDetailScreen from "../AdminDetailScreen/AdminDetailScreen";
+import AdminEventEditScreen from "../AdminEditScreen/AdminEventEditScreen";
 
-const browseEvents: IEventResponse[] = Array.from(Array(30), () => {
-    return fakeEventResponse();
-});
+const Stack = createStackNavigator();
 
-export default function AdminEventScreen() {
-    const [eventName, setEventName] = useState<string>("");
-    const navigation = useNavigation<any>();
-
-    const onGoingEvents: IEventResponse[] = browseEvents
-        .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
-        .slice(0, 3);
-
-    const pastEvents: IEventResponse[] = browseEvents
-        .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
-        .slice(0, 5);
-
-    const handlePressFactory = (itemId: string) => {
-        return () => {
-            // navigation.navigate("Event", {
-            //     screen: "EventDetail",
-            //     params: {
-            //         eventId: itemId,
-            //         navigationRoot: "Event",
-            //     },
-            // });
-            console.log(itemId)
-        };
-    };
+export const AdminEventScreen = () => {
 
     return (
-        <ScrollView
-            contentContainerStyle={{
-                paddingBottom: 60,
-                backgroundColor: "#000000",
-                position: "relative",
+        <Stack.Navigator
+            screenOptions={{
+                animationEnabled: false,
+                cardStyle: {
+                    backgroundColor: "#000000",
+                },
             }}
         >
-            <View
-                style={{
-                    display: "flex",
-                    marginHorizontal: 20,
-                    marginVertical: 10,
-                }}
-            >
-                <Text
-                    style={{
-                        color: "#FFFFFF",
-                        fontWeight: "500",
+            <Stack.Screen
+                name="EventBrowse"
+                component={AdminBrowseEventScreen}
+                options={{
+                    headerShown: true,
+                    headerStyle: {
+                        backgroundColor: "#141414",
+                    },
+                    headerTitleStyle: {
+                        color: "#ffffff",
                         fontSize: 20,
-                        paddingVertical: 10,
-                    }}
-                >
-                    Create New Event
-                </Text>
-                <TextInput
-                    style={{
-                        flex: 1,
-                        paddingHorizontal: 16,
-                        paddingVertical: 5,
-                        borderRadius: 10,
-                        maxHeight: 38,
-                        fontSize: 14,
-                        fontFamily: "Roboto_400Regular",
-                        color: "#000000",
-                        backgroundColor: "#B5B5B5",
-                    }}
-                    placeholder="Enter Event Name"
-                    onChangeText={(text) => setEventName(text)}
-                    value={eventName}
-                    onSubmitEditing={(e) => { }}
-                />
-                <View
-                    style={{
-                        flexDirection: "row",
-                        width: "100%",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        paddingTop: 10,
-                    }}
-                >
-                    <Text
-                        style={{
-                            color: "#B5B5B5",
-                            fontFamily: "Roboto_400Regular",
-                            fontSize: 14,
-                        }}
-                    >{`${eventName ? 40 - eventName.length : 40
-                        } character(s) left`}</Text>
-                    <CustomizedButton title="Create" handlePress={() => console.log("create")} />
-                </View>
-            </View>
-            {
-                <View
-                    style={{
-                        paddingHorizontal: 20,
-                        paddingVertical: 10
-                    }}>
-                    <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                        <Text
-                            style={{
-                                color: "#FFFFFF",
-                                fontWeight: "500",
-                                fontSize: 20,
-                            }}
-                        >
-                            On-going Events
-                        </Text>
-                        <Text
-                            style={{
-                                color: "#0085FF",
-                                fontWeight: "500",
-                                fontSize: 18,
-                            }}
-                        >See all</Text>
-                    </View>
-                    {onGoingEvents.map((event) => (
-                        <EventCard
-                            key={event.eventId}
-                            item={event}
-                            handlePress={() =>
-                                // navigation.navigate("Event", {
-                                //     screen: "EventDetail",
-                                //     params: {
-                                //         eventId: museum.museumId,
-                                //         navigationRoot: "Event",
-                                //     },
-                                // })
-                                console.log(event)
-                            }
-                        />
-                    ))}
-                </View>
-            }
-            {
-                <View style={{ paddingTop: 10 }}>
-                    <View
-                        style={{
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                            paddingHorizontal: 20,
-                            marginBottom: 10,
-                        }}>
-                        <Text
-                            style={{
-                                color: "#FFFFFF",
-                                fontWeight: "500",
-                                fontSize: 20,
-                            }}
-                        >
-                            Past Events
-                        </Text>
-                        <Text
-                            style={{
-                                color: "#0085FF",
-                                fontWeight: "500",
-                                fontSize: 18,
-                            }}
-                        >See all</Text>
-                    </View>
-                    {
-                        <MiniCardCarousel
-                            items={pastEvents}
-                            handlePressFactory={(item) => () =>
-                                // navigation.navigate("Event", {
-                                //     screen: "EventDetail",
-                                //     params: {
-                                //         eventId: item.eventId,
-                                //         navigationRoot: "Event",
-                                //     },
-                                // })
-                                console.log(item)}
-                        />
-                    }
-                </View>
-            }
-        </ScrollView>
-    );
+                    },
+                    headerTitleAlign: "center",
+                    headerTitle: "Event",
+                }}
+            />
+            <Stack.Screen
+                name="EventDetail"
+                component={AdminDetailScreen}
+                options={{
+                    headerStyle: {
+                        backgroundColor: "#141414",
+                    },
+                    headerTintColor: "#0085FF",
+                    headerTitleStyle: {
+                        fontSize: 20,
+                    },
+                    title: "Event",
+                    detachPreviousScreen: false,
+                }}
+            />
+            <Stack.Screen
+                name="EditEvent"
+                component={AdminEventEditScreen}
+                options={{
+                    headerStyle: {
+                        backgroundColor: "#141414",
+                    },
+                    headerTintColor: "#0085FF",
+                    headerTitleStyle: {
+                        fontSize: 20,
+                    },
+                    title: "Event",
+                    detachPreviousScreen: false,
+                }}
+            />
+        </Stack.Navigator>
+    )
 }
+export default AdminEventScreen;

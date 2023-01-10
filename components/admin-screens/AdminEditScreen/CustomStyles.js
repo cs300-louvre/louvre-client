@@ -24,6 +24,7 @@ export const styles = StyleSheet.create({
     color: "#FFFFFF",
   },
   buttonContainer: {
+    marginTop: 10,
     borderRadius: 30,
     width: 200,
     height: 40,

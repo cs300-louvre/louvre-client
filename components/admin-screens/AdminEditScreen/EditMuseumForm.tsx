@@ -1,33 +1,84 @@
-import { View, Text, TouchableHighlight, ImageBackground } from "react-native";
+import { View, Text, TouchableHighlight, ImageBackground, TouchableOpacity } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import styles, { StyledInput } from "./CustomStyles";
 import { Button, Icon } from "@rneui/themed";
 import SelectDropdown from "react-native-select-dropdown";
 import { useState } from "react";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
-import useSignIn from "../../../hooks/user/useSignIn";
+import { ImageInfo, ImagePickerCancelledResult } from "expo-image-picker";
+import * as ImagePicker from 'expo-image-picker';
+
+import { IMuseumResponse } from "../../../types";
+import { fakeMuseumResponse } from "../../../mock";
+
+const browseMuseums: IMuseumResponse[] = Array.from(Array(1), () => {
+    return fakeMuseumResponse();
+});
+
 
 const genre = ["general", "natural", "science", "history", "art", "virtual"]
 
-export default function EditForm({ museum }) {
+export default function EditMuseumForm({ museum, navigationRoot }) {
     // TODO: Intergrate mutate async function from backend
     const tabBarHeight = useBottomTabBarHeight();
+    const [coverImage, setCoverImage] = useState(null);
+    const [thumbnailImage, setThumbnailImage] = useState(null);
+
+    const pickThumbnailImage = async () => {
+        // No permissions request is necessary for launching the image library
+        const result: ImagePickerCancelledResult | ImageInfo = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            base64: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
+
+        console.log(result);
+
+        if (!result.cancelled) {
+            setThumbnailImage(result.uri);
+            setValue("thumbnailBase64", result.base64);
+        }
+    };
+
+    const pickCoverImage = async () => {
+        // No permissions request is necessary for launching the image library
+        const result: ImagePickerCancelledResult | ImageInfo = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            base64: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
+
+        console.log(result);
+
+        if (!result.cancelled) {
+            setCoverImage(result.uri);
+            setValue("coverBase64", result.base64);
+        }
+    };
+
     const {
         control,
+        setValue,
         handleSubmit,
         formState: { errors },
     } = useForm({
         defaultValues: {
+            name: museum.name,
             thumbnailBase64: museum.thumbnailBase64,
             coverBase64: museum.coverBase64,
-            description: "",
-            location: "",
-            genre: "",
-            ticketPrice: 0,
+            description: museum.description,
+            location: museum.location,
+            genre: museum.genre,
+            ticketPrice: museum.ticketPrice,
         },
     });
 
     const onSubmit = (data) => {
+        // TODO: add backend
         console.log(data);
     };
 
@@ -41,6 +92,24 @@ export default function EditForm({ museum }) {
                     justifyContent: "center",
                 }}
             >
+
+                <View
+                    style={{ flexDirection: "row", justifyContent: "space-between", width: "100%", paddingHorizontal: 10, paddingVertical: 8 }}>
+                    <ImageBackground source={{ uri: thumbnailImage == null ? museum.thumbnailUrl : thumbnailImage }} resizeMode="cover" style={{ width: 117, height: 117 }} imageStyle={{ borderRadius: 10 }}>
+                        <TouchableOpacity
+                            style={{ backgroundColor: "rgba(0, 0, 0, 0.4)", position: 'absolute', left: 0, right: 0, bottom: 0, justifyContent: 'flex-end', alignItems: 'center', height: "25%" }}
+                            onPress={pickThumbnailImage}>
+                            <Text style={{ color: "#ffffff", fontWeight: "600", fontSize: 18 }}>Edit</Text>
+                        </TouchableOpacity>
+                    </ImageBackground>
+                    <ImageBackground source={{ uri: coverImage == null ? museum.coverUrl : coverImage }} resizeMode="cover" style={{ width: 218, height: 117 }} imageStyle={{ borderRadius: 10 }}>
+                        <TouchableOpacity
+                            style={{ backgroundColor: "rgba(0, 0, 0, 0.4)", position: 'absolute', left: 0, right: 0, bottom: 0, justifyContent: 'flex-end', alignItems: 'center', height: "25%" }}
+                            onPress={pickCoverImage}>
+                            <Text style={{ color: "#ffffff", fontWeight: "600", fontSize: 18 }}>Edit Event Banner</Text>
+                        </TouchableOpacity>
+                    </ImageBackground>
+                </View>
 
                 <Controller
                     control={control}
@@ -74,8 +143,10 @@ export default function EditForm({ museum }) {
                             </View>
                             <StyledInput
                                 placeholder="Brief introduction..."
+                                defaultValues={value}
                                 onBlur={onBlur}
                                 onChangeText={onChange}
+                                multiline={true}
                                 value={value}
                                 maxHeight={90}
                                 height={90}
@@ -120,6 +191,7 @@ export default function EditForm({ museum }) {
                             </View>
                             <StyledInput
                                 placeholder="Address where the event will take place..."
+                                defaultValues={value}
                                 onBlur={onBlur}
                                 onChangeText={onChange}
                                 value={value}
@@ -173,6 +245,7 @@ export default function EditForm({ museum }) {
                                 }}>
                                 <StyledInput
                                     placeholder="0"
+                                    defaultValues={value}
                                     onBlur={onBlur}
                                     onChangeText={onChange}
                                     value={value}
@@ -224,7 +297,7 @@ export default function EditForm({ museum }) {
                             <SelectDropdown
                                 data={genre}
                                 onSelect={onChange}
-
+                                defaultButtonText={value}
                                 buttonTextAfterSelection={(selectedItem, index) => {
                                     return selectedItem
                                 }}
