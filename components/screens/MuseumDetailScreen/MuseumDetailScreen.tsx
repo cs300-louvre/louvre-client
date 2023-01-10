@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, ToastAndroid } from "react-native";
 import Card from "../../organisms/Card/Card";
 import { Dimensions } from "react-native";
 import { Icon } from "@rneui/themed";
@@ -20,6 +20,7 @@ import {
 import useGetMuseumById from "../../../hooks/museum/useGetMuseumById";
 import usePutFollowMuseum from "../../../hooks/museum/usePutFollowMuseum";
 import usePurchaseTicket from "../../../hooks/ticket/usePurchaseTicket";
+import useMe from "../../../hooks/me/useMe";
 
 export const MuseumDetailScreen = () => {
   const route = useRoute<any>();
@@ -34,6 +35,7 @@ export const MuseumDetailScreen = () => {
     { label: "Updates", onPress: () => setTab(1) },
     { label: "Reviews", onPress: () => setTab(2) },
   ];
+  const { data: me } = useMe();
 
   const { mutateAsync: mutatePurchaseTicket } = usePurchaseTicket();
 
@@ -76,16 +78,20 @@ export const MuseumDetailScreen = () => {
               <Card.Name numberOfLine={2} containerStyle={{ width: "80%" }}>
                 {item.name}
               </Card.Name>
-              <TouchableOpacity
-                onPress={() => mutateFollowMuseum(item.museumId)}
-              >
-                <Icon
-                  name="heart"
-                  type="ionicon"
-                  color={item.isFollowedByUser ? "#FF3333" : "#B5B5B5"}
-                  size={30}
-                />
-              </TouchableOpacity>
+              {me && (
+                <TouchableOpacity
+                  onPress={() => {
+                    mutateFollowMuseum(item.museumId);
+                  }}
+                >
+                  <Icon
+                    name="heart"
+                    type="ionicon"
+                    color={item.isFollowedByUser ? "#FF3333" : "#B5B5B5"}
+                    size={30}
+                  />
+                </TouchableOpacity>
+              )}
             </View>
             <Text
               numberOfLines={2}
@@ -116,23 +122,30 @@ export const MuseumDetailScreen = () => {
                 width: "58%", // Hard coded value
               }}
             >
-              <CustomizedButton
-                title={"Message"}
-                backgroundColor={"#000000"}
-                color={"#0085FF"}
-                handlePress={() =>
-                  navigation.navigate(navigationRoot, {
-                    screen: "ConversationDetail",
-                    params: {
-                      userId: item.userId,
-                      navigationRoot: navigationRoot,
-                    },
-                  })
-                }
-              />
+              {me && (
+                <CustomizedButton
+                  title={"Message"}
+                  backgroundColor={"#000000"}
+                  color={"#0085FF"}
+                  handlePress={() =>
+                    navigation.navigate(navigationRoot, {
+                      screen: "ConversationDetail",
+                      params: {
+                        userId: item.userId,
+                        navigationRoot: navigationRoot,
+                      },
+                    })
+                  }
+                />
+              )}
               <CustomizedButton
                 title={`${formatNumber(item.ticketPrice)}đ`}
                 handlePress={async () => {
+                  if (!me)
+                    return ToastAndroid.show(
+                      "Sign in to purchase!",
+                      ToastAndroid.SHORT
+                    );
                   const ticket = await mutatePurchaseTicket({
                     type: "museum",
                     eomId: item.museumId,

@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, ToastAndroid } from "react-native";
 import Card from "../../organisms/Card/Card";
 import { Dimensions } from "react-native";
 import { Icon } from "@rneui/themed";
@@ -16,6 +16,7 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import useGetEventById from "../../../hooks/event/useGetEventById";
 import usePutFollowEvent from "../../../hooks/event/usePutFollowEvent";
 import usePurchaseTicket from "../../../hooks/ticket/usePurchaseTicket";
+import useMe from "../../../hooks/me/useMe";
 
 export const EventDetailScreen = () => {
   const [tab, setTab] = useState<number>(0);
@@ -32,6 +33,7 @@ export const EventDetailScreen = () => {
   const { eventId, navigationRoot } = route.params;
   const { data: item } = useGetEventById(eventId);
   const { mutateAsync: mutatePurchaseTicket } = usePurchaseTicket();
+  const { data: me } = useMe();
 
   if (!item) return null;
 
@@ -71,16 +73,18 @@ export const EventDetailScreen = () => {
                 <Card.Name numberOfLine={2} containerStyle={{ width: "80%" }}>
                   {item.name}
                 </Card.Name>
-                <TouchableOpacity
-                  onPress={() => mutateFollowEvent(item.eventId)}
-                >
-                  <Icon
-                    name="heart"
-                    type="ionicon"
-                    color={item.isFollowedByUser ? "#FF3333" : "#B5B5B5"}
-                    size={30}
-                  />
-                </TouchableOpacity>
+                {me && (
+                  <TouchableOpacity
+                    onPress={() => mutateFollowEvent(item.eventId)}
+                  >
+                    <Icon
+                      name="heart"
+                      type="ionicon"
+                      color={item.isFollowedByUser ? "#FF3333" : "#B5B5B5"}
+                      size={30}
+                    />
+                  </TouchableOpacity>
+                )}
               </View>
               <Text
                 numberOfLines={2}
@@ -108,23 +112,31 @@ export const EventDetailScreen = () => {
                 width: "58%", // Hard coded value
               }}
             >
-              <CustomizedButton
-                title={"Message"}
-                backgroundColor={"#000000"}
-                color={"#0085FF"}
-                handlePress={() =>
-                  navigation.navigate(navigationRoot, {
-                    screen: "ConversationDetail",
-                    params: {
-                      userId: item.userId,
-                      navigationRoot: navigationRoot,
-                    },
-                  })
-                }
-              />
+              {me && (
+                <CustomizedButton
+                  title={"Message"}
+                  backgroundColor={"#000000"}
+                  color={"#0085FF"}
+                  handlePress={() =>
+                    navigation.navigate(navigationRoot, {
+                      screen: "ConversationDetail",
+                      params: {
+                        userId: item.userId,
+                        navigationRoot: navigationRoot,
+                      },
+                    })
+                  }
+                />
+              )}
               <CustomizedButton
                 title={`${formatNumber(item.ticketPrice)}đ`}
                 handlePress={async () => {
+                  if (!me)
+                    return ToastAndroid.show(
+                      "Sign in to purchase!",
+                      ToastAndroid.SHORT
+                    );
+
                   const ticket = await mutatePurchaseTicket({
                     type: "event",
                     eomId: item.eventId,

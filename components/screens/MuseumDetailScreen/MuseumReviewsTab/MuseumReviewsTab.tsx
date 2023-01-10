@@ -19,12 +19,13 @@ export const MuseumReviewsTab: React.FC<{ museumId: string }> = ({
 }) => {
   const { data: ratings } = useGetRatingsByEomId(museumId);
   const { data: user } = useMe();
+
   return (
     <View style={{ marginTop: 10 }}>
-      <RatingBox eomId={museumId} />
+      {user && <RatingBox eomId={museumId} />}
       {ratings &&
         ratings
-          .filter((rating) => rating.userId !== user.userId)
+          .filter((rating) => (user ? rating.userId !== user.userId : true))
           .map((rating) => <Rating item={rating} key={rating.ratingId} />)}
     </View>
   );

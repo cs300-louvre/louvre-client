@@ -12,7 +12,7 @@ export const EventReviewsTab: React.FC<{ eventId: string }> = ({ eventId }) => {
       {user && <RatingBox eomId={eventId} />}
       {ratings &&
         ratings
-          .filter((rating) => rating.userId !== user.userId)
+          .filter((rating) => (user ? rating.userId !== user.userId : true))
           .map((rating) => <Rating item={rating} key={rating.ratingId} />)}
     </View>
   );
