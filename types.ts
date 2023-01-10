@@ -96,7 +96,6 @@ export type IConversationPreviewResponse = {
 };
 
 export type IPostCoreData = {
-  title: string;
   body: string;
   imageBase64: string;
   eomId: string;
@@ -104,7 +103,6 @@ export type IPostCoreData = {
 
 export type IPostResponse = {
   createdAt: string;
-  title: string;
   body: string;
   imageUrl: string;
   eomId: string;
@@ -202,6 +200,8 @@ export type IMessageResponse = {
   messageId: string;
 };
 
-export const thumbnailUrlDefault = "https://www.usbforwindows.com/storage/img/images_3/function_set_default_image_when_image_not_present.png";
+export const thumbnailUrlDefault =
+  "https://www.usbforwindows.com/storage/img/images_3/function_set_default_image_when_image_not_present.png";
 
-export const coverUrlDefault = "https://www.usbforwindows.com/storage/img/images_3/function_set_default_image_when_image_not_present.png";
+export const coverUrlDefault =
+  "https://www.usbforwindows.com/storage/img/images_3/function_set_default_image_when_image_not_present.png";

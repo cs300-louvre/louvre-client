@@ -17,6 +17,7 @@ import * as ImagePicker from "expo-image-picker";
 import { TextInputMask } from "react-native-masked-text";
 import usePatchMuseum from "../../../hooks/museum/usePatchMuseum";
 import { useNavigation } from "@react-navigation/native";
+import { TabItem } from "@rneui/base/dist/Tab/Tab.Item";
 
 const genre = [
   "art",
@@ -46,11 +47,9 @@ export default function EditEventForm({ event, navigationRoot }) {
         quality: 1,
       });
 
-    console.log(result);
-
     if (!result.cancelled) {
       setThumbnailImage(result.uri);
-      setValue("thumbnailBase64", result.base64);
+      setValue("thumbnailBase64", `data:image/png;base64,${result.base64}`);
     }
   };
 
@@ -65,11 +64,9 @@ export default function EditEventForm({ event, navigationRoot }) {
         quality: 1,
       });
 
-    console.log(result);
-
     if (!result.cancelled) {
       setCoverImage(result.uri);
-      setValue("coverBase64", result.base64);
+      setValue("coverBase64", `data:image/png;base64,${result.base64}`);
     }
   };
 
@@ -97,14 +94,14 @@ export default function EditEventForm({ event, navigationRoot }) {
       description: event.description,
       location: event.location,
       genre: event.genre,
-      ticketPrice: event.ticketPrice,
+      ticketPrice: event.ticketPrice.toString(),
       startTime: event.startTime,
       endTime: event.endTime,
     },
   });
 
   const onSubmit = async (data) => {
-    await mutateAsync(data);
+    await mutateAsync({ eventId: event.eventId, data });
     if (navigation.canGoBack()) navigation.goBack();
   };
 
@@ -390,7 +387,7 @@ export default function EditEventForm({ event, navigationRoot }) {
                   </View>
                 </View>
               )}
-              name="startTime"
+              name="endTime"
             />
           </View>
         </View>

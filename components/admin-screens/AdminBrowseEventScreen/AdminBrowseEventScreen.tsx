@@ -1,4 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
+import { setStatusBarNetworkActivityIndicatorVisible } from "expo-status-bar";
 import { useState } from "react";
 import { View, Text, ScrollView, TextInput } from "react-native";
 import useGetEventByMuseumId from "../../../hooks/event/useGetEventByMuseumId";
@@ -81,15 +82,17 @@ export default function AdminBrowseEventScreen() {
           } character(s) left`}</Text>
           <CustomizedButton
             title="Create"
-            handlePress={() =>
+            handlePress={() => {
+              const tEventName = eventName;
+              setEventName("");
               navigation.navigate("Event", {
                 screen: "CreateEvent",
                 params: {
-                  eventName: eventName,
+                  eventName: tEventName,
                   navigationRoot: "Event",
                 },
-              })
-            }
+              });
+            }}
           />
         </View>
       </View>

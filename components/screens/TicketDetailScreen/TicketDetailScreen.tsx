@@ -25,7 +25,6 @@ export const TicketDetailScreen = () => {
   const { data: ticket } = useGetTicketByTicketId(ticketId);
   const { data: museum } = useGetMuseumById(ticket?.museumId, !!ticket);
 
-  console.log(ticket);
   if (!ticket) return null;
 
   return (

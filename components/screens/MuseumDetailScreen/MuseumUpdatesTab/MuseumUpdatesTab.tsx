@@ -3,6 +3,7 @@ import { View, Text, Image } from "react-native";
 import useGetPostsByEomId from "../../../../hooks/post/useGetPostsByEomId";
 import { fakeMuseumResponse, fakePost } from "../../../../mock";
 import { IEventResponse, IPostResponse } from "../../../../types";
+import { formatDate } from "../../../../utils";
 import MuseumCard from "../../../elements/MuseumCard/MuseumCard";
 
 const posts: IPostResponse[] = Array.from(Array(3), () => {
@@ -24,21 +25,13 @@ export const MuseumUpdatesTab: React.FC<{ museumId: string }> = ({
             fontFamily: "Roboto_400Regular",
           }}
         >
-          {item.createdAt}
-        </Text>
-        <Text
-          style={{
-            color: "#FFFFFF",
-            fontFamily: "Roboto_700Bold",
-            fontSize: 18,
-          }}
-        >
-          {item.title}
+          {formatDate(item.createdAt)}
         </Text>
         <Text
           style={{
             color: "#FFFFFF",
             fontFamily: "Roboto_400Regular",
+            fontSize: 20,
           }}
         >
           {item.body}
@@ -58,7 +51,11 @@ export const MuseumUpdatesTab: React.FC<{ museumId: string }> = ({
   };
   return (
     <View style={{ marginTop: 10 }}>
-      {posts && posts.map((post) => <Post item={post} key={post.postId} />)}
+      {posts &&
+        posts
+          .sort((a, b) => a.createdAt.localeCompare(b.createdAt))
+          .reverse()
+          .map((post) => <Post item={post} key={post.postId} />)}
     </View>
   );
 };

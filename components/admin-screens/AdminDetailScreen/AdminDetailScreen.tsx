@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, ToastAndroid } from "react-native";
 import Card from "../../organisms/Card/Card";
 import { Dimensions, TouchableOpacity, TextInput, Image } from "react-native";
 import { Icon } from "@rneui/themed";
@@ -319,13 +319,18 @@ export default function AdminDetailScreen({ item }) {
           } character(s) left`}</Text>
           <CustomizedButton
             title="Post"
-            handlePress={() => {
-              mutatePost({
+            handlePress={async () => {
+              if (!image || !updates) {
+                ToastAndroid.show("Content is required", ToastAndroid.SHORT);
+                return;
+              }
+              await mutatePost({
                 body: updates,
                 eomId: isMuseumDetail ? event.museumId : event.eventId,
                 imageBase64: image,
-                title: null,
               });
+              setImage("");
+              setUpdates("");
             }}
           />
         </View>
@@ -333,7 +338,11 @@ export default function AdminDetailScreen({ item }) {
           <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
         )}
         {image && (
-          <CustomizedButton title="Delete" handlePress={() => setImage(null)} />
+          <CustomizedButton
+            title="Delete"
+            buttonStyles={{ marginTop: 10 }}
+            handlePress={() => setImage(null)}
+          />
         )}
       </View>
       {item == undefined ? (

@@ -61,11 +61,9 @@ export default function EditMuseumForm({ museum, navigationRoot }) {
         quality: 1,
       });
 
-    console.log(result);
-
     if (!result.cancelled) {
       setCoverImage(result.uri);
-      setValue("coverBase64", result.base64);
+      setValue("coverBase64", `data:image/png;base64,${result.base64}`);
     }
   };
 
@@ -82,7 +80,7 @@ export default function EditMuseumForm({ museum, navigationRoot }) {
       description: museum.description,
       location: museum.location,
       genre: museum.genre,
-      ticketPrice: museum.ticketPrice,
+      ticketPrice: museum.ticketPrice.toString(),
     },
   });
 

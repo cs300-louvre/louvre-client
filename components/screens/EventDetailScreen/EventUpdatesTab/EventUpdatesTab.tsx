@@ -23,16 +23,8 @@ export const EventUpdatesTab: React.FC<{ eventId: string }> = ({ eventId }) => {
         <Text
           style={{
             color: "#FFFFFF",
-            fontFamily: "Roboto_700Bold",
-            fontSize: 18,
-          }}
-        >
-          {item.title}
-        </Text>
-        <Text
-          style={{
-            color: "#FFFFFF",
             fontFamily: "Roboto_400Regular",
+            fontSize: 20,
           }}
         >
           {item.body}
@@ -52,7 +44,11 @@ export const EventUpdatesTab: React.FC<{ eventId: string }> = ({ eventId }) => {
   };
   return (
     <View style={{ marginTop: 10 }}>
-      {posts && posts.map((post) => <Post item={post} key={post.postId} />)}
+      {posts &&
+        posts
+          .sort((a, b) => a.createdAt.localeCompare(b.createdAt))
+          .reverse()
+          .map((post) => <Post item={post} key={post.postId} />)}
     </View>
   );
 };
