@@ -103,9 +103,11 @@ export const getMuseumsByGenre = (genre: IMuseumGenre) =>
   API.get<IMuseumResponse[]>(`/museum?genre=${genre}`);
 export const getMuseumById = (museumId: string) =>
   API.get<IMuseumResponse>(`museum/${museumId}`);
-export const postMuseum = (data: IMuseumCoreData) => API.post("/museum");
+export const postMuseum = (data: IMuseumCoreData) => API.post("/museum", data);
 export const getEventsByMuseumId = (museumId: string) =>
-  API.get<IEventResponse[]>(`/museum/${museumId}/event}`);
+  API.get<IEventResponse[]>(`/museum/${museumId}/event`);
+export const patchMuseum = (museumId: string, data: IMuseumCoreData) =>
+  API.patch(`/museum/${museumId}`, data);
 
 // EVENT
 export const getEventsByGenre = (genre: IEventGenre) =>
@@ -113,6 +115,8 @@ export const getEventsByGenre = (genre: IEventGenre) =>
 export const getEventByEventId = (eventId: string) =>
   API.get<IEventResponse>(`/event/${eventId}`);
 export const postEvent = (data: IEventCoreData) => API.post("/event", data);
+export const patchEvent = (eventId: string, data: IEventCoreData) =>
+  API.patch(`/event/${eventId}`, data);
 
 // CHAT
 export const postMessage = (data: IMessageCoreData) =>

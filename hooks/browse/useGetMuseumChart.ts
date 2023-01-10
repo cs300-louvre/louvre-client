@@ -5,7 +5,7 @@ export function useGetMuseumChart() {
   return useQuery({
     queryKey: ["museum_chart"],
     queryFn: async () => {
-      const { data } = await api.getMuseums();
+      const { data } = await api.getMuseumChart();
       return data;
     },
   });

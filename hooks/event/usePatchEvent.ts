@@ -1,12 +1,14 @@
 import { useMutation, useQueryClient } from "react-query";
 import * as api from "../../api";
+import { IEventCoreData } from "../../types";
 
-export function usePutFollowEvent() {
+export function usePatchEvent() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (id: string) => api.putFollowEvent(id),
+    mutationFn: (data: { eventId: string; data: IEventCoreData }) =>
+      api.patchEvent(data.eventId, data.data),
     onSuccess: () => queryClient.invalidateQueries("event"),
   });
 }
 
-export default usePutFollowEvent;
+export default usePatchEvent;

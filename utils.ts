@@ -1,3 +1,5 @@
+import { ScaleFromCenterAndroid } from "@react-navigation/stack/lib/typescript/src/TransitionConfigs/TransitionPresets";
+
 export function formatNumber(num) {
   return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
 }
@@ -15,4 +17,10 @@ export function formatDate(unixTimestamp: string) {
   const milliseconds = unixTimestampNum * 1000;
   const dateObject = new Date(milliseconds);
   return dateObject.toLocaleString();
+}
+
+export function getConversationId(userIds: string[]) {
+  const _userIds = [...userIds];
+  _userIds.sort();
+  return _userIds.join("");
 }

@@ -58,9 +58,7 @@ export const MuseumUpdatesTab: React.FC<{ museumId: string }> = ({
   };
   return (
     <View style={{ marginTop: 10 }}>
-      {posts.map((post) => (
-        <Post item={post} key={post.postId} />
-      ))}
+      {posts && posts.map((post) => <Post item={post} key={post.postId} />)}
     </View>
   );
 };

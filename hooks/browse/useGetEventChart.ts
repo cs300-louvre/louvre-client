@@ -5,7 +5,7 @@ export function useGetEventChart() {
   return useQuery({
     queryKey: ["event_chart"],
     queryFn: async () => {
-      const { data } = await api.getEvents();
+      const { data } = await api.getEventChart();
       return data;
     },
   });

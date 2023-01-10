@@ -16,21 +16,22 @@ export const PurchasedTab = () => {
         }}
         contentContainerStyle={{ paddingBottom: 80, paddingTop: 10 }}
       >
-        {tickets.map((ticket) => (
-          <Ticket
-            item={ticket}
-            key={ticket.ticketId}
-            handlePress={() =>
-              navigation.navigate("Account", {
-                screen: "TicketDetail",
-                params: {
-                  ticketId: ticket.ticketId,
-                  navigationRoot: "Account",
-                },
-              })
-            }
-          />
-        ))}
+        {tickets &&
+          tickets.map((ticket) => (
+            <Ticket
+              item={ticket}
+              key={ticket.ticketId}
+              handlePress={() =>
+                navigation.navigate("Account", {
+                  screen: "TicketDetail",
+                  params: {
+                    ticketId: ticket.ticketId,
+                    navigationRoot: "Account",
+                  },
+                })
+              }
+            />
+          ))}
       </ScrollView>
     </View>
   );
