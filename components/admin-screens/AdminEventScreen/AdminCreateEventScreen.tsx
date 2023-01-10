@@ -1,18 +1,22 @@
 import { View, Text, TouchableHighlight, ImageBackground, TouchableOpacity, ScrollView } from "react-native";
 import { useForm, Controller } from "react-hook-form";
-import styles, { StyledInput } from "./CustomStyles";
+import styles, { StyledInput } from "../AdminEditScreen/CustomStyles";
 import { Button, Icon } from "@rneui/themed";
 import SelectDropdown from "react-native-select-dropdown";
 import { useState } from "react";
+import { useRoute } from "@react-navigation/native";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { ImageInfo, ImagePickerCancelledResult } from "expo-image-picker";
 import * as ImagePicker from 'expo-image-picker';
 import { TextInputMask } from "react-native-masked-text";
+import { coverUrlDefault, thumbnailUrlDefault } from "../../../types";
 
 
 const genre = ["art", "education", "sport", "festival", "virtual", "volunteer", "corporate"]
 
-export default function EditEventForm({ event, navigationRoot }) {
+export default function CreateEventForm() {
+    const route = useRoute<any>();
+    const { eventName, navigationRoot } = route.params;
     // TODO: Intergrate mutate async function from backend
     const tabBarHeight = useBottomTabBarHeight();
     const [coverImage, setCoverImage] = useState(null);
@@ -70,15 +74,15 @@ export default function EditEventForm({ event, navigationRoot }) {
         formState: { errors },
     } = useForm({
         defaultValues: {
-            name: event.name,
-            thumbnailBase64: event.thumbnailBase64,
-            coverBase64: event.coverBase64,
-            description: event.description,
-            location: event.location,
-            genre: event.genre,
-            ticketPrice: event.ticketPrice,
-            startTime: event.startTime,
-            endTime: event.endTime,
+            name: eventName,
+            thumbnailBase64: "",
+            coverBase64: "",
+            description: "",
+            location: "",
+            genre: "",
+            ticketPrice: 0,
+            startTime: "",
+            endTime: "",
         },
     });
 
@@ -95,20 +99,31 @@ export default function EditEventForm({ event, navigationRoot }) {
                     flexDirection: "column",
                     alignItems: "center",
                     justifyContent: "center",
-                    paddingBottom: tabBarHeight + 10
+                    paddingBottom: 60
                 }}
             >
-
+                <Text
+                    style={{
+                        color: "#FFFFFF",
+                        fontWeight: "500",
+                        fontSize: 24,
+                        paddingVertical: 10,
+                        paddingBottom: 22,
+                        paddingHorizontal: 10,
+                    }}
+                >
+                    {eventName}
+                </Text>
                 <View
                     style={{ flexDirection: "row", justifyContent: "space-between", width: "100%", paddingHorizontal: 10, paddingVertical: 8 }}>
-                    <ImageBackground source={{ uri: thumbnailImage == null ? event.thumbnailUrl : thumbnailImage }} resizeMode="cover" style={{ width: 117, height: 117 }} imageStyle={{ borderRadius: 10 }}>
+                    <ImageBackground source={{ uri: thumbnailImage == null ? thumbnailUrlDefault : thumbnailImage }} resizeMode="cover" style={{ width: 117, height: 117 }} imageStyle={{ borderRadius: 10 }}>
                         <TouchableOpacity
                             style={{ backgroundColor: "rgba(0, 0, 0, 0.4)", position: 'absolute', left: 0, right: 0, bottom: 0, justifyContent: 'flex-end', alignItems: 'center', height: "25%" }}
                             onPress={pickThumbnailImage}>
                             <Text style={{ color: "#ffffff", fontWeight: "600", fontSize: 18 }}>Edit</Text>
                         </TouchableOpacity>
                     </ImageBackground>
-                    <ImageBackground source={{ uri: coverImage == null ? event.coverUrl : coverImage }} resizeMode="cover" style={{ width: 218, height: 117 }} imageStyle={{ borderRadius: 10 }}>
+                    <ImageBackground source={{ uri: coverImage == null ? coverUrlDefault : coverImage }} resizeMode="cover" style={{ width: 218, height: 117 }} imageStyle={{ borderRadius: 10 }}>
                         <TouchableOpacity
                             style={{ backgroundColor: "rgba(0, 0, 0, 0.4)", position: 'absolute', left: 0, right: 0, bottom: 0, justifyContent: 'flex-end', alignItems: 'center', height: "25%" }}
                             onPress={pickCoverImage}>
@@ -120,7 +135,7 @@ export default function EditEventForm({ event, navigationRoot }) {
                 <Controller
                     control={control}
                     rules={{
-                        required: false,
+                        required: true,
                     }}
                     render={({ field: { onChange, onBlur, value } }) => (
                         <View
@@ -168,7 +183,7 @@ export default function EditEventForm({ event, navigationRoot }) {
                 <Controller
                     control={control}
                     rules={{
-                        required: false,
+                        required: true,
                     }}
                     render={({ field: { onChange, onBlur, value } }) => (
                         <View
@@ -223,7 +238,7 @@ export default function EditEventForm({ event, navigationRoot }) {
                     <Controller
                         control={control}
                         rules={{
-                            required: false,
+                            required: true,
                         }}
                         render={({ field: { onChange, onBlur, value } }) => (
                             <View
@@ -272,7 +287,7 @@ export default function EditEventForm({ event, navigationRoot }) {
                         <Controller
                             control={control}
                             rules={{
-                                required: false,
+                                required: true,
                             }}
                             render={({ field: { onChange, onBlur, value } }) => (
                                 <View
@@ -322,7 +337,7 @@ export default function EditEventForm({ event, navigationRoot }) {
                 <Controller
                     control={control}
                     rules={{
-                        required: false,
+                        required: true,
                     }}
                     render={({ field: { onChange, onBlur, value } }) => (
                         <View
@@ -377,7 +392,7 @@ export default function EditEventForm({ event, navigationRoot }) {
                 <Controller
                     control={control}
                     rules={{
-                        required: false,
+                        required: true,
                     }}
                     render={({ field: { onChange, onBlur, value } }) => (
                         <View
@@ -435,7 +450,7 @@ export default function EditEventForm({ event, navigationRoot }) {
                     onPress={handleSubmit(onSubmit)}
                     containerStyle={styles.buttonContainer}
                     buttonStyle={{ backgroundColor: "#0085FF" }}
-                    title={"Save Changes"}
+                    title={"Create Events"}
                     titleStyle={{
                         fontFamily: "Roboto_700Bold",
                     }}

@@ -95,7 +95,15 @@ export default function AdminBrowseEventScreen() {
                         }}
                     >{`${eventName ? 40 - eventName.length : 40
                         } character(s) left`}</Text>
-                    <CustomizedButton title="Create" handlePress={() => console.log("create")} />
+                    <CustomizedButton
+                        title="Create"
+                        handlePress={() => navigation.navigate("Event", {
+                            screen: "CreateEvent",
+                            params: {
+                                eventName: eventName,
+                                navigationRoot: "Event",
+                            },
+                        })} />
                 </View>
             </View>
             {

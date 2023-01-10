@@ -3,6 +3,7 @@ import { fakeMuseumResponse } from "../../../mock";
 import { IMuseumResponse } from "../../../types";
 import AdminMuseumEditScreen from "../AdminEditScreen/AdminMuseumEditScreen";
 import AdminDetailScreen from "../AdminDetailScreen/AdminDetailScreen";
+import QRScannerScreen from "../QRScannerScreen/QRScannerScreen";
 
 const browseMuseums: IMuseumResponse[] = Array.from(Array(1), () => {
     return fakeMuseumResponse();
@@ -54,6 +55,21 @@ export const AdminMuseumScreen = () => {
                         fontSize: 20,
                     },
                     title: "Museum",
+                    detachPreviousScreen: false,
+                }}
+            />
+            <Stack.Screen
+                name="MuseumQRScanner"
+                component={QRScannerScreen}
+                options={{
+                    headerStyle: {
+                        backgroundColor: "#141414",
+                    },
+                    headerTintColor: "#0085FF",
+                    headerTitleStyle: {
+                        fontSize: 20,
+                    },
+                    title: "QR scanner",
                     detachPreviousScreen: false,
                 }}
             />

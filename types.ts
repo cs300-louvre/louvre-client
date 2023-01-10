@@ -201,3 +201,7 @@ export type IMessageResponse = {
   sentAt: string;
   messageId: string;
 };
+
+export const thumbnailUrlDefault = "https://www.usbforwindows.com/storage/img/images_3/function_set_default_image_when_image_not_present.png";
+
+export const coverUrlDefault = "https://www.usbforwindows.com/storage/img/images_3/function_set_default_image_when_image_not_present.png";

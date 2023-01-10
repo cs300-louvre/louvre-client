@@ -182,7 +182,22 @@ export default function AdminDetailScreen({ item }) {
                                     {event.numOfFollowers} FOLLOWERS
                                 </Text>
                             </View>
-                            <TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() =>
+                                    isMuseumDetail ? navigation.navigate("Museum", {
+                                        screen: "MuseumQRScanner",
+                                        params: {
+                                            museum: event,
+                                            navigationRoot: "Museum",
+                                        },
+                                    }) : navigation.navigate("Event", {
+                                        screen: "EventQRScanner",
+                                        params: {
+                                            event: event,
+                                            navigationRoot: "Event",
+                                        },
+                                    })
+                                }>
                                 <Icon
                                     type="material-community"
                                     name="qrcode-scan"
