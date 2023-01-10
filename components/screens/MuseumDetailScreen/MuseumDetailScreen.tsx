@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import Card from "../../organisms/Card/Card";
 import { Dimensions } from "react-native";
 import { Icon } from "@rneui/themed";
@@ -18,6 +18,8 @@ import {
   useRoute,
 } from "@react-navigation/native";
 import useGetMuseumById from "../../../hooks/museum/useGetMuseumById";
+import usePutFollowMuseum from "../../../hooks/museum/usePutFollowMuseum";
+import usePurchaseTicket from "../../../hooks/ticket/usePurchaseTicket";
 
 export const MuseumDetailScreen = () => {
   const route = useRoute<any>();
@@ -26,13 +28,14 @@ export const MuseumDetailScreen = () => {
   const [tab, setTab] = useState<number>(0);
   const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
   const navigation = useNavigation<any>();
+  const { mutateAsync: mutateFollowMuseum } = usePutFollowMuseum();
   const tabNavigationObjects = [
     { label: "Info", onPress: () => setTab(0) },
     { label: "Updates", onPress: () => setTab(1) },
     { label: "Reviews", onPress: () => setTab(2) },
   ];
 
-  const ticketId = "aji8y93218";
+  const { mutateAsync: mutatePurchaseTicket } = usePurchaseTicket();
 
   if (!item) return null;
 
@@ -73,12 +76,16 @@ export const MuseumDetailScreen = () => {
               <Card.Name numberOfLine={2} containerStyle={{ width: "80%" }}>
                 {item.name}
               </Card.Name>
-              <Icon
-                name="heart"
-                type="ionicon"
-                color={item.isFollowedByUser ? "#FF3333" : "#B5B5B5"}
-                size={30}
-              />
+              <TouchableOpacity
+                onPress={() => mutateFollowMuseum(item.museumId)}
+              >
+                <Icon
+                  name="heart"
+                  type="ionicon"
+                  color={item.isFollowedByUser ? "#FF3333" : "#B5B5B5"}
+                  size={30}
+                />
+              </TouchableOpacity>
             </View>
             <Text
               numberOfLines={2}
@@ -125,15 +132,19 @@ export const MuseumDetailScreen = () => {
               />
               <CustomizedButton
                 title={`${formatNumber(item.ticketPrice)}đ`}
-                handlePress={() =>
+                handlePress={async () => {
+                  const ticket = await mutatePurchaseTicket({
+                    type: "museum",
+                    eomId: item.museumId,
+                  });
                   navigation.navigate(navigationRoot, {
                     screen: "TicketDetail",
                     params: {
-                      ticketId: ticketId,
+                      ticketId: ticket.ticketId,
                       navigationRoot: navigationRoot,
                     },
-                  })
-                }
+                  });
+                }}
               />
             </View>
             <View

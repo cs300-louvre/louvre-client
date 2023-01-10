@@ -66,7 +66,7 @@ export const getFollowedEvents = () => API.get<IFollowedEvent[]>("/me/event");
 export const getMyTickets = () => API.get<ITicketResponse[]>("/me/ticket");
 
 export const purchaseTicket = (type: IEOM, eomId: string) =>
-  API.post(`/me/ticket?type=${type}&eomId=${eomId}`);
+  API.post<ITicketResponse>(`/me/ticket?type=${type}&eomId=${eomId}`);
 
 export const getMyRatings = () => API.get<IRatingResponse[]>("/me/rating");
 

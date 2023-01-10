@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import Card from "../../organisms/Card/Card";
 import { Dimensions } from "react-native";
 import { Icon } from "@rneui/themed";
@@ -14,14 +14,15 @@ import { ScrollView } from "react-native-gesture-handler";
 import TabNavigator from "../../elements/TabNavigator/TabNavigator";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import useGetEventById from "../../../hooks/event/useGetEventById";
-
-const item = fakeEventResponse();
+import usePutFollowEvent from "../../../hooks/event/usePutFollowEvent";
+import usePurchaseTicket from "../../../hooks/ticket/usePurchaseTicket";
 
 export const EventDetailScreen = () => {
   const [tab, setTab] = useState<number>(0);
   const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
   const route = useRoute<any>();
   const navigation = useNavigation<any>();
+  const { mutateAsync: mutateFollowEvent } = usePutFollowEvent();
 
   const tabNavigationObjects = [
     { label: "Info", onPress: () => setTab(0) },
@@ -30,7 +31,7 @@ export const EventDetailScreen = () => {
   ];
   const { eventId, navigationRoot } = route.params;
   const { data: item } = useGetEventById(eventId);
-  const ticketId = "ùy9sm3920a";
+  const { mutateAsync: mutatePurchaseTicket } = usePurchaseTicket();
 
   if (!item) return null;
 
@@ -70,12 +71,16 @@ export const EventDetailScreen = () => {
                 <Card.Name numberOfLine={2} containerStyle={{ width: "80%" }}>
                   {item.name}
                 </Card.Name>
-                <Icon
-                  name="heart"
-                  type="ionicon"
-                  color={item.isFollowedByUser ? "#FF3333" : "#B5B5B5"}
-                  size={30}
-                />
+                <TouchableOpacity
+                  onPress={() => mutateFollowEvent(item.eventId)}
+                >
+                  <Icon
+                    name="heart"
+                    type="ionicon"
+                    color={item.isFollowedByUser ? "#FF3333" : "#B5B5B5"}
+                    size={30}
+                  />
+                </TouchableOpacity>
               </View>
               <Text
                 numberOfLines={2}
@@ -119,15 +124,19 @@ export const EventDetailScreen = () => {
               />
               <CustomizedButton
                 title={`${formatNumber(item.ticketPrice)}đ`}
-                handlePress={() =>
+                handlePress={async () => {
+                  const ticket = await mutatePurchaseTicket({
+                    type: "event",
+                    eomId: item.eventId,
+                  });
                   navigation.navigate(navigationRoot, {
                     screen: "TicketDetail",
                     params: {
-                      ticketId: ticketId,
+                      ticketId: ticket.ticketId,
                       navigationRoot: navigationRoot,
                     },
-                  })
-                }
+                  });
+                }}
               />
             </View>
             <View

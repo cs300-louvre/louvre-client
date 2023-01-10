@@ -1,9 +1,12 @@
 import { Dimensions, View, Image, Text } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { INotificationResponse } from "../../../types";
+import {
+  IConversationPreviewResponse,
+  INotificationResponse,
+} from "../../../types";
 
 export const NotificationCard: React.FC<{
-  item: INotificationResponse;
+  item: IConversationPreviewResponse;
   handlePress?: () => void;
 }> = ({ item, handlePress }) => {
   const { width: windowWidth, height: windowHeight } = Dimensions.get("window");

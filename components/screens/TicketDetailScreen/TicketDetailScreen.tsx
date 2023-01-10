@@ -10,15 +10,27 @@ import { Text } from "@rneui/themed";
 import { View, TouchableOpacity, Image } from "react-native";
 import { getTicketById } from "../../../api";
 import MuseumCard from "../../elements/MuseumCard/MuseumCard";
-import { formatNumber } from "../../../utils";
+import { formatDate, formatNumber } from "../../../utils";
+import useGetTicketByTicketId from "../../../hooks/ticket/useGetTicketByTicketId";
+import useGetMuseumById from "../../../hooks/museum/useGetMuseumById";
 
 const museum = fakeMuseumResponse();
-const ticket = fakeTicket();
 
 export const TicketDetailScreen = () => {
   const route = useRoute<any>();
   const navigation = useNavigation<any>();
   const { ticketId, navigationRoot } = route.params;
+  const { data: ticket } = useGetTicketByTicketId(ticketId);
+  console.log(ticket);
+  // const {
+  //   data: museum,
+  //   refetch,
+  //   isFetched,
+  // } = useGetMuseumById(ticket.ticketId, false);
+
+  if (!ticket) return null;
+  // if (!isFetched && ticket) refetch();
+
   return (
     <ScrollView
       contentContainerStyle={{
@@ -116,13 +128,17 @@ export const TicketDetailScreen = () => {
               color: "#B5B5B5",
             }}
           >
-            {`${formatNumber(ticket.price)}đ - ${ticket.purchasedAt}`}
+            {`${formatNumber(ticket.price)}đ - ${formatDate(
+              ticket.purchasedAt
+            )}`}
           </Text>
 
           {ticket.status !== "wait" && (
             <Image
               style={{ width: 90, height: 90, borderRadius: 5 }}
-              source={{ uri: ticket.qrCodeUrl }}
+              source={{
+                uri: `https://chart.googleapis.com/chart?chf=bg,s,65432100&cht=qr&chs=200x200&chl=${ticket.ticketId}`,
+              }}
             />
           )}
         </View>

@@ -76,7 +76,7 @@ export const Ticket: React.FC<{
             color: "#B5B5B5",
           }}
         >
-          {`${formatNumber(item.price)}đ - ${item.purchasedAt}`}
+          {`${formatNumber(item.price)}đ`}
         </Text>
         <Text
           numberOfLines={1}

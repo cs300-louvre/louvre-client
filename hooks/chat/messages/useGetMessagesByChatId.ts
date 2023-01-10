@@ -5,8 +5,12 @@ export function useGetMessagesByConversationId(id: string) {
   return useQuery({
     queryKey: ["chat", id],
     queryFn: async () => {
-      const { data } = await api.getMessagesByConversationId(id);
-      return data;
+      try {
+        const { data } = await api.getMessagesByConversationId(id);
+        return data;
+      } catch (error) {
+        return [];
+      }
     },
   });
 }

@@ -2,9 +2,10 @@ import { IMessageResponse } from "../../../types";
 import { View, Text, Image } from "react-native";
 import { memo } from "react";
 
-export const Message: React.FC<{ item: IMessageResponse }> = ({ item }) => {
-  const isUserMessage = !!Math.round(Math.random());
-
+export const Message: React.FC<{
+  item: IMessageResponse;
+  isUserMessage: boolean;
+}> = ({ item, isUserMessage }) => {
   if (isUserMessage) {
     return (
       <View

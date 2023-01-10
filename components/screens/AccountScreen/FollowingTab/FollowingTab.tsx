@@ -32,7 +32,7 @@ export const FollowingTab = () => {
                 navigation.navigate("Account", {
                   screen: "EventDetail",
                   params: {
-                    eventId: result.evenId,
+                    eventId: result.eventId,
                     navigationRoot: "Account",
                   },
                 })

@@ -6,7 +6,7 @@ export function usePostMessage() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (data: IMessageCoreData) => api.postMessage(data),
-    onSuccess: () => queryClient.invalidateQueries("event"),
+    onSuccess: () => queryClient.invalidateQueries("chat"),
   });
 }
 
