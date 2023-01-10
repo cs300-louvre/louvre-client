@@ -2,6 +2,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import AdminBrowseEventScreen from "../AdminBrowseEventScreen/AdminBrowseEventScreen";
 import AdminDetailScreen from "../AdminDetailScreen/AdminDetailScreen";
 import AdminEventEditScreen from "../AdminEditScreen/AdminEventEditScreen";
+import QRScannerScreen from "../QRScannerScreen/QRScannerScreen";
+import CreateEventForm from "./AdminCreateEventScreen";
 
 const Stack = createStackNavigator();
 
@@ -62,7 +64,37 @@ export const AdminEventScreen = () => {
                     detachPreviousScreen: false,
                 }}
             />
-        </Stack.Navigator>
+            <Stack.Screen
+                name="CreateEvent"
+                component={CreateEventForm}
+                options={{
+                    headerStyle: {
+                        backgroundColor: "#141414",
+                    },
+                    headerTintColor: "#0085FF",
+                    headerTitleStyle: {
+                        fontSize: 20,
+                    },
+                    title: "Create Event",
+                    detachPreviousScreen: false,
+                }}
+            />
+            <Stack.Screen
+                name="EventQRScanner"
+                component={QRScannerScreen}
+                options={{
+                    headerStyle: {
+                        backgroundColor: "#141414",
+                    },
+                    headerTintColor: "#0085FF",
+                    headerTitleStyle: {
+                        fontSize: 20,
+                    },
+                    title: "QR scanner",
+                    detachPreviousScreen: false,
+                }}
+            />
+        </Stack.Navigator >
     )
 }
 export default AdminEventScreen;
