@@ -10,10 +10,6 @@ import EventCard from "../../elements/EventCard/EventCard";
 import MiniCardCarousel from "../../elements/MiniCardCarousel/MiniCardCarousel";
 import CustomizedButton from "../../organisms/Button/Button";
 
-const browseEvents: IEventResponse[] = Array.from(Array(30), () => {
-  return fakeEventResponse();
-});
-
 export default function AdminBrowseEventScreen() {
   const [eventName, setEventName] = useState<string>("");
   const navigation = useNavigation<any>();
@@ -22,14 +18,6 @@ export default function AdminBrowseEventScreen() {
   const { data: browseEvents } = useGetEventByMuseumId(museum.museumId);
 
   if (!browseEvents) return null;
-
-  const onGoingEvents: IEventResponse[] = browseEvents
-    .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
-    .slice(0, 3);
-
-  const pastEvents: IEventResponse[] = browseEvents
-    .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
-    .slice(0, 5);
 
   return (
     <ScrollView
@@ -122,7 +110,7 @@ export default function AdminBrowseEventScreen() {
                 fontSize: 20,
               }}
             >
-              On-going Events
+              My events
             </Text>
             <Text
               style={{
@@ -134,7 +122,7 @@ export default function AdminBrowseEventScreen() {
               See all
             </Text>
           </View>
-          {onGoingEvents.map((event) => (
+          {browseEvents.map((event) => (
             <EventCard
               key={event.eventId}
               item={event}
@@ -149,51 +137,6 @@ export default function AdminBrowseEventScreen() {
               }
             />
           ))}
-        </View>
-      }
-      {
-        <View style={{ paddingTop: 10 }}>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              paddingHorizontal: 20,
-              marginBottom: 10,
-            }}
-          >
-            <Text
-              style={{
-                color: "#FFFFFF",
-                fontWeight: "500",
-                fontSize: 20,
-              }}
-            >
-              Past Events
-            </Text>
-            <Text
-              style={{
-                color: "#0085FF",
-                fontWeight: "500",
-                fontSize: 18,
-              }}
-            >
-              See all
-            </Text>
-          </View>
-          {
-            <MiniCardCarousel
-              items={pastEvents}
-              handlePressFactory={(item) => () =>
-                // navigation.navigate("Event", {
-                //     screen: "EventDetail",
-                //     params: {
-                //         eventId: item.eventId,
-                //         navigationRoot: "Event",
-                //     },
-                // })
-                console.log(item)}
-            />
-          }
         </View>
       }
     </ScrollView>
