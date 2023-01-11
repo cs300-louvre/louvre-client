@@ -28,29 +28,30 @@ import {
 } from "./types";
 
 export const API = axios.create({
-  baseURL: "http://localhost:3001",
-  withCredentials: true,
+  baseURL: "http://10.0.2.2:3000",
+  withCredentials: false,
 });
 
 API.interceptors.request.use(async (req) => {
   const token = await SecureStore.getItemAsync("token");
-  if (token) req.headers.authorization = token;
+  if (token) req.headers.authorization = `Bearer ${token}`;
+  else req.headers.authorization = undefined;
   return req;
 });
 
 // USER
 // WHEN SIGNING UP, USER'S NAME SHOULD, BY DEFAULT, BE THEIR EMAIL HANDLE (WITHOUT THE PART AFTER @)
 export const signIn = (data: ISignInData) =>
-  API.post<ISignInResponse>("/user/signIn", data);
+  API.post<ISignInResponse>("/user/login", data);
 
 export const signUp = (data: ISignUpData) =>
-  API.post<ISignUpResponse>("/user/signUp", data);
+  API.post<ISignUpResponse>("/user/register", data);
 
 export const resetPassword = (data: { email: string }) =>
   API.post("/user/reset_password", data);
 
 // ME
-export const getMe = () => API.get<IGetMeResponse>("/me");
+export const getMe = () => API.get<IGetMeResponse>("/me", { timeout: 5000 });
 
 export const changePassword = (data: {
   currentPassword: string;
@@ -65,7 +66,7 @@ export const getFollowedEvents = () => API.get<IFollowedEvent[]>("/me/event");
 export const getMyTickets = () => API.get<ITicketResponse[]>("/me/ticket");
 
 export const purchaseTicket = (type: IEOM, eomId: string) =>
-  API.post(`/me/ticket?type=${type}&eomId=${eomId}`);
+  API.post<ITicketResponse>(`/me/ticket?type=${type}&eomId=${eomId}`);
 
 export const getMyRatings = () => API.get<IRatingResponse[]>("/me/rating");
 
@@ -74,7 +75,7 @@ export const getNotifications = (type: INotificationType) =>
 
 export const putFollowMuseum = (museumId: string) =>
   API.put(`/me/museum?museumId=${museumId}`);
-export const putFollowEvemt = (eventId: string) =>
+export const putFollowEvent = (eventId: string) =>
   API.put(`/me/event?eventId=${eventId}`);
 
 export const getConversationPreviews = () =>
@@ -95,16 +96,20 @@ export const postRating = (data: IRatingCoreData) => API.post("/rating", data);
 // POST
 export const postPost = (data: IPostCoreData) => API.post("/post", data);
 export const getPostsByEomId = (eomId: string) =>
-  API.get<IPostResponse>(`/post?eomId=${eomId}`);
+  API.get<IPostResponse[]>(`/post?eomId=${eomId}`);
 
 // MUSEUM
 export const getMuseumsByGenre = (genre: IMuseumGenre) =>
   API.get<IMuseumResponse[]>(`/museum?genre=${genre}`);
 export const getMuseumById = (museumId: string) =>
   API.get<IMuseumResponse>(`museum/${museumId}`);
-export const postMuseum = (data: IMuseumCoreData) => API.post("/museum");
+export const postMuseum = (data: IMuseumCoreData) => API.post("/museum", data);
 export const getEventsByMuseumId = (museumId: string) =>
-  API.get<IEventResponse[]>(`/museum/${museumId}/event}`);
+  API.get<IEventResponse[]>(`/museum/${museumId}/event`);
+export const patchMuseum = (museumId: string, data: IMuseumCoreData) =>
+  API.patch(`/museum/${museumId}`, data);
+export const getMuseumByUserId = (userId: string) =>
+  API.get<IMuseumResponse>(`/museum?userId=${userId}`);
 
 // EVENT
 export const getEventsByGenre = (genre: IEventGenre) =>
@@ -112,6 +117,8 @@ export const getEventsByGenre = (genre: IEventGenre) =>
 export const getEventByEventId = (eventId: string) =>
   API.get<IEventResponse>(`/event/${eventId}`);
 export const postEvent = (data: IEventCoreData) => API.post("/event", data);
+export const patchEvent = (eventId: string, data: IEventCoreData) =>
+  API.patch(`/event/${eventId}`, data);
 
 // CHAT
 export const postMessage = (data: IMessageCoreData) =>
@@ -130,7 +137,7 @@ export const getMuseumChart = () =>
 export const getFeaturedEvents = () =>
   API.get<IEventResponse[]>("/browse/featured");
 export const getMuseums = () => API.get<IMuseumResponse[]>("/browse/museum"); // Trả về museums[], trong đó đảm bảo mỗi genre có tối đa 3 museums thuộc genre đó
-export const getEvents = () => API.get<IMuseumResponse[]>("/browse/event"); // Tương tự GET /browse/museum
+export const getEvents = () => API.get<IEventResponse[]>("/browse/event"); // Tương tự GET /browse/museum
 
 //SEARCH
 export const search = (query: string) =>

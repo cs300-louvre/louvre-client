@@ -35,15 +35,6 @@ export const NotificationBrowseScreen = () => {
       >
         {() => <NotificationTab type="message" />}
       </Tab.Screen>
-      <Tab.Screen name="EventNotification" options={{ tabBarLabel: "Event" }}>
-        {() => <NotificationTab type="event" />}
-      </Tab.Screen>
-      <Tab.Screen name="MuseumNotification" options={{ tabBarLabel: "Museum" }}>
-        {() => <NotificationTab type="museum" />}
-      </Tab.Screen>
-      <Tab.Screen name="System" options={{ tabBarLabel: "System" }}>
-        {() => <NotificationTab type="system" />}
-      </Tab.Screen>
     </Tab.Navigator>
   );
 };

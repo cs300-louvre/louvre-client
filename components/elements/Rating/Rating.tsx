@@ -1,6 +1,7 @@
 import { View, Image, Text } from "react-native";
 import { IRatingResponse } from "../../../types";
 import { AirbnbRating } from "@rneui/themed";
+import { formatDate } from "../../../utils";
 
 export const Rating: React.FC<{ item: IRatingResponse }> = ({ item }) => {
   return (
@@ -32,7 +33,7 @@ export const Rating: React.FC<{ item: IRatingResponse }> = ({ item }) => {
             fontFamily: "Roboto_400Regular",
           }}
         >
-          {item.createdAt}
+          {formatDate(item.createdAt)}
         </Text>
         <AirbnbRating
           showRating={false}

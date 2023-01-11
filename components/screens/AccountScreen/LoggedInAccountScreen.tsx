@@ -2,10 +2,13 @@ import { Icon } from "@rneui/themed";
 import { Image, View, Text, TouchableOpacity, Button } from "react-native";
 import { fakeGetMeResponse } from "../../../mock";
 import { useNavigation } from "@react-navigation/native";
+import useMe from "../../../hooks/me/useMe";
+import useSignOut from "../../../hooks/user/useSignOut";
 
-const user = fakeGetMeResponse("user");
 export const LoggedInAccountScreen = () => {
+  const { data: user } = useMe();
   const navigation = useNavigation<any>();
+  const { mutateAsync: mutateSignout } = useSignOut();
   const MenuItem = ({
     underlined = false,
     color = "#0085FF",
@@ -152,7 +155,9 @@ export const LoggedInAccountScreen = () => {
           paddingHorizontal: 20,
         }}
       >
-        <MenuItem color="#FF3333">Sign out</MenuItem>
+        <MenuItem color="#FF3333" onPress={() => mutateSignout()}>
+          Sign out
+        </MenuItem>
       </View>
     </View>
   );

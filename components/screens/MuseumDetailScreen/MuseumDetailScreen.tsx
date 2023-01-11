@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity, ToastAndroid } from "react-native";
 import Card from "../../organisms/Card/Card";
 import { Dimensions } from "react-native";
 import { Icon } from "@rneui/themed";
@@ -15,21 +15,32 @@ import MuseumReviewsTab from "./MuseumReviewsTab/MuseumReviewsTab";
 import {
   NavigationContainerRefContext,
   useNavigation,
+  useRoute,
 } from "@react-navigation/native";
+import useGetMuseumById from "../../../hooks/museum/useGetMuseumById";
+import usePutFollowMuseum from "../../../hooks/museum/usePutFollowMuseum";
+import usePurchaseTicket from "../../../hooks/ticket/usePurchaseTicket";
+import useMe from "../../../hooks/me/useMe";
 
-const item = fakeMuseumResponse();
-
-export const MuseumDetailScreen = ({ route }) => {
+export const MuseumDetailScreen = () => {
+  const route = useRoute<any>();
+  const { museumId, navigationRoot } = route.params;
+  const { data: item } = useGetMuseumById(museumId);
   const [tab, setTab] = useState<number>(0);
   const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
   const navigation = useNavigation<any>();
+  const { mutateAsync: mutateFollowMuseum } = usePutFollowMuseum();
   const tabNavigationObjects = [
     { label: "Info", onPress: () => setTab(0) },
     { label: "Updates", onPress: () => setTab(1) },
     { label: "Reviews", onPress: () => setTab(2) },
   ];
-  const { eventId, navigationRoot } = route.params;
-  const ticketId = "aji8y93218";
+  const { data: me } = useMe();
+
+  const { mutateAsync: mutatePurchaseTicket } = usePurchaseTicket();
+
+  if (!item) return null;
+
   return (
     <ScrollView
       contentContainerStyle={{
@@ -67,12 +78,20 @@ export const MuseumDetailScreen = ({ route }) => {
               <Card.Name numberOfLine={2} containerStyle={{ width: "80%" }}>
                 {item.name}
               </Card.Name>
-              <Icon
-                name="heart"
-                type="ionicon"
-                color={item.isFollowedByUser ? "#FF3333" : "#B5B5B5"}
-                size={30}
-              />
+              {me && (
+                <TouchableOpacity
+                  onPress={() => {
+                    mutateFollowMuseum(item.museumId);
+                  }}
+                >
+                  <Icon
+                    name="heart"
+                    type="ionicon"
+                    color={item.isFollowedByUser ? "#FF3333" : "#B5B5B5"}
+                    size={30}
+                  />
+                </TouchableOpacity>
+              )}
             </View>
             <Text
               numberOfLines={2}
@@ -103,31 +122,42 @@ export const MuseumDetailScreen = ({ route }) => {
                 width: "58%", // Hard coded value
               }}
             >
-              <CustomizedButton
-                title={"Message"}
-                backgroundColor={"#000000"}
-                color={"#0085FF"}
-                handlePress={() =>
-                  navigation.navigate(navigationRoot, {
-                    screen: "ConversationDetail",
-                    params: {
-                      userId: item.userId,
-                      navigationRoot: navigationRoot,
-                    },
-                  })
-                }
-              />
+              {me && (
+                <CustomizedButton
+                  title={"Message"}
+                  backgroundColor={"#000000"}
+                  color={"#0085FF"}
+                  handlePress={() =>
+                    navigation.navigate(navigationRoot, {
+                      screen: "ConversationDetail",
+                      params: {
+                        userId: item.userId,
+                        navigationRoot: navigationRoot,
+                      },
+                    })
+                  }
+                />
+              )}
               <CustomizedButton
                 title={`${formatNumber(item.ticketPrice)}đ`}
-                handlePress={() =>
+                handlePress={async () => {
+                  if (!me)
+                    return ToastAndroid.show(
+                      "Sign in to purchase!",
+                      ToastAndroid.SHORT
+                    );
+                  const ticket = await mutatePurchaseTicket({
+                    type: "museum",
+                    eomId: item.museumId,
+                  });
                   navigation.navigate(navigationRoot, {
                     screen: "TicketDetail",
                     params: {
-                      ticketId: ticketId,
+                      ticketId: ticket.ticketId,
                       navigationRoot: navigationRoot,
                     },
-                  })
-                }
+                  });
+                }}
               />
             </View>
             <View
@@ -175,8 +205,8 @@ export const MuseumDetailScreen = ({ route }) => {
       {tab === 0 ? (
         <MuseumInfoTab item={item} navigationRoot={navigationRoot} />
       ) : null}
-      {tab === 1 ? <MuseumUpdatesTab museumId={eventId} /> : null}
-      {tab === 2 ? <MuseumReviewsTab museumId={eventId} /> : null}
+      {tab === 1 ? <MuseumUpdatesTab museumId={museumId} /> : null}
+      {tab === 2 ? <MuseumReviewsTab museumId={museumId} /> : null}
     </ScrollView>
   );
 };

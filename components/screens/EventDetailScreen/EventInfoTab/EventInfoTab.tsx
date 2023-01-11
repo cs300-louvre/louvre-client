@@ -1,16 +1,16 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { View, Text, ScrollView } from "react-native";
+import useGetMuseumById from "../../../../hooks/museum/useGetMuseumById";
 import { fakeMuseumResponse } from "../../../../mock";
 import { IEventResponse } from "../../../../types";
 import MuseumCard from "../../../elements/MuseumCard/MuseumCard";
-
-const museum = fakeMuseumResponse();
 
 export const EventInfoTab: React.FC<{
   item: IEventResponse;
   navigationRoot: string;
 }> = ({ item, navigationRoot }) => {
   const navigation = useNavigation<any>();
+  const { data: museum } = useGetMuseumById(item.museumId);
   return (
     <View style={{ marginTop: 10 }}>
       <Text
@@ -67,6 +67,7 @@ export const EventInfoTab: React.FC<{
       >
         {item.location}
       </Text>
+
       <Text
         style={{
           color: "#FFFFFF",
@@ -76,18 +77,20 @@ export const EventInfoTab: React.FC<{
       >
         Organizer
       </Text>
-      <MuseumCard
-        item={museum}
-        handlePress={() =>
-          navigation.navigate(navigationRoot, {
-            screen: "MuseumDetail",
-            params: {
-              museumId: museum.museumId,
-              navigationRoot: navigationRoot,
-            },
-          })
-        }
-      />
+      {museum && (
+        <MuseumCard
+          item={museum}
+          handlePress={() =>
+            navigation.navigate(navigationRoot, {
+              screen: "MuseumDetail",
+              params: {
+                museumId: museum.museumId,
+                navigationRoot: navigationRoot,
+              },
+            })
+          }
+        />
+      )}
     </View>
   );
 };

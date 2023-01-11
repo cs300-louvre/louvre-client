@@ -8,7 +8,7 @@ export function useSignIn() {
     mutationFn: (data: { email: string; password: string }) => api.signIn(data),
     onSuccess: async ({ data }) => {
       await SecureStore.setItemAsync("token", data.token);
-      queryClient.invalidateQueries("me");
+      await queryClient.invalidateQueries("me");
     },
   });
 }

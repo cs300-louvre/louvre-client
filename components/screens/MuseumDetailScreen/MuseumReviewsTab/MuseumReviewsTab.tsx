@@ -1,6 +1,8 @@
 import { AirbnbRating } from "@rneui/themed";
 import { Dimensions } from "react-native";
 import { View, Text, Image } from "react-native";
+import useMe from "../../../../hooks/me/useMe";
+import useGetRatingsByEomId from "../../../../hooks/rating/useGetRatingsByEomId";
 import { fakeMuseumResponse, fakePost, fakeRating } from "../../../../mock";
 import {
   IEventResponse,
@@ -12,19 +14,19 @@ import Rating from "../../../elements/Rating/Rating";
 import RatingBox from "../../../elements/RatingBox/RatingBox";
 import Card from "../../../organisms/Card/Card";
 
-const ratings: IRatingResponse[] = Array.from(Array(3), () => {
-  return fakeRating();
-});
-
 export const MuseumReviewsTab: React.FC<{ museumId: string }> = ({
   museumId,
 }) => {
+  const { data: ratings } = useGetRatingsByEomId(museumId);
+  const { data: user } = useMe();
+
   return (
     <View style={{ marginTop: 10 }}>
-      <RatingBox eomId={museumId} />
-      {ratings.map((rating) => (
-        <Rating item={rating} key={rating.ratingId} />
-      ))}
+      {user && <RatingBox eomId={museumId} />}
+      {ratings &&
+        ratings
+          .filter((rating) => (user ? rating.userId !== user.userId : true))
+          .map((rating) => <Rating item={rating} key={rating.ratingId} />)}
     </View>
   );
 };
