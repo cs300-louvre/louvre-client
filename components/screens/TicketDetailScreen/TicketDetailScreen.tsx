@@ -35,7 +35,7 @@ export const TicketDetailScreen = () => {
         paddingHorizontal: 20,
       }}
     >
-      {ticket.status === "paid" && (
+      {ticket?.status === "paid" && (
         <View style={{ width: "100%", marginBottom: 20, alignItems: "center" }}>
           <Icon
             name="checkcircle"
@@ -49,7 +49,7 @@ export const TicketDetailScreen = () => {
           </Text>
         </View>
       )}
-      {ticket.status === "used" && (
+      {ticket?.status === "used" && (
         <View style={{ width: "100%", marginBottom: 20, alignItems: "center" }}>
           <Icon
             name="archive"
@@ -63,7 +63,7 @@ export const TicketDetailScreen = () => {
           </Text>
         </View>
       )}
-      {ticket.status === "wait" && (
+      {ticket?.status === "wait" && (
         <View style={{ width: "100%", marginBottom: 20, alignItems: "center" }}>
           <Icon
             name="payment"
@@ -102,7 +102,7 @@ export const TicketDetailScreen = () => {
       <View style={{ flexDirection: "row" }}>
         <Image
           style={{ width: 145, height: 145, borderRadius: 5, marginRight: 10 }}
-          source={{ uri: ticket.thumbnailUrl }}
+          source={{ uri: ticket?.thumbnailUrl }}
         />
         <View style={{ height: 145, justifyContent: "space-between" }}>
           <Text
@@ -114,7 +114,7 @@ export const TicketDetailScreen = () => {
               marginBottom: 5,
             }}
           >
-            {ticket.name}
+            {ticket?.name}
           </Text>
           <Text
             numberOfLines={1}
@@ -124,20 +124,20 @@ export const TicketDetailScreen = () => {
               color: "#B5B5B5",
             }}
           >
-            {`${formatNumber(ticket.price)}đ}`}
+            {`${formatNumber(ticket?.price)}đ}`}
           </Text>
 
-          {ticket.status !== "wait" && (
+          {ticket?.status !== "wait" && (
             <Image
               style={{ width: 90, height: 90, borderRadius: 5 }}
               source={{
-                uri: `https://chart.googleapis.com/chart?chf=bg,s,65432100&cht=qr&chs=200x200&chl=${ticket.ticketId}`,
+                uri: `https://chart.googleapis.com/chart?chf=bg,s,65432100&cht=qr&chs=200x200&chl=${ticket?.ticketId}`,
               }}
             />
           )}
         </View>
       </View>
-      {ticket.startTime && ticket.endTime && (
+      {ticket?.startTime && ticket?.endTime && (
         <>
           <Text
             style={{
@@ -156,7 +156,7 @@ export const TicketDetailScreen = () => {
               marginBottom: 20,
             }}
           >
-            {`From ${ticket.startTime} to ${ticket.endTime}`}
+            {`From ${ticket?.startTime} to ${ticket?.endTime}`}
           </Text>
         </>
       )}
@@ -177,7 +177,7 @@ export const TicketDetailScreen = () => {
           marginBottom: 20,
         }}
       >
-        {ticket.location}
+        {ticket?.location}
       </Text>
       <Text
         style={{
@@ -195,7 +195,7 @@ export const TicketDetailScreen = () => {
           marginBottom: 20,
         }}
       >
-        {ticket.price}
+        {ticket?.price}
       </Text>
       {museum && (
         <>
@@ -239,11 +239,11 @@ export const TicketDetailScreen = () => {
           alignItems: "center",
         }}
       >
-        {ticket.status !== "wait" && (
+        {ticket?.status !== "wait" && (
           <Image
             style={{ width: 300, height: 300, borderRadius: 5 }}
             source={{
-              uri: `https://chart.googleapis.com/chart?chf=bg,s,65432100&cht=qr&chs=300x300&chl=${ticket.ticketId}`,
+              uri: `https://chart.googleapis.com/chart?chf=bg,s,65432100&cht=qr&chs=300x300&chl=${ticket?.ticketId}`,
             }}
           />
         )}

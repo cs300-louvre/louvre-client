@@ -15,8 +15,8 @@ export default function AdminBrowseEventScreen() {
   const [eventName, setEventName] = useState<string>("");
   const navigation = useNavigation<any>();
   const { data: me } = useMe();
-  const { data: museum } = useGetMuseumByUserId(me.userId);
-  const { data: browseEvents } = useGetEventByMuseumId(museum.museumId);
+  const { data: museum } = useGetMuseumByUserId(me?.userId);
+  const { data: browseEvents } = useGetEventByMuseumId(museum?.museumId);
 
   if (!browseEvents) return null;
 
@@ -125,21 +125,22 @@ export default function AdminBrowseEventScreen() {
               See all
             </Text>
           </View>
-          {browseEvents.map((event) => (
-            <EventCard
-              key={event.eventId}
-              item={event}
-              handlePress={() =>
-                navigation.navigate("Event", {
-                  screen: "EventDetail",
-                  params: {
-                    itemData: event,
-                    navigationRoot: "Event",
-                  },
-                })
-              }
-            />
-          ))}
+          {browseEvents &&
+            browseEvents.map((event) => (
+              <EventCard
+                key={event.eventId}
+                item={event}
+                handlePress={() =>
+                  navigation.navigate("Event", {
+                    screen: "EventDetail",
+                    params: {
+                      itemData: event,
+                      navigationRoot: "Event",
+                    },
+                  })
+                }
+              />
+            ))}
         </View>
       }
     </ScrollView>
